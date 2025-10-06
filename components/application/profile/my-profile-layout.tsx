@@ -1,16 +1,16 @@
 "use client";
 
 import { useQuery } from "@apollo/client/react";
-import MyProfileHeader from "./my-profile-header";
+import ProfileHeader from "./profile-header";
 import { GET_MY_PROFILE, GetMyProfileResult } from "@/graphql/profile";
 import { Loader2 } from "lucide-react";
-import MyProfileAbout from "./my-profile-about";
-import MyProfileWorkExperiences from "./my-profile-work-experiences";
-import MyProfileEducations from "./my-profile-educations";
-import MyProfileSkills from "./my-profile-skills";
-import MyProfileInterests from "./my-profile-interests";
-import MyProfileTags from "./my-profile-tags";
-import MyProfileLanguages from "./my-profile-languages";
+import ProfileAbout from "./profile-about";
+import ProfileWorkExperiences from "./profile-work-experiences";
+import ProfileEducations from "./profile-educations";
+import ProfileSkills from "./profile-skills";
+import ProfileInterests from "./profile-interests";
+import ProfileTags from "./profile-tags";
+import ProfileLanguages from "./profile-languages";
 
 export default function MyProfileLayout() {
     const { data, loading, error } = useQuery<GetMyProfileResult>(GET_MY_PROFILE, {
@@ -49,23 +49,24 @@ export default function MyProfileLayout() {
 
     return (
         <section className="space-y-12">
-            <MyProfileHeader
+            <ProfileHeader
                 display_name={data.myProfile.display_name}
                 headline={data.myProfile.headline}
                 avatar_url={data.myProfile.avatar_url}
+                isEditable
             />
             <div className="space-y-8">
-                <MyProfileAbout description={data.myProfile.bio} />
+                <ProfileAbout description={data.myProfile.bio} />
                 <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-8">
-                        <MyProfileSkills skills={data.myProfile.skills} />
-                        <MyProfileInterests interests={data.myProfile.interests} />
-                        <MyProfileTags tags={data.myProfile.tags} />
-                        <MyProfileLanguages languages={data.myProfile.languages} />
+                        <ProfileSkills skills={data.myProfile.skills} />
+                        <ProfileInterests interests={data.myProfile.interests} />
+                        <ProfileTags tags={data.myProfile.tags} />
+                        <ProfileLanguages languages={data.myProfile.languages} />
                     </div>
                     <div className="space-y-8">
-                        <MyProfileWorkExperiences workExperiences={data.myProfile.workExperiences} />
-                        <MyProfileEducations educations={data.myProfile.educations} />  
+                        <ProfileWorkExperiences workExperiences={data.myProfile.workExperiences} />
+                        <ProfileEducations educations={data.myProfile.educations} />  
                     </div>
                 </div>
             </div>

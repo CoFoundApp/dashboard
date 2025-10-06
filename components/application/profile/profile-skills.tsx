@@ -1,14 +1,14 @@
 import { Badge } from "@/components/ui/badge";
 
-interface MyProfileSkillsProps {
+interface ProfileSkillsProps {
     skills: Array<{
         name: string;
     }>;
 }
 
-export default function MyProfileSkills({
+export default function ProfileSkills({
     skills
-}: MyProfileSkillsProps) {
+}: ProfileSkillsProps) {
     return (
         <div className="space-y-4">
             <h2 className="text-xl font-bold tracking-tight">Compétences</h2>

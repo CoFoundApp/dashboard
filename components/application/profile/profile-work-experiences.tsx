@@ -1,7 +1,7 @@
 import { formatDate } from "@/lib/utils";
 import { Briefcase } from "lucide-react";
 
-interface MyProfileWorkExperiencesProps {
+interface ProfileWorkExperiencesProps {
     workExperiences: Array<{
         company: string;
         description: string | null;
@@ -13,9 +13,9 @@ interface MyProfileWorkExperiencesProps {
     }>;
 }
 
-export default function MyProfileWorkExperiences({
+export default function ProfileWorkExperiences({
     workExperiences
-}: MyProfileWorkExperiencesProps) {
+}: ProfileWorkExperiencesProps) {
     return (
         <div className="space-y-4">
             <h2 className="text-xl font-bold tracking-tight">Éxpériences professionnelles</h2>

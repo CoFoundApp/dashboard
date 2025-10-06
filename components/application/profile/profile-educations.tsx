@@ -1,7 +1,7 @@
 import { formatDate } from "@/lib/utils";
 import { GraduationCap } from "lucide-react";
 
-interface MyProfileEducationsProps {
+interface ProfileEducationsProps {
     educations: Array<{
         degree: string | null;
         description: string | null;
@@ -14,9 +14,9 @@ interface MyProfileEducationsProps {
     }>;
 }
 
-export default function MyProfileEducations({
+export default function ProfileEducations({
     educations
-}: MyProfileEducationsProps) {
+}: ProfileEducationsProps) {
     return (
         <div className="space-y-4">
             <h2 className="text-xl font-bold tracking-tight">Formations</h2>

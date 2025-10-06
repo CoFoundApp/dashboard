@@ -1,10 +1,10 @@
-interface MyProfileAboutProps {
+interface ProfileAboutProps {
     description: string | null;
 }
 
-export default function MyProfileAbout({
+export default function ProfileAbout({
     description
-}: MyProfileAboutProps) {
+}: ProfileAboutProps) {
     return (
         <div className="space-y-4">
             <h2 className="text-xl font-bold tracking-tight">Description</h2>

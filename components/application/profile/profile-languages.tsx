@@ -1,12 +1,12 @@
 import { Badge } from "@/components/ui/badge";
 
-interface MyProfileLanguagesProps {
+interface ProfileLanguagesProps {
     languages: string[];
 }
 
-export default function MyProfileLanguages({
+export default function ProfileLanguages({
     languages
-}: MyProfileLanguagesProps) {
+}: ProfileLanguagesProps) {
     return (
         <div className="space-y-4">
             <h2 className="text-xl font-bold tracking-tight">Langues</h2>

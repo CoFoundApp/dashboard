@@ -2,17 +2,19 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Edit } from "lucide-react";
 
-interface MyProfileHeaderProps {
+interface ProfileHeaderProps {
     display_name: string;
     headline: string;
     avatar_url: string | null;
+    isEditable: boolean;
 }
 
-export default function MyProfileHeader({
+export default function ProfileHeader({
     display_name,
     headline,
     avatar_url,
-}: MyProfileHeaderProps) {
+    isEditable
+}: ProfileHeaderProps) {
     return (
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
             <div className="flex items-center gap-8">
@@ -31,10 +33,12 @@ export default function MyProfileHeader({
                     </p>
                 </div>
             </div>
-            <Button>
-                <Edit className="size-4 mr-1" />
-                Modifier mon profil
-            </Button>
+            {isEditable && (
+                <Button>
+                    <Edit className="size-4 mr-1" />
+                    Modifier mon profil
+                </Button>
+            )}
         </div>
     );
 }
