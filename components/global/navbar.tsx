@@ -1,4 +1,4 @@
-import { Menu } from "lucide-react";
+import { Menu, User } from "lucide-react";
 
 import {
     Accordion,
@@ -23,6 +23,7 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import Image from "next/image";
+import NavUser from "./nav-user";
 
 interface MenuItem {
     title: string;
@@ -35,32 +36,29 @@ interface MenuItem {
 interface NavbarProps {
     logo?: {
         url: string;
-        src: string;
         alt: string;
         title: string;
     };
     menu?: MenuItem[];
-    auth?: {
-        logout: {
-            title: string;
-            url: string;
-        };
-    };
+    userMenu?: {
+        title: string;
+        url: string;
+        icon?: React.ReactNode;
+    }[];
 }
 
 const Navbar = ({
     logo = {
         url: process.env.NEXT_PUBLIC_DASHBOARD_URL || "",
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
-        alt: "logo",
+        alt: "Logo",
         title: "CoFound",
     },
     menu = [
         { title: "Tableau de bord", url: "/" },
     ],
-    auth = {
-        logout: { title: "Se déconnecter", url: "/" },
-    },
+    userMenu = [
+        { title: "Mon profil", url: "/my-profile", icon: <User className="h-4 w-4" /> },
+    ],
 }: NavbarProps) => {
     return (
         <section className="py-4">
@@ -80,11 +78,7 @@ const Navbar = ({
                         </NavigationMenu>
                     </div>
                 </div>
-                <div className="flex gap-2">
-                    <Button asChild variant="destructive" size="sm">
-                        <a href={auth.logout.url}>{auth.logout.title}</a>
-                    </Button>
-                </div>
+                <NavUser menu={userMenu} />
             </nav>
 
             <div className="block lg:hidden">
@@ -121,11 +115,7 @@ const Navbar = ({
                                     {menu.map((item) => renderMobileMenuItem(item))}
                                 </Accordion>
 
-                                <div className="flex flex-col gap-3">
-                                    <Button asChild>
-                                        <a href={auth.logout.url}>{auth.logout.title}</a>
-                                    </Button>
-                                </div>
+                                <NavUser menu={userMenu} />
                             </div>
                         </SheetContent>
                     </Sheet>

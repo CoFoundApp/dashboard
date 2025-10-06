@@ -1,13 +1,13 @@
-interface ProfileAboutProps {
+interface ProjectDescriptionProps {
     description: string | null;
 }
 
-export default function ProfileAbout({
+export default function ProjectDescription({
     description
-}: ProfileAboutProps) {
+}: ProjectDescriptionProps) {
     return (
         <div className="space-y-4">
-            <h2 className="text-xl font-bold tracking-tight">A propos</h2>
+            <h2 className="text-xl font-bold tracking-tight">Description</h2>
             <p className="text-base text-muted-foreground">
                 {description 
                     ? description

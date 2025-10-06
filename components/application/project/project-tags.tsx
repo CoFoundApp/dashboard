@@ -1,12 +1,12 @@
 import { Badge } from "@/components/ui/badge";
 
-interface ProfileTagsProps {
+interface ProjectTagsProps {
     tags: string[];
 }
 
-export default function ProfileTags({
+export default function ProjectTags({
     tags
-}: ProfileTagsProps) {
+}: ProjectTagsProps) {
     return (
         <div className="space-y-4">
             <h2 className="text-xl font-bold tracking-tight">Tags</h2>

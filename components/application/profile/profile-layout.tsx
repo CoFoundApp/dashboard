@@ -60,20 +60,16 @@ export default function ProfileLayout({ profileId }: ProfileLayoutProps) {
                 avatar_url={data.profileById.avatar_url}
                 isEditable={false}
             />
-            <div className="space-y-8">
-                <ProfileAbout description={data.profileById.bio} />
-                <div className="grid md:grid-cols-2 gap-8">
-                    <div className="space-y-8">
-                        <ProfileSkills skills={data.profileById.skills} />
-                        <ProfileInterests interests={data.profileById.interests} />
-                        <ProfileTags tags={data.profileById.tags} />
-                        <ProfileLanguages languages={data.profileById.languages} />
-                    </div>
-                    <div className="space-y-8">
-                        <ProfileWorkExperiences workExperiences={data.profileById.workExperiences} />
-                        <ProfileEducations educations={data.profileById.educations} />  
-                    </div>
-                </div>
+            <ProfileAbout description={data.profileById.bio} />
+            <div className="grid md:grid-cols-2 gap-8">
+                <ProfileWorkExperiences workExperiences={data.profileById.workExperiences} />
+                <ProfileEducations educations={data.profileById.educations} /> 
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <ProfileSkills skills={data.profileById.skills} />
+                <ProfileInterests interests={data.profileById.interests} />
+                <ProfileTags tags={data.profileById.tags} />
+                <ProfileLanguages languages={data.profileById.languages} />
             </div>
         </section>
     );

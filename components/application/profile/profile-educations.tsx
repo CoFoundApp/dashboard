@@ -1,3 +1,4 @@
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDate } from "@/lib/utils";
 import { GraduationCap } from "lucide-react";
 
@@ -27,34 +28,37 @@ export default function ProfileEducations({
                     </p>
                 ) : (
                     educations.map((edu, index) => (
-                        <div key={index} className="flex gap-4">
-                            <div className="flex-shrink-0 mt-2">
-                                <div className="rounded-full bg-primary p-2">
-                                    <GraduationCap className="size-4 text-primary-foreground" />
+                        <Card key={index}>
+                            <CardHeader>
+                                <div className="flex gap-4">
+                                    <div className="flex-shrink-0">
+                                        <div className="rounded-full bg-primary p-2">
+                                            <GraduationCap className="size-4 text-primary-foreground" />
+                                        </div>
+                                    </div>
+                                    <div className="flex-1 space-y-1">
+                                        <CardTitle className="text-lg">{edu.school}</CardTitle>
+                                        {(edu.degree || edu.field_of_study) && (
+                                            <p className="text-base text-foreground">
+                                                {[edu.degree, edu.field_of_study].filter(Boolean).join(" en ")}
+                                            </p>
+                                        )}
+                                        <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
+                                            <span>
+                                                {formatDate(edu.start_date)} —{" "}
+                                                {edu.is_current ? "Présent" : edu.end_date ? formatDate(edu.end_date) : "Présent"}
+                                            </span>
+                                            {edu.grade && <span>Note: {edu.grade}</span>}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div className="space-y-2 flex-1">
-                                <div>
-                                    <h3 className="text-lg font-semibold">{edu.school}</h3>
-                                    {(edu.degree || edu.field_of_study) && (
-                                        <p className="text-base text-foreground">
-                                            {[edu.degree, edu.field_of_study].filter(Boolean).join(" en ")}
-                                        </p>
-                                    )}
-                                </div>
-
-                                <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
-                                    <span>
-                                        {formatDate(edu.start_date)} —{" "}
-                                        {edu.is_current ? "Présent" : edu.end_date ? formatDate(edu.end_date) : "Présent"}
-                                    </span>
-                                    {edu.grade && <span>Note: {edu.grade}</span>}
-                                </div>
-
-                                {edu.description && <p className="text-sm leading-relaxed text-muted-foreground">{edu.description}</p>}
-                            </div>
-                        </div>
+                            </CardHeader>
+                            {edu.description && (
+                                <CardContent>
+                                    <p className="text-sm leading-relaxed text-muted-foreground">{edu.description}</p>
+                                </CardContent>
+                            )}
+                        </Card>
                     ))
                 )}
             </div>

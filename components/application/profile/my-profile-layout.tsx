@@ -55,20 +55,16 @@ export default function MyProfileLayout() {
                 avatar_url={data.myProfile.avatar_url}
                 isEditable
             />
-            <div className="space-y-8">
-                <ProfileAbout description={data.myProfile.bio} />
-                <div className="grid md:grid-cols-2 gap-8">
-                    <div className="space-y-8">
-                        <ProfileSkills skills={data.myProfile.skills} />
-                        <ProfileInterests interests={data.myProfile.interests} />
-                        <ProfileTags tags={data.myProfile.tags} />
-                        <ProfileLanguages languages={data.myProfile.languages} />
-                    </div>
-                    <div className="space-y-8">
-                        <ProfileWorkExperiences workExperiences={data.myProfile.workExperiences} />
-                        <ProfileEducations educations={data.myProfile.educations} />  
-                    </div>
-                </div>
+            <ProfileAbout description={data.myProfile.bio} />
+            <div className="grid md:grid-cols-2 gap-8">
+                <ProfileWorkExperiences workExperiences={data.myProfile.workExperiences} />
+                <ProfileEducations educations={data.myProfile.educations} /> 
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <ProfileSkills skills={data.myProfile.skills} />
+                <ProfileInterests interests={data.myProfile.interests} />
+                <ProfileTags tags={data.myProfile.tags} />
+                <ProfileLanguages languages={data.myProfile.languages} />
             </div>
         </section>
     );
