@@ -168,4 +168,12 @@ export const GET_PROFILE_BY_ID = gql`
             }
         }
     }
-`
+`;
+
+export const UPDATE_MY_PROFILE = gql`
+    mutation UpdateMyProfile($input: UpdateMyProfileInput!) {
+        updateMyProfile(input: $input) {
+            __typename
+        }
+    }
+`;
