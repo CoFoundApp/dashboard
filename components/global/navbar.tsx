@@ -55,6 +55,7 @@ const Navbar = ({
     },
     menu = [
         { title: "Tableau de bord", url: "/" },
+        { title: "Découvrir des projets", url: "/discover" },
     ],
     userMenu = [
         { title: "Mon profil", url: "/my-profile", icon: <User className="h-4 w-4" /> },
