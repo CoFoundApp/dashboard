@@ -46,7 +46,7 @@ export default function MyProjectsShowPositions({ projectId }: MyProjectsShowPos
         return (
             <section className="space-y-8">
                 <div className="flex items-center justify-center min-h-[400px]">
-                    <Loader2 className="size-8 animate-spin text-muted-foreground" aria-label="Chargement des membres du projet" />
+                    <Loader2 className="size-8 animate-spin text-muted-foreground" aria-label="Chargement des postes du projet" />
                 </div>
             </section>
         );
@@ -57,7 +57,7 @@ export default function MyProjectsShowPositions({ projectId }: MyProjectsShowPos
             <section className="space-y-8">
                 <div className="flex flex-col items-center justify-center min-h-[400px] gap-4">
                     <p className="text-destructive" role="alert">
-                        Une erreur est survenue lors du chargement des membres du projet.
+                        Une erreur est survenue lors du chargement des postes du projet.
                     </p>
                     <button 
                         onClick={() => window.location.reload()} 

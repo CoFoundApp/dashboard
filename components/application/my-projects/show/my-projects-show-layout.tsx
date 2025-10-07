@@ -10,6 +10,7 @@ import ProjectTags from "../../project/project-tags";
 import ProjectDescription from "../../project/project-description";
 import ProjectMembers from "../../project/project-members";
 import MyProjectsShowPositions from "./my-projects-show-positions";
+import MyProjectsShowApplies from "./my-projects-show-applies";
 
 interface MyProjectsShowLayoutProps {
     projectId: string;
@@ -71,6 +72,7 @@ export default function MyProjectsShowLayout({ projectId }: MyProjectsShowLayout
             </div>
             <ProjectMembers projectId={projectId} />
             <MyProjectsShowPositions projectId={projectId} />
+            <MyProjectsShowApplies projectId={projectId} />
         </section>
     );
 }

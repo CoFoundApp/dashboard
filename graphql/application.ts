@@ -1,0 +1,117 @@
+import { gql } from "@apollo/client";
+
+export type ApplicationStatus = "ACCEPTED" | "CANCELED" | "PENDING" | "REJECTED" | "WITHDRAWN";
+
+export const APPLY_TO_PROJECT = gql`
+    mutation ApplyToProject($input: ApplyProjectInput!) {
+        applyToProject(input: $input) {
+            __typename
+        }
+    }
+`;
+
+export type GetProjectApplicationsResult = {
+  projectApplications: {
+    items: {
+      id: string;
+      applicant_id: string;
+      position_id: string;
+      project_id: string;
+      note: string;
+      attachment_urls: string[];
+      status: ApplicationStatus;
+      created_at: Date;
+      updated_at: Date;
+      decided_at?: Date;
+      decided_by?: string;
+      position: {
+        id: string;
+        title: string;
+        description: string;
+        status: string;
+      }
+      applicant: {
+        id: string;
+        email: string;
+        profile: {
+          avatar_url?: string;
+          display_name: string;
+          headline?: string;
+        }
+      }
+    }[];
+    nextCursor?: string;
+  }
+}
+
+export type GetProjectApplicationsVariables = {
+    cursor?: string;
+    limit?: number;
+    position_id?: string;
+    project_id: string;
+    status?: string;
+}
+
+export const GET_PROJECT_APPLICATIONS = gql`
+    query GetProjectApplications(
+        $cursor: String
+        $limit: Float
+        $position_id: String
+        $project_id: String!
+        $status: ApplicationStatus
+    ) {
+        projectApplications(
+            cursor: $cursor
+            limit: $limit
+            position_id: $position_id
+            project_id: $project_id
+            status: $status
+        ) {
+            items {
+                id
+                applicant_id
+                position_id
+                project_id
+                note
+                attachment_urls
+                status
+                created_at
+                updated_at
+                decided_at
+                decided_by
+                position {
+                    id
+                    title
+                    description
+                    status
+                }
+                applicant {
+                    id
+                    email
+                    profile {
+                        avatar_url
+                        display_name
+                        headline
+                    }
+                }
+            }
+            nextCursor
+        }
+    }
+`;
+
+export const DECIDE_PROJECT_APPLICATION = gql`
+    mutation DecideProjectApplication(
+        $id: String!
+        $position_id: String!
+        $status: ApplicationStatus!
+    ) {
+        decideProjectApplication(
+            id: $id
+            position_id: $position_id
+            status: $status
+        ) {
+            __typename
+        }
+    }
+`;

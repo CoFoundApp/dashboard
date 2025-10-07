@@ -1,3 +1,4 @@
+import { ApplicationStatus } from "@/graphql/application"
 import { MemberRole, ProjectStage, ProjectStatus, ProjectVisibility } from "@/graphql/projects"
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
@@ -37,4 +38,12 @@ export const memberRoleLabels: Record<MemberRole, string> = {
     MEMBER: "Membre",
     MENTOR: "Mentor",
     OWNER: "Propriétaire",
+}
+
+export const applicationStatusLabels: Record<ApplicationStatus, string> = {
+    PENDING: "En attente",
+    ACCEPTED: "Acceptée",
+    REJECTED: "Refusée",
+    CANCELED: "Annulée",
+    WITHDRAWN: "Retirée",
 }
