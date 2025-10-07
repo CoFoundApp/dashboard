@@ -12,7 +12,7 @@ export default function ProjectInterests({
             <h2 className="text-xl font-bold tracking-tight">Intérêts</h2>
             <div className="flex flex-wrap gap-2">
                 {interests.map((interest) => (
-                    <Badge key={interest} variant="secondary" className="text-sm">
+                    <Badge key={interest} variant="secondary" className="text-xs">
                         {interest}
                     </Badge>
                 ))}

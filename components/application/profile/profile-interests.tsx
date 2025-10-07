@@ -14,7 +14,7 @@ export default function ProfileInterests({
             <h2 className="text-xl font-bold tracking-tight">Intérêts</h2>
             <div className="flex flex-wrap gap-2">
                 {interests.map((interest) => (
-                    <Badge key={interest.name} variant="secondary" className="text-sm">
+                    <Badge key={interest.name} variant="secondary" className="text-xs">
                         {interest.name}
                     </Badge>
                 ))}

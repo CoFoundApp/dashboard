@@ -1,11 +1,17 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ProjectStage, ProjectStatus } from "@/graphql/projects";
+import { projectStageLabels, projectStatusLabels } from "@/lib/utils";
 import { Edit } from "lucide-react";
 
 interface ProjectHeaderProps {
     title: string;
     summary: string;
     avatar_url: string | null;
+    industry: string | null;
+    stage: ProjectStage;
+    status: ProjectStatus;
     isEditable: boolean;
 }
 
@@ -13,6 +19,9 @@ export default function ProjectHeader({
     title,
     summary,
     avatar_url,
+    industry,
+    stage,
+    status,
     isEditable
 }: ProjectHeaderProps) {
     return (
@@ -24,13 +33,20 @@ export default function ProjectHeader({
                         {title.charAt(0)}
                     </AvatarFallback>
                 </Avatar>
-                <div className="space-y-2">
-                    <h1 className="text-3xl font-bold tracking-tight">
-                        {title}
-                    </h1>
-                    <p className="text-lg text-muted-foreground">
-                        {summary}
-                    </p>
+                <div className="space-y-4">
+                    <div className="space-y-2">
+                        <h1 className="text-3xl font-bold tracking-tight">
+                            {title}
+                        </h1>
+                        <p className="text-lg text-muted-foreground">
+                            {summary}
+                        </p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        {industry && <Badge variant="secondary">{industry}</Badge>}
+                        <Badge variant="outline">{projectStageLabels[stage]}</Badge>
+                        <Badge variant="outline">{projectStatusLabels[status]}</Badge>
+                    </div>
                 </div>
             </div>
             {isEditable && (

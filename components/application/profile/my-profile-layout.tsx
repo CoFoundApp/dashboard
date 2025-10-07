@@ -56,16 +56,13 @@ export default function MyProfileLayout() {
                 isEditable
             />
             <ProfileAbout description={data.myProfile.bio} />
-            <div className="grid md:grid-cols-2 gap-8">
-                <ProfileWorkExperiences workExperiences={data.myProfile.workExperiences} />
-                <ProfileEducations educations={data.myProfile.educations} /> 
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <ProfileSkills skills={data.myProfile.skills} />
                 <ProfileInterests interests={data.myProfile.interests} />
                 <ProfileTags tags={data.myProfile.tags} />
-                <ProfileLanguages languages={data.myProfile.languages} />
             </div>
+            <ProfileWorkExperiences workExperiences={data.myProfile.workExperiences} />
+            <ProfileEducations educations={data.myProfile.educations} /> 
         </section>
     );
 }

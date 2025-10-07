@@ -4,6 +4,7 @@ export type ProjectStatus = "ACTIVE" | "DRAFT" | "ARCHIVED" | "PAUSED" | "SEEKIN
 export type ProjectStage = "IDEA" | "MVP" | "SCALE" | "TRACTION";
 export type ProjectVisibility = "PRIVATE" | "PUBLIC" | "UNLISTED";
 export type MemberRole = "MAINTAINER" | "MEMBER" | "MENTOR" | "OWNER";
+export type PositionStatus = "CLOSED" | "OPEN";
 
 export type GetMyProjectsResult = {
     listMyProjects: {
@@ -106,6 +107,42 @@ export const GET_PROJECT_MEMBERS = gql`
                     headline
                 }
             }
+        }
+    }
+`;
+
+export type GetProjectPositionsResult = {
+    listProjectPositions: {
+        id: string;
+        title: string;
+        status: PositionStatus;
+        description: string | null;
+    }[] | null;
+};
+
+export const GET_PROJECT_POSITIONS = gql`
+    query GetProjectPositions($project_id: String!) {
+        listProjectPositions(project_id: $project_id) {
+            id
+            title
+            status
+            description
+        }
+    }
+`;
+
+export const CREATE_PROJECT_POSITION = gql`
+    mutation CreateProjectPosition($input: CreateProjectPositionInput!) {
+        createProjectPosition(input: $input) {
+            __typename
+        }
+    }
+`;
+
+export const CLOSE_PROJECT_POSITION = gql`
+    mutation CloseProjectPosition($id: String!) {
+        closeProjectPosition(id: $id) {
+            __typename
         }
     }
 `;

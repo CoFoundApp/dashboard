@@ -12,7 +12,7 @@ export default function ProjectSkills({
             <h2 className="text-xl font-bold tracking-tight">Compétences recherchées</h2>
             <div className="flex flex-wrap gap-2">
                 {skills.map((skill) => (
-                    <Badge key={skill} variant="secondary" className="text-sm">
+                    <Badge key={skill} variant="secondary" className="text-xs">
                         {skill}
                     </Badge>
                 ))}

@@ -14,7 +14,7 @@ export default function ProfileSkills({
             <h2 className="text-xl font-bold tracking-tight">Compétences</h2>
             <div className="flex flex-wrap gap-2">
                 {skills.map((skill) => (
-                    <Badge key={skill.name} variant="secondary" className="text-sm">
+                    <Badge key={skill.name} variant="secondary" className="text-xs">
                         {skill.name}
                     </Badge>
                 ))}

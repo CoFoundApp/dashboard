@@ -9,6 +9,7 @@ import ProjectInterests from "../../project/project-interests";
 import ProjectTags from "../../project/project-tags";
 import ProjectDescription from "../../project/project-description";
 import ProjectMembers from "../../project/project-members";
+import MyProjectsShowPositions from "./my-projects-show-positions";
 
 interface MyProjectsShowLayoutProps {
     projectId: string;
@@ -56,17 +57,19 @@ export default function MyProjectsShowLayout({ projectId }: MyProjectsShowLayout
                 title={data.projectById.title}
                 summary={data.projectById.summary}
                 avatar_url={data.projectById.avatar_url}
+                industry={data.projectById.industry}
+                stage={data.projectById.stage}
+                status={data.projectById.status}
                 isEditable
             />
             <ProjectDescription description={data.projectById.description} />
-            <div className="grid md:grid-cols-2 gap-8">
-                <ProjectMembers projectId={projectId} />
-            </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <ProjectSkills skills={data.projectById.project_skills} />
                 <ProjectInterests interests={data.projectById.project_interests} />
                 <ProjectTags tags={data.projectById.tags} />
             </div>
+            <ProjectMembers projectId={projectId} />
+            <MyProjectsShowPositions projectId={projectId} />
         </section>
     );
 }
