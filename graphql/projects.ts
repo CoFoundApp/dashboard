@@ -148,29 +148,29 @@ export const CLOSE_PROJECT_POSITION = gql`
 `;
 
 export type ListProjectsResult = {
-  listProjects: {
-    items: {
-      id: string
-      title: string
-      summary: string | null
-      description: string | null
-      avatar_url: string | null
-      banner_url: string | null
-      industry: string | null
-      owner_id: string
-      project_interests: string[]
-      project_skills: string[]
-      stage: ProjectStage
-      status: ProjectStatus
-      tags: string[]
-      visibility: ProjectVisibility
-      created_at: Date
-      updated_at: Date
-    }[]
-    page: number
-    pageSize: number
-    total: number
-  }
+    listProjects: {
+        items: {
+            id: string
+            title: string
+            summary: string | null
+            description: string | null
+            avatar_url: string | null
+            banner_url: string | null
+            industry: string | null
+            owner_id: string
+            project_interests: string[]
+            project_skills: string[]
+            stage: ProjectStage
+            status: ProjectStatus
+            tags: string[]
+            visibility: ProjectVisibility
+            created_at: Date
+            updated_at: Date
+        }[]
+        page: number
+        pageSize: number
+        total: number
+    }
 }
 
 export const LIST_PROJECTS = gql`

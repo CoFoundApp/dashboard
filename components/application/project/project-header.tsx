@@ -4,25 +4,30 @@ import { Button } from "@/components/ui/button";
 import { ProjectStage, ProjectStatus } from "@/graphql/projects";
 import { projectStageLabels, projectStatusLabels } from "@/lib/utils";
 import { Edit } from "lucide-react";
+import ProjectApplyDialog from "./project-apply-dialog";
 
 interface ProjectHeaderProps {
+    projectId: string;
     title: string;
     summary: string;
     avatar_url: string | null;
     industry: string | null;
     stage: ProjectStage;
     status: ProjectStatus;
-    isEditable: boolean;
+    isEditable?: boolean;
+    isCandidate?: boolean;
 }
 
 export default function ProjectHeader({
+    projectId,
     title,
     summary,
     avatar_url,
     industry,
     stage,
     status,
-    isEditable
+    isEditable = false,
+    isCandidate = false
 }: ProjectHeaderProps) {
     return (
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
@@ -54,6 +59,9 @@ export default function ProjectHeader({
                     <Edit className="size-4 mr-1" />
                     Modifier mon projet
                 </Button>
+            )}
+            {isCandidate && (
+                <ProjectApplyDialog projectId={projectId} />
             )}
         </div>
     );

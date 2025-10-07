@@ -54,13 +54,14 @@ export default function ProjectLayout({ projectId }: ProjectLayoutProps) {
     return (
         <section className="space-y-12">
             <ProjectHeader
+                projectId={projectId}
                 title={data.projectById.title}
                 summary={data.projectById.summary}
                 avatar_url={data.projectById.avatar_url}
                 industry={data.projectById.industry}
                 stage={data.projectById.stage}
                 status={data.projectById.status}
-                isEditable
+                isCandidate
             />
             <ProjectDescription description={data.projectById.description} />
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

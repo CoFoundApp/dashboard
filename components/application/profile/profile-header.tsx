@@ -6,14 +6,14 @@ interface ProfileHeaderProps {
     display_name: string;
     headline: string;
     avatar_url: string | null;
-    isEditable: boolean;
+    isEditable?: boolean;
 }
 
 export default function ProfileHeader({
     display_name,
     headline,
     avatar_url,
-    isEditable
+    isEditable = false
 }: ProfileHeaderProps) {
     return (
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">

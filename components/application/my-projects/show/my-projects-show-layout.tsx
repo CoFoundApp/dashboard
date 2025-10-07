@@ -54,6 +54,7 @@ export default function MyProjectsShowLayout({ projectId }: MyProjectsShowLayout
     return (
         <section className="space-y-12">
             <ProjectHeader
+                projectId={projectId}
                 title={data.projectById.title}
                 summary={data.projectById.summary}
                 avatar_url={data.projectById.avatar_url}
