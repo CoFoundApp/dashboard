@@ -256,3 +256,11 @@ export const SEARCH_PROJECTS = gql`
         }
     }
 `;
+
+export const CREATE_PROJECT = gql`
+    mutation CreateProject($input: CreateProjectInput!) {
+        createProject(input: $input) {
+            __typename
+        }
+    }
+`;

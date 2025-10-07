@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import Link from "next/link";
 
 export default function MyProjectsHeader() {
     return (
@@ -12,9 +13,11 @@ export default function MyProjectsHeader() {
                     Créez, organisez et suivez l&apos;avancement de tous vos projets au même endroit.
                 </p>
             </div>
-            <Button>
-                <Plus className="size-4 mr-1" />
-                Créer un projet
+            <Button asChild>
+                <Link href="/my-projects/create">
+                    <Plus className="size-4 mr-1" />
+                    Créer un projet
+                </Link>
             </Button>
         </div>
     );
