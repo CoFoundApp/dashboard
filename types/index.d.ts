@@ -13,3 +13,30 @@ interface IProject {
     created_at: Date;
     updated_at: Date;
 }
+
+interface IProjectApplication {
+    id: string;
+    applicant_id: string;
+    position_id: string;
+    project_id: string;
+    note: string;
+    attachment_urls: string[];
+    status: ApplicationStatus;
+    created_at: Date;
+    updated_at: Date;
+    decided_at?: Date;
+    decided_by?: string;
+    position?: {
+        id: string;
+        title: string;
+        description: string;
+        status: PositionStatus;
+    }
+    project?: {
+        id: string;
+        title: string;
+        summary?: string;
+        avatar_url?: string;
+        industry?: string;
+    }
+}
