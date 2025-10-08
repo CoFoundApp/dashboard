@@ -44,6 +44,16 @@ export const ProjectSchema = z.object({
             message: "Vous devez renseigner un secteur valide.",
         })
         .optional(),
+    avatar: z
+        .array(z.instanceof(File))
+        .max(1, "Un seul logo est autorisé")
+        .optional()
+        .transform((files) => files?.[0] || undefined)
+        .refine((file) => !file || file.size <= 5 * 1024 * 1024, "L'image doit faire moins de 5MB")
+        .refine(
+            (file) => !file || ["image/jpeg", "image/jpg", "image/png", "image/webp"].includes(file.type),
+            "Seuls les formats JPG, PNG et WebP sont acceptés",
+        ),
     status: z
         .enum(["ACTIVE", "ARCHIVED", "DRAFT", "PAUSED", "SEEKING"]),
     stage: z

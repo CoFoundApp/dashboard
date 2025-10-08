@@ -65,7 +65,7 @@ export default function ProjectHeader({
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
             <div className="flex items-center gap-8">
                 <Avatar className="size-20">
-                    <AvatarImage src={avatar_url ?? ""} alt={title} />
+                    <AvatarImage src={`${process.env.NEXT_PUBLIC_API_URL}${avatar_url}`} alt={title} />
                     <AvatarFallback className="bg-primary text-primary-foreground text-xl font-bold">
                         {title.charAt(0)}
                     </AvatarFallback>

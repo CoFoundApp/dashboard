@@ -27,6 +27,7 @@ export default function MyProjectsCreateForm() {
             summary: "",
             description: "",
             industry: "",
+            avatar: [],
             status: "DRAFT",
             stage: "IDEA",
             visibility: "PRIVATE",

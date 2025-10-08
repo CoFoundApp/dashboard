@@ -1,10 +1,13 @@
+import { Button } from "@/components/ui/button";
+import { FileUpload, FileUploadDropzone, FileUploadItem, FileUploadItemDelete, FileUploadItemMetadata, FileUploadItemPreview, FileUploadList, FileUploadTrigger } from "@/components/ui/file-upload";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { CloudUpload, X } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 
 export default function MyProjectsGeneralForm() {
-    const { control } = useFormContext();
+    const { control, setError } = useFormContext();
 
     return (
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
@@ -64,6 +67,59 @@ export default function MyProjectsGeneralForm() {
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
+                            )}
+                        />
+                    </div>
+                    <div className="col-span-full">
+                        <FormField
+                            control={control}
+                            name="avatar"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Logo</FormLabel>
+                                    <FormControl>
+                                        <FileUpload
+                                            value={field.value}
+                                            onValueChange={field.onChange}
+                                            maxSize={5 * 1024 * 1024}
+                                            onFileReject={(_, message) => {
+                                                setError("avatar", {
+                                                    message,
+                                                });
+                                            }}
+                                        >
+                                            <FileUploadDropzone className="flex-row flex-wrap border-dotted text-center">
+                                                <CloudUpload className="size-4" />
+                                                    Glisser-déposer ou
+                                                <FileUploadTrigger asChild>
+                                                    <Button variant="link" size="sm" className="p-0">
+                                                        choisir le fichier
+                                                    </Button>
+                                                </FileUploadTrigger>
+                                                pour téléverser
+                                            </FileUploadDropzone>
+                                            <FileUploadList>
+                                                {field.value?.map((file, index) => (
+                                                    <FileUploadItem key={index} value={file}>
+                                                        <FileUploadItemPreview />
+                                                        <FileUploadItemMetadata />
+                                                        <FileUploadItemDelete asChild>
+                                                            <Button
+                                                                variant="ghost"
+                                                                size="icon"
+                                                                className="size-7"
+                                                            >
+                                                                <X />
+                                                                <span className="sr-only">Supprimer</span>
+                                                            </Button>
+                                                        </FileUploadItemDelete>
+                                                    </FileUploadItem>
+                                                ))}
+                                            </FileUploadList>
+                                        </FileUpload>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>    
                             )}
                         />
                     </div>
