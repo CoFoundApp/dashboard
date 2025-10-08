@@ -1,17 +1,12 @@
 "use client";
 
-import { useQuery } from "@apollo/client/react";
-import ProfileHeader from "./profile-header";
 import { GET_MY_PROFILE, GetMyProfileResult } from "@/graphql/profile";
+import { useQuery } from "@apollo/client/react";
 import { Loader2 } from "lucide-react";
-import ProfileAbout from "./profile-about";
-import ProfileWorkExperiences from "./profile-work-experiences";
-import ProfileEducations from "./profile-educations";
-import ProfileSkills from "./profile-skills";
-import ProfileInterests from "./profile-interests";
-import ProfileTags from "./profile-tags";
+import MyProfileEditHeader from "./profile-edit-header";
+import MyProfileEditForm from "./profile-edit-form";
 
-export default function MyProfileLayout() {
+export default function MyProfileEditLayout() {
     const { data, loading, error } = useQuery<GetMyProfileResult>(GET_MY_PROFILE, {
         fetchPolicy: "cache-and-network",
         errorPolicy: "all",
@@ -48,20 +43,8 @@ export default function MyProfileLayout() {
 
     return (
         <section className="space-y-12">
-            <ProfileHeader
-                display_name={data.myProfile.display_name}
-                headline={data.myProfile.headline}
-                avatar_url={data.myProfile.avatar_url}
-                isEditable
-            />
-            <ProfileAbout description={data.myProfile.bio} />
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <ProfileSkills skills={data.myProfile.skills} />
-                <ProfileInterests interests={data.myProfile.interests} />
-                <ProfileTags tags={data.myProfile.tags} />
-            </div>
-            <ProfileWorkExperiences workExperiences={data.myProfile.workExperiences} />
-            <ProfileEducations educations={data.myProfile.educations} /> 
+            <MyProfileEditHeader />
+            <MyProfileEditForm profile={data.myProfile} />
         </section>
     );
 }

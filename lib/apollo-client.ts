@@ -1,5 +1,6 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client"
+import { ApolloClient, from, InMemoryCache } from "@apollo/client"
 import UploadHttpLink from "apollo-upload-client/UploadHttpLink.mjs"
+import { RemoveTypenameFromVariablesLink } from "@apollo/client/link/remove-typename";
 
 const uploadLink = new UploadHttpLink({
     uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
@@ -9,8 +10,10 @@ const uploadLink = new UploadHttpLink({
     }
 });
 
+const removeTypenameLink = new RemoveTypenameFromVariablesLink();
+
 const client = new ApolloClient({
-    link: uploadLink,
+    link: from([removeTypenameLink, uploadLink]),
     cache: new InMemoryCache(),
 });
 

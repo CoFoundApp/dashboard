@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Edit } from "lucide-react";
+import Link from "next/link";
 
 interface ProfileHeaderProps {
     display_name: string;
@@ -34,9 +35,11 @@ export default function ProfileHeader({
                 </div>
             </div>
             {isEditable && (
-                <Button>
-                    <Edit className="size-4 mr-1" />
-                    Modifier mon profil
+                <Button asChild>
+                    <Link href={`/my-profile/edit`}>
+                        <Edit className="size-4 mr-1" />
+                        Modifier mon profil
+                    </Link>
                 </Button>
             )}
         </div>
