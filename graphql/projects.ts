@@ -270,3 +270,11 @@ export const DELETE_PROJECT = gql`
         deleteProject(id: $id)
     }
 `;
+
+export const UPDATE_PROJECT = gql`
+    mutation UpdateProject($id: String!, $input: UpdateProjectInput!) {
+        updateProject(id: $id, input: $input) {
+            __typename
+        }
+    }
+`;

@@ -11,6 +11,7 @@ import { useMutation } from "@apollo/client/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import Link from "next/link";
 
 interface ProjectHeaderProps {
     projectId: string;
@@ -117,9 +118,11 @@ export default function ProjectHeader({
                     </AlertDialog>
                 )}
                 {isEditable && (
-                    <Button>
-                        <Edit className="size-4 mr-1" />
-                        Modifier le projet
+                    <Button asChild>
+                        <Link href={`/my-projects/${projectId}/edit`}>
+                            <Edit className="size-4 mr-1" />
+                            Modifier le projet
+                        </Link>
                     </Button>
                 )}
                 {isCandidate && (
