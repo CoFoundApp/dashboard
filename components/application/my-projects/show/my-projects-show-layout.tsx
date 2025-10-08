@@ -63,6 +63,7 @@ export default function MyProjectsShowLayout({ projectId }: MyProjectsShowLayout
                 stage={data.projectById.stage}
                 status={data.projectById.status}
                 isEditable
+                isRemovable
             />
             <ProjectDescription description={data.projectById.description} />
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

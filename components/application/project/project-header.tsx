@@ -1,10 +1,16 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ProjectStage, ProjectStatus } from "@/graphql/projects";
+import { DELETE_PROJECT, ProjectStage, ProjectStatus } from "@/graphql/projects";
 import { projectStageLabels, projectStatusLabels } from "@/lib/utils";
-import { Edit } from "lucide-react";
+import { Edit, Trash2, X } from "lucide-react";
 import ProjectApplyDialog from "./project-apply-dialog";
+import { useMutation } from "@apollo/client/react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
 interface ProjectHeaderProps {
     projectId: string;
@@ -14,6 +20,7 @@ interface ProjectHeaderProps {
     industry: string | null;
     stage: ProjectStage;
     status: ProjectStatus;
+    isRemovable?: boolean;
     isEditable?: boolean;
     isCandidate?: boolean;
 }
@@ -26,9 +33,34 @@ export default function ProjectHeader({
     industry,
     stage,
     status,
+    isRemovable = false,
     isEditable = false,
     isCandidate = false
 }: ProjectHeaderProps) {
+    const router = useRouter();
+    const [deleteProject, { loading: deleting }] = useMutation(DELETE_PROJECT);
+
+    const handleDelete = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        deleteProject({
+            variables: {
+                id: projectId
+            }
+        })
+            .then(() => {
+                router.push("/my-projects");
+                toast.success("Projet supprimé !", {
+                    description: "Vous avez supprimé votre projet avec succès.",
+                });
+            })
+            .catch((err: Error) => {
+                console.log(err)
+                toast.error("Oups !", {
+                    description: err.message || "Une erreur est survenue.",
+                });
+            })
+    }
+
     return (
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
             <div className="flex items-center gap-8">
@@ -54,15 +86,46 @@ export default function ProjectHeader({
                     </div>
                 </div>
             </div>
-            {isEditable && (
-                <Button>
-                    <Edit className="size-4 mr-1" />
-                    Modifier mon projet
-                </Button>
-            )}
-            {isCandidate && (
-                <ProjectApplyDialog projectId={projectId} />
-            )}
+            <div className="flex items-center gap-4">
+                {isRemovable && (
+                    <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                            <Button 
+                                variant="ghost" 
+                                className="text-destructive hover:text-destructive"
+                                onClick={(e) => e.stopPropagation()}
+                                disabled={deleting}
+                            >
+                                <Trash2 className="size-4 mr-1 text-destructive" />
+                                Supprimer le projet
+                            </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent onClick={(e) => e.stopPropagation()}>
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>Supprimer votre projet ?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    Êtes-vous sûr de vouloir supprimer votre projet ? Cette action est irréversible.
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                                <AlertDialogCancel onClick={(e) => e.stopPropagation()}>Annuler</AlertDialogCancel>
+                                <AlertDialogAction onClick={handleDelete} disabled={deleting}>
+                                    {deleting ? "Suppression..." : "Supprimer"}
+                                </AlertDialogAction>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
+                )}
+                {isEditable && (
+                    <Button>
+                        <Edit className="size-4 mr-1" />
+                        Modifier le projet
+                    </Button>
+                )}
+                {isCandidate && (
+                    <ProjectApplyDialog projectId={projectId} />
+                )}
+            </div>
         </div>
     );
 }
