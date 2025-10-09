@@ -1,3 +1,4 @@
+import { FileUploadWithCrop } from "@/components/ui/file-upload-with-crop";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -5,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useFormContext } from "react-hook-form";
 
 export default function ProfileEditGeneralForm() {
-    const { control } = useFormContext();
+    const { control, setError } = useFormContext();
 
     return (
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
@@ -91,6 +92,30 @@ export default function ProfileEditGeneralForm() {
                                         <Textarea 
                                             placeholder="Gardien de but, libéro et capitaine de l'équipe du collège Raimon"
                                             {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <div className="col-span-full">
+                        <FormField
+                            control={control}
+                            name="avatar"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Logo</FormLabel>
+                                    <FormControl>
+                                        <FileUploadWithCrop
+                                            value={field.value}
+                                            onValueChange={field.onChange}
+                                            maxSize={5 * 1024 * 1024}
+                                            aspectRatio={1}
+                                            shape="circle"
+                                            onFileReject={(_, message) => {
+                                                setError("avatar", { message });
+                                            }}
                                         />
                                     </FormControl>
                                     <FormMessage />

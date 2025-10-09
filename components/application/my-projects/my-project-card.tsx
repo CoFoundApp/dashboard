@@ -1,3 +1,4 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDate, projectStageLabels, projectStatusLabels } from "@/lib/utils";
@@ -15,17 +16,23 @@ export default function MyProjectsCard({ project }: MyProjectsCardProps) {
             <Card className="group flex flex-col transition-colors hover:border-foreground/20">
                 <CardHeader>
                     <div className="flex items-start justify-between gap-4">
-                        <div className="flex-1">
-                            <CardTitle className="mb-2 text-balance leading-tight group-hover:text-foreground/80">
-                                {project.title}
-                            </CardTitle>
-                            <div className="flex flex-wrap items-center gap-2">
-                                <Badge variant="outline">
-                                    {projectStatusLabels[project.status]}
-                                </Badge>
-                                <Badge variant="outline" className="text-muted-foreground">
-                                    {projectStageLabels[project.stage]}
-                                </Badge>
+                        <div className="flex flex-1 items-start gap-3">
+                            <Avatar className="size-12 shrink-0">
+                                <AvatarImage src={project.avatar_url || "/placeholder.svg"} alt={project.title} />
+                                <AvatarFallback className="bg-primary text-sm font-medium text-primary-foreground">
+                                    {project.title.charAt(0).toUpperCase()}
+                                </AvatarFallback>
+                            </Avatar>
+                            <div className="flex-1">
+                                <CardTitle className="mb-2 text-balance leading-tight group-hover:text-foreground/80">
+                                    {project.title}
+                                </CardTitle>
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <Badge variant="outline">{projectStatusLabels[project.status]}</Badge>
+                                    <Badge variant="outline" className="text-muted-foreground">
+                                        {projectStageLabels[project.stage]}
+                                    </Badge>
+                                </div>
                             </div>
                         </div>
                         <ExternalLink className="size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />

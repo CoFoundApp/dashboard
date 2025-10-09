@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/components/ui/form";
-import { ProfileVisibility, UPDATE_MY_PROFILE } from "@/graphql/profile";
+import { UPDATE_MY_PROFILE } from "@/graphql/profile";
 import { ProfileSchema } from "@/schemas/profiles";
 import { useMutation } from "@apollo/client/react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,10 +16,13 @@ import ProfileEditOtherForm from "./profile-edit-other-form";
 import { Button } from "@/components/ui/button";
 import ProfileEditExperiencesForm from "./profile-edit-experiences-form";
 import { toast } from "sonner";
+import { GET_NAVIGATION } from "@/graphql/navigation";
 
 export default function MyProfileEditForm({ profile }: any) {
     const router = useRouter();
-    const [updateMyProfile, { loading }] = useMutation(UPDATE_MY_PROFILE);
+    const [updateMyProfile, { loading }] = useMutation(UPDATE_MY_PROFILE, {
+        refetchQueries: [GET_NAVIGATION],
+    });
 
     const formatDateForInput = (isoDate: string | null | undefined): string => {
         if (!isoDate) return "";
@@ -35,6 +38,7 @@ export default function MyProfileEditForm({ profile }: any) {
         defaultValues: {
             display_name: profile.display_name,
             visibility: profile.visibility,
+            avatar: [],
             availability_hours: Number(profile.availability_hours),
             bio: profile.bio,
             educations: profile.educations?.map(edu => ({
@@ -91,14 +95,21 @@ export default function MyProfileEditForm({ profile }: any) {
             description: work.description || null,
         }))
 
+        const finalData = {
+            ...formData,
+            ...values,
+            educations: cleanedEducations,
+            work_experiences: cleanedWorkExperiences,
+        };
+
+        const { avatar, ...restValues } = finalData;
+        const inputData = avatar
+            ? finalData
+            : restValues;
+
         updateMyProfile({
             variables: {
-                input: {
-                    ...formData,
-                    ...values,
-                    educations: cleanedEducations,
-                    work_experiences: cleanedWorkExperiences,
-                }
+                input: inputData
             }
         })
             .then(() => {

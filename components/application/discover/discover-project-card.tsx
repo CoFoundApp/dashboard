@@ -8,6 +8,7 @@ import { cn, projectStageLabels, projectStatusLabels } from "@/lib/utils"
 import { Building2, CheckCircle2, ChevronDown, Sparkles } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { ProjectStage, ProjectStatus } from "@/graphql/projects"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 interface DiscoverProjectCardProps {
     project: {
@@ -39,22 +40,31 @@ export default function DiscoverProjectCard({ project, score, reasons }: Discove
             className="h-fit flex flex-col"
             onClick={() => router.push(`projects/${project.id}`)}
         >
-            <CardHeader className="flex items-center justify-between gap-4">
-                <CardTitle>{project.title}</CardTitle>
-                {scorePercentage !== undefined && (
-                    <Badge variant="secondary">
-                        <Sparkles className="size-3 mr-1" />
-                        {scorePercentage}% pertinent
-                    </Badge>
-                )}
+            <CardHeader className="space-y-3">
+                <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-start gap-3 flex-1">
+                        <Avatar className="size-12 shrink-0">
+                            <AvatarImage src={project.avatar_url || undefined} alt={project.title} />
+                            <AvatarFallback className="bg-primary text-primary-foreground">{project.title.charAt(0).toUpperCase()}</AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1 min-w-0">
+                            <CardTitle className="text-balance">{project.title}</CardTitle>
+                            {project.summary && (
+                                <p className="text-sm text-muted-foreground leading-relaxed text-pretty mt-2">{project.summary}</p>
+                            )}
+                        </div>
+                    </div>
+                    {scorePercentage !== undefined && (
+                        <Badge variant="secondary" className="shrink-0">
+                            <Sparkles className="size-3 mr-1" />
+                            {scorePercentage}% pertinent
+                        </Badge>
+                    )}
+                </div>
             </CardHeader>
 
             <CardContent className="space-y-4 flex-1 flex flex-col">
                 <div className="space-y-2">
-                    {project.summary && (
-                        <p className="text-sm text-muted-foreground leading-relaxed text-pretty line-clamp-2 min-h-[2.5rem]">{project.summary}</p>
-                    )}
-
                     <div className="flex items-center gap-2 flex-wrap">
                         {project.industry && (
                             <Badge>

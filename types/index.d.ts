@@ -3,6 +3,7 @@ import { ProjectStage, ProjectStatus, ProjectVisibility } from "@/graphql/projec
 interface IProject {
     id: string;
     title: string;
+    avatar_url?: string;
     summary?: string;
     description?: string;
     industry: string;

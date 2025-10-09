@@ -54,13 +54,15 @@ export default function MyProjectsEditForm({ project }: MyProjectsEditFormProps)
     });
 
     const onSubmit = (values: z.infer<typeof ProjectSchema>) => {
+        const { avatar, ...restValues } = values;
+        const inputData = avatar
+            ? values
+            : restValues;
+
         updateProject({
                 variables: {
                     id: project.id,
-                    input: {
-                        ...form.getValues(),
-                        ...values
-                    }
+                    input: inputData,
                 }
             })
                 .then(() => {

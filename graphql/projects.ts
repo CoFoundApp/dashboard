@@ -10,6 +10,7 @@ export type GetMyProjectsResult = {
     listMyProjects: {
         id: string;
         title: string;
+        avatar_url?: string;
         summary?: string;
         description?: string;
         industry: string;
@@ -27,6 +28,7 @@ export const GET_MY_PROJECTS = gql`
         listMyProjects {
             id
             title
+            avatar_url
             summary
             industry
             status

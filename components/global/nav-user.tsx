@@ -85,7 +85,7 @@ export default function NavUser({ menu }: NavUserProps) {
                     <div className="flex items-center gap-2">
                         <Avatar className="size-8 border border-border/50">
                             <AvatarImage
-                                src="/placeholder.svg"
+                                src={data.myProfile.avatar_url}
                                 alt={`Photo de profil de ${data.myProfile.display_name}`}
                                 className="object-cover"
                             />
