@@ -1,0 +1,324 @@
+"use client"
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { formatDistanceToNow } from "date-fns"
+import { fr } from "date-fns/locale"
+import { Loader2, Send, MessageSquare, User, ChevronLeft } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
+import { cn } from "@/lib/utils"
+import {
+    GET_CONVERSATIONS,
+    GET_MESSAGES,
+    SEND_MESSAGE,
+    type GetConversationsResult,
+    type GetMessagesResult,
+    type SendMessageResult,
+} from "@/graphql/conversations"
+import { useSocket } from "@/hooks/useSocket"
+import Link from "next/link"
+import { useMutation, useQuery } from "@apollo/client/react"
+import { GET_CURRENT_USER, GetCurrentUserResult } from "@/graphql/user"
+
+interface ChatConversationDetailProps {
+    conversationId: string | null;
+    onBack?: () => void;
+}
+
+interface SocketMessage {
+    room: string;
+    from: string;
+    content: string;
+    at: number;
+}
+
+const formatSocketMessageForDisplay = (socketMsg: SocketMessage, messageId: string) => ({
+    id: messageId,
+    content: socketMsg.content,
+    sender_id: socketMsg.from,
+    created_at: new Date(socketMsg.at).toISOString(),
+});
+
+const shouldGroupMessages = (currentMsg: any, previousMsg: any): boolean => {
+    if (!previousMsg || !currentMsg) return false;
+    if (currentMsg.sender_id !== previousMsg.sender_id) return false;
+    const timeDiff = new Date(currentMsg.created_at).getTime() - new Date(previousMsg.created_at).getTime();
+    return timeDiff < 60000;
+};
+
+export default function ChatConversationDetail({ conversationId, onBack }: ChatConversationDetailProps) {
+    const { data: currentUserData } = useQuery<GetCurrentUserResult>(GET_CURRENT_USER, {
+        fetchPolicy: "cache-first",
+    });
+
+    const [messageInput, setMessageInput] = useState("");
+    const [realtimeMessages, setRealtimeMessages] = useState<any[]>([]);
+    const [sendingMessage, setSendingMessage] = useState(false);
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+
+    const {
+        socket,
+        isConnected,
+        joinRoom,
+        sendMessage: sendSocketMessage,
+    } = useSocket({
+        userId: currentUserData?.myProfile.user_id,
+    });
+
+    const { data: conversationsData } = useQuery<GetConversationsResult>(GET_CONVERSATIONS, {
+        fetchPolicy: "cache-first",
+    });
+
+    const { data, loading, error } = useQuery<GetMessagesResult>(GET_MESSAGES, {
+        variables: {
+            conversation_id: conversationId,
+            limit: 50,
+        },
+        skip: !conversationId,
+        fetchPolicy: "network-only",
+        errorPolicy: "all",
+    });
+
+    const [sendMessage] = useMutation<SendMessageResult>(SEND_MESSAGE);
+
+    useEffect(() => {
+        if (socket && conversationId) {
+            joinRoom(conversationId);
+
+            const handleNewMessage = (message: SocketMessage) => {
+                const formattedMessage = formatSocketMessageForDisplay(message, `socket-${Date.now()}-${Math.random()}`);
+
+                setRealtimeMessages((prev) => {
+                    const exists = prev.some(
+                        (msg) =>
+                            msg.content === formattedMessage.content &&
+                            msg.sender_id === formattedMessage.sender_id &&
+                            Math.abs(new Date(msg.created_at).getTime() - new Date(formattedMessage.created_at).getTime()) < 1000,
+                    );
+
+                    if (exists) return prev;
+                    return [...prev, formattedMessage];
+                });
+            }
+
+            socket.on("message:new", handleNewMessage);
+
+            return () => {
+                socket.off("message:new", handleNewMessage);
+            }
+        }
+    }, [socket, conversationId, joinRoom, currentUserData?.myProfile.user_id]);
+
+    const allMessages = [...(data?.messages.items || []), ...realtimeMessages].sort(
+        (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+    );
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [allMessages]);
+
+    useEffect(() => {
+        setRealtimeMessages([]);
+    }, [conversationId]);
+
+    if (!conversationId) {
+        return (
+            <div className="flex flex-col items-center justify-center h-full py-20 px-6">
+                <div className="h-20 w-20 rounded-full flex items-center justify-center mb-4">
+                    <MessageSquare className="h-10 w-10 text-primary/50" />
+                </div>
+                <p className="text-sm font-medium text-center">Sélectionnez une conversation</p>
+                <p className="text-xs text-muted-foreground text-center mt-1">
+                    Choisissez une conversation pour commencer à discuter
+                </p>
+            </div>
+        );
+    }
+
+    const conversation = conversationsData?.conversationsQuery?.find((c) => c.id === conversationId);
+    const otherParticipant = conversation?.participants.find(
+        (p) => p.user.id !== currentUserData?.myProfile.user_id,
+    )?.user;
+    const displayName = otherParticipant?.profile?.display_name || otherParticipant?.email || "Utilisateur";
+
+    const handleSendMessage = async () => {
+        if (!messageInput.trim() || !conversationId) return;
+
+        const messageContent = messageInput.trim();
+        setSendingMessage(true);
+
+        try {
+            await sendMessage({
+                variables: {
+                    content: messageContent,
+                    conversation_id: conversationId,
+                },
+            });
+
+            if (isConnected) {
+                try {
+                    await sendSocketMessage(conversationId, messageContent);
+                } catch (socketError) {
+                    console.warn("⚠️ Socket.IO broadcast failed:", socketError);
+                }
+            } else {
+                console.warn("⚠️ Socket.IO not connected, message saved but not broadcasted");
+            }
+
+            setMessageInput("");
+        } catch (error) {
+            console.error("❌ Failed to send message:", error);
+        } finally {
+            setSendingMessage(false);
+        }
+    }
+
+    return (
+        <div className="flex flex-col h-full overflow-hidden">
+            <div className="flex items-center gap-3 px-4 py-3 border-b shrink-0">
+                {onBack && (
+                    <Button variant="ghost" size="icon" onClick={onBack} className="h-9 w-9 shrink-0 hover:bg-background">
+                        <ChevronLeft className="h-5 w-5" />
+                    </Button>
+                )}
+                <Link
+                    href={otherParticipant?.profile.id ? `/profile/${otherParticipant.profile.id}` : "#"}
+                    className="flex items-center gap-3 flex-1 min-w-0 hover:opacity-80 transition-opacity"
+                >
+                    <Avatar className="h-10 w-10 shadow-sm">
+                        {otherParticipant?.profile?.avatar_url && (
+                            <AvatarImage src={otherParticipant.profile.avatar_url || "/placeholder.svg"} alt={displayName} />
+                        )}
+                        <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
+                            {displayName.charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold text-sm truncate">{displayName}</h3>
+                        {otherParticipant?.email && (
+                            <p className="text-xs text-muted-foreground truncate">{otherParticipant.email}</p>
+                        )}
+                    </div>
+                </Link>
+
+                {otherParticipant?.profile.id && (
+                    <Button variant="ghost" size="icon" asChild className="h-9 w-9 shrink-0 hover:bg-background">
+                        <Link href={`/profile/${otherParticipant.profile.id}`}>
+                            <User className="h-4 w-4" />
+                        </Link>
+                    </Button>
+                )}
+            </div>
+
+            <div className="flex-1 min-h-0 overflow-y-auto px-4 py-4">
+                {loading && (
+                    <div className="flex items-center justify-center py-12">
+                        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                    </div>
+                )}
+
+                {error && (
+                    <div className="rounded-xl border border-destructive/50 bg-destructive/10 p-4">
+                        <p className="text-sm text-destructive">Erreur lors du chargement des messages</p>
+                    </div>
+                )}
+
+                {!loading && !error && allMessages.length === 0 && (
+                    <div className="flex flex-col items-center justify-center py-12 text-center">
+                        <div className="h-16 w-16 rounded-full bg-muted flex items-center justify-center mb-4">
+                            <MessageSquare className="h-8 w-8 text-muted-foreground/50" />
+                        </div>
+                        <p className="text-sm font-medium">Aucun message</p>
+                        <p className="text-xs text-muted-foreground mt-1">Envoyez le premier message</p>
+                    </div>
+                )}
+
+                {!loading && allMessages.length > 0 && (
+                    <div className="space-y-1">
+                        {allMessages.map((message, index) => {
+                            const isCurrentUser = message.sender_id === currentUserData?.myProfile.user_id;
+                            const previousMessage = index > 0 ? allMessages[index - 1] : null;
+                            const isGrouped = shouldGroupMessages(message, previousMessage, currentUserData?.myProfile.user_id);
+                            const nextMessage = index < allMessages.length - 1 ? allMessages[index + 1] : null;
+                            const isLastInGroup = !shouldGroupMessages(nextMessage, message, currentUserData?.myProfile.user_id);
+
+                            return (
+                                <div
+                                    key={message.id}
+                                    className={cn("flex", isCurrentUser ? "justify-end" : "justify-start", isGrouped ? "mt-0.5" : "mt-4")}
+                                >
+                                    <div className={cn("flex gap-2 max-w-[85%]", isCurrentUser ? "flex-row-reverse" : "flex-row")}>
+                                        {!isCurrentUser && (
+                                            <Avatar
+                                                className={cn(
+                                                    "h-7 w-7 flex-shrink-0 border border-background shadow-sm",
+                                                    isGrouped ? "invisible" : "visible",
+                                                )}
+                                            >
+                                                {otherParticipant?.profile?.avatar_url && (
+                                                    <AvatarImage
+                                                        src={otherParticipant.profile.avatar_url || "/placeholder.svg"}
+                                                        alt={displayName}
+                                                    />
+                                                )}
+                                                <AvatarFallback className="bg-muted text-xs">
+                                                    {displayName.charAt(0).toUpperCase()}
+                                                </AvatarFallback>
+                                            </Avatar>
+                                        )}
+                                        <div className={cn("flex flex-col", isCurrentUser ? "items-end" : "items-start")}>
+                                            <div
+                                                className={cn(
+                                                    "px-3 py-2 border-l-2",
+                                                    isCurrentUser ? "bg-primary/5 border-primary" : "bg-muted/50 border-muted-foreground/20",
+                                                )}
+                                            >
+                                                <p className="text-sm leading-relaxed">{message.content}</p>
+                                            </div>
+                                            {isLastInGroup && (
+                                                <span className="text-[10px] text-muted-foreground mt-1 px-1">
+                                                    {formatDistanceToNow(new Date(message.created_at), {
+                                                        addSuffix: true,
+                                                        locale: fr,
+                                                    })}
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                        <div ref={messagesEndRef} />
+                    </div>
+                )}
+            </div>
+
+            <div className="border-t p-4 shrink-0 bg-background">
+                <div className="flex gap-2">
+                    <Input
+                        placeholder="Écrivez votre message..."
+                        value={messageInput}
+                        onChange={(e) => setMessageInput(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter" && !e.shiftKey) {
+                                e.preventDefault();
+                                handleSendMessage();
+                            }
+                        }}
+                        disabled={sendingMessage}
+                        className="rounded-full border-muted-foreground/20 focus-visible:ring-primary"
+                    />
+                    <Button
+                        onClick={handleSendMessage}
+                        size="icon"
+                        disabled={sendingMessage || !messageInput.trim()}
+                        className="rounded-full h-10 w-10 shrink-0 shadow-sm"
+                    >
+                        {sendingMessage ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                    </Button>
+                </div>
+            </div>
+        </div>
+    );
+}
