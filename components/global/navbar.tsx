@@ -1,4 +1,4 @@
-import { Box, Folder, Menu, User } from "lucide-react";
+import { Box, Folder, Menu, MessageSquare, User } from "lucide-react";
 
 import {
     Accordion,
@@ -61,6 +61,7 @@ const Navbar = ({
         { title: "Mon profil", url: "/my-profile", icon: <User className="h-4 w-4" /> },
         { title: "Mes projets", url: "/my-projects", icon: <Folder className="h-4 w-4" /> },
         { title: "Mes candidatures", url: "/my-applications", icon: <Box className="size-4" /> },
+        { title: "Mes messages", url: "/my-messages", icon: <MessageSquare className="size-4" /> },
     ],
 }: NavbarProps) => {
     return (

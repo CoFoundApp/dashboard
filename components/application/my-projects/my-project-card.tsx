@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDate, projectStageLabels, projectStatusLabels } from "@/lib/utils";
 import { IProject } from "@/types";
-import { Calendar, ExternalLink } from "lucide-react";
+import { Calendar } from "lucide-react";
 import Link from "next/link";
 
 interface MyProjectsCardProps {
@@ -13,7 +13,7 @@ interface MyProjectsCardProps {
 export default function MyProjectsCard({ project }: MyProjectsCardProps) {
     return (
         <Link href={`/my-projects/${project.id}`} className="block">
-            <Card className="group flex flex-col transition-colors hover:border-foreground/20">
+            <Card className="flex flex-col transition-colors hover:border-foreground/20">
                 <CardHeader>
                     <div className="flex items-start justify-between gap-4">
                         <div className="flex flex-1 items-start gap-3">
@@ -24,7 +24,7 @@ export default function MyProjectsCard({ project }: MyProjectsCardProps) {
                                 </AvatarFallback>
                             </Avatar>
                             <div className="flex-1">
-                                <CardTitle className="mb-2 text-balance leading-tight group-hover:text-foreground/80">
+                                <CardTitle className="mb-2 text-balance leading-tight">
                                     {project.title}
                                 </CardTitle>
                                 <div className="flex flex-wrap items-center gap-2">
@@ -35,7 +35,6 @@ export default function MyProjectsCard({ project }: MyProjectsCardProps) {
                                 </div>
                             </div>
                         </div>
-                        <ExternalLink className="size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
                     </div>
                     {project.summary && (
                         <CardDescription className="text-pretty leading-relaxed">{project.summary}</CardDescription>

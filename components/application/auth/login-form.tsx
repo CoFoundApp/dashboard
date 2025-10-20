@@ -7,13 +7,13 @@ import { LoginSchema } from "@/schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
-import { useMutation } from '@apollo/client/react';
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
 import { LOGIN } from "@/graphql/auth";
 import { useRef, useEffect } from "react";
+import { useMutation } from "@apollo/client/react";
 
 export default function LoginForm() {
     const router = useRouter();
@@ -51,20 +51,11 @@ export default function LoginForm() {
         const { email, password } = values;
 
         try {
-            const { data, errors } = await login({ 
+            const { data } = await login({ 
                 variables: { 
                     input: { email, password }
                 } 
             });
-
-            if (errors && errors.length > 0) {
-                const errorMessage = errors[0]?.message || "Une erreur est survenue lors de la connexion.";
-                toast.error("Échec de connexion", {
-                    description: errorMessage,
-                });
-                isSubmitting.current = false;
-                return;
-            }
 
             if (data) {
                 toast.success("Connexion réussie !", {
