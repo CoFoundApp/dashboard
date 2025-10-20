@@ -136,6 +136,7 @@ export default function DiscoverProjectCard({ project, score, reasons }: Discove
                         size="sm"
                         className="w-full justify-between group mt-auto"
                         onClick={(e) => {
+                            e.preventDefault();
                             e.stopPropagation();
                             setIsExpanded(!isExpanded);
                         }}

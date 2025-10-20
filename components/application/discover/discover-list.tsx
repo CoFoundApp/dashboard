@@ -3,7 +3,6 @@
 import { useQuery } from "@apollo/client/react"
 import { LIST_PROJECTS, SEARCH_PROJECTS, type ListProjectsResult, type SearchProjectsResult } from "@/graphql/projects"
 import DiscoverProjectCard from "./discover-project-card"
-import { Skeleton } from "@/components/ui/skeleton"
 import { Inbox, Loader2 } from "lucide-react"
 import type { ProjectFilters, SortOption } from "./discover-filters"
 import { Card, CardContent } from "@/components/ui/card"

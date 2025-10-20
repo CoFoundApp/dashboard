@@ -9,8 +9,8 @@ interface FooterProps {
 const Footer = ({
     copyright = "© 2025 CoFound. Tous droits réservés.",
     bottomLinks = [
-        { text: "Mentions légales", url: "#" },
-        { text: "Politique de confidentialité", url: "#" },
+        { text: "Mentions légales", url: `${process.env.NEXT_PUBLIC_LANDING_URL}/mentions-legales` },
+        { text: "Politique de confidentialité", url: `${process.env.NEXT_PUBLIC_LANDING_URL}/politique-confidentialite` },
     ],
 }: FooterProps) => {
     return (
@@ -21,7 +21,7 @@ const Footer = ({
                     <ul className="flex gap-4">
                         {bottomLinks.map((link, linkIdx) => (
                             <li key={linkIdx} className="hover:text-primary underline">
-                                <a href={link.url}>{link.text}</a>
+                                <a href={link.url} target="_blank">{link.text}</a>
                             </li>
                         ))}
                     </ul>

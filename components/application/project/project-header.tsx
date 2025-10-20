@@ -24,6 +24,7 @@ interface ProjectHeaderProps {
     isRemovable?: boolean;
     isEditable?: boolean;
     isCandidate?: boolean;
+    isContactable?: boolean;
 }
 
 export default function ProjectHeader({
@@ -36,7 +37,7 @@ export default function ProjectHeader({
     status,
     isRemovable = false,
     isEditable = false,
-    isCandidate = false
+    isCandidate = false,
 }: ProjectHeaderProps) {
     const router = useRouter();
     const [deleteProject, { loading: deleting }] = useMutation(DELETE_PROJECT);
