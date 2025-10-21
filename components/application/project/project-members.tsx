@@ -1,6 +1,5 @@
 "use client";
 
-import ContactButton from "@/components/global/contact-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +7,7 @@ import { GET_PROJECT_MEMBERS, GetProjectMembersResult } from "@/graphql/projects
 import { memberRoleLabels } from "@/lib/utils";
 import { useQuery } from "@apollo/client/react";
 import { Loader2, Mail } from "lucide-react";
+import Link from "next/link";
 
 interface ProjectMembersProps {
     projectId: string;
@@ -73,36 +73,37 @@ export default function ProjectMembers({ projectId }: ProjectMembersProps) {
                 ) : (
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {data.projectMembers.map(member => (
-                            <Card key={member.users.id}>
-                                <CardHeader className="space-y-4">
-                                    <div className="flex items-start gap-4">
-                                        <Avatar className="size-12">
-                                            <AvatarImage src={member.users.profile.avatar_url ?? ""} alt={member.users.profile.display_name} />
-                                            <AvatarFallback className="bg-primary text-primary-foreground font-bold">{member.users.profile.display_name.charAt(0)}</AvatarFallback>
-                                        </Avatar>
-                                        <div className="flex-1 min-w-0">
-                                            <div className="flex items-start justify-between gap-2">
-                                                <div className="flex-1 min-w-0">
-                                                    <CardTitle className="text-base leading-tight">{member.users.profile.display_name}</CardTitle>
-                                                    {member.users.profile?.headline && (
-                                                        <CardDescription className="text-sm mt-1 leading-relaxed">
-                                                            {member.users.profile.headline}
-                                                        </CardDescription>
-                                                    )}
+                            <Link key={member.users.id} href={`/profile/${member.users.profile.id}`}>
+                                <Card key={member.users.id}>
+                                    <CardHeader>
+                                        <div className="flex items-start gap-4">
+                                            <Avatar className="size-12">
+                                                <AvatarImage src={member.users.profile.avatar_url ?? ""} alt={member.users.profile.display_name} />
+                                                <AvatarFallback className="bg-primary text-primary-foreground font-bold">{member.users.profile.display_name.charAt(0)}</AvatarFallback>
+                                            </Avatar>
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-start justify-between gap-2">
+                                                    <div className="flex-1 min-w-0">
+                                                        <CardTitle className="text-base leading-tight">{member.users.profile.display_name}</CardTitle>
+                                                        {member.users.profile?.headline && (
+                                                            <CardDescription className="text-sm mt-1 leading-relaxed">
+                                                                {member.users.profile.headline}
+                                                            </CardDescription>
+                                                        )}
+                                                    </div>
+                                                    <Badge variant="secondary" className="shrink-0">
+                                                        {memberRoleLabels[member.role]}
+                                                    </Badge>
                                                 </div>
-                                                <Badge variant="secondary" className="shrink-0">
-                                                    {memberRoleLabels[member.role]}
-                                                </Badge>
-                                            </div>
-                                            <div className="flex items-center gap-1.5 mt-2 text-xs text-muted-foreground">
-                                                <Mail className="size-3" />
-                                                <span className="truncate">{member.users.email}</span>
+                                                <div className="flex items-center gap-1.5 mt-2 text-xs text-muted-foreground">
+                                                    <Mail className="size-3" />
+                                                    <span className="truncate">{member.users.email}</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <ContactButton className="w-full" user_id={member.users.id} />
-                                </CardHeader>
-                            </Card>
+                                    </CardHeader>
+                                </Card>
+                            </Link>
                         ))}
                         {Array.from({ length: maxPlaceholders }).map((_, index) => (
                             <Card

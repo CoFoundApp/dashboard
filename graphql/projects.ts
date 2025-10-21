@@ -88,6 +88,7 @@ export type GetProjectMembersResult = {
             id: string;
             email: string;
             profile: {
+                id: string;
                 avatar_url: string | null;
                 display_name: string;
                 headline: string;
@@ -104,6 +105,7 @@ export const GET_PROJECT_MEMBERS = gql`
                 id
                 email
                 profile {
+                    id
                     avatar_url
                     display_name
                     headline
