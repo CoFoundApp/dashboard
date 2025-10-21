@@ -4,7 +4,6 @@ import { useQuery } from "@apollo/client/react";
 import DashboardHeader from "./dashboard-header";
 import { GET_DASHBOARD, GetDashboardResult } from "@/graphql/dashboard";
 import { Loader2 } from "lucide-react";
-import DashboardStats from "./dashboard-stats";
 import DashboardSuggestProfiles from "./dashboard-suggest-profiles";
 
 export default function DashboardLayout() {
@@ -45,11 +44,6 @@ export default function DashboardLayout() {
     return (
         <section className="space-y-8">
             <DashboardHeader display_name={data.myProfile.display_name} />
-            <DashboardStats
-                projectsCount={data.listMyProjects.length}
-                applicationsCount={data.myApplications.items.length}
-                conversationsCount={data.conversationsQuery.length} 
-            />
             <DashboardSuggestProfiles />
         </section>
     );
