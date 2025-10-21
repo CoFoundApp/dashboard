@@ -1,5 +1,6 @@
 "use client";
 
+import ContactButton from "@/components/global/contact-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -73,7 +74,7 @@ export default function ProjectMembers({ projectId }: ProjectMembersProps) {
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {data.projectMembers.map(member => (
                             <Card key={member.users.id}>
-                                <CardHeader>
+                                <CardHeader className="space-y-4">
                                     <div className="flex items-start gap-4">
                                         <Avatar className="size-12">
                                             <AvatarImage src={member.users.profile.avatar_url ?? ""} alt={member.users.profile.display_name} />
@@ -99,6 +100,7 @@ export default function ProjectMembers({ projectId }: ProjectMembersProps) {
                                             </div>
                                         </div>
                                     </div>
+                                    <ContactButton className="w-full" user_id={member.users.id} />
                                 </CardHeader>
                             </Card>
                         ))}

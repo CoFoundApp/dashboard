@@ -1,7 +1,8 @@
 "use client";
 
+import ContactButton from "@/components/global/contact-button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { GET_PROFILEs_MATCHES, GetProfilesMatchesResult } from "@/graphql/matches";
 import { useQuery } from "@apollo/client/react";
@@ -124,6 +125,9 @@ export default function MyProjectsShowProfiles({ projectId }: MyProjectsShowProf
                                         </Collapsible>
                                     )}
                                 </CardContent>
+                                <CardFooter>
+                                    <ContactButton className="w-full" user_id={match.profile.user_id} />
+                                </CardFooter>
                             </Card>
                         ))}
                     </div>

@@ -1,3 +1,4 @@
+import ContactButton from "@/components/global/contact-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Edit } from "lucide-react";
@@ -7,14 +8,18 @@ interface ProfileHeaderProps {
     display_name: string;
     headline: string;
     avatar_url: string | null;
+    user_id: string;
     isEditable?: boolean;
+    isContactable?: boolean;
 }
 
 export default function ProfileHeader({
     display_name,
     headline,
     avatar_url,
-    isEditable = false
+    user_id,
+    isEditable = false,
+    isContactable = false,
 }: ProfileHeaderProps) {
     return (
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
@@ -34,6 +39,9 @@ export default function ProfileHeader({
                     </p>
                 </div>
             </div>
+            {isContactable && (
+                <ContactButton user_id={user_id} />
+            )}
             {isEditable && (
                 <Button asChild>
                     <Link href={`/my-profile/edit`}>

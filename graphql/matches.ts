@@ -8,6 +8,7 @@ export const GET_PROFILEs_MATCHES = gql`
                     id
                     display_name
                     headline
+                    user_id
                 }
                 score
                 competitive {
@@ -29,6 +30,7 @@ export type GetProfilesMatchesResult = {
                 id: string;
                 display_name: string;
                 headline: string;
+                user_id: string;
             };
             score: number;
             competitive: {

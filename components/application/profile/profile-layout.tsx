@@ -58,6 +58,8 @@ export default function ProfileLayout({ profileId }: ProfileLayoutProps) {
                 display_name={data.profileById.display_name}
                 headline={data.profileById.headline}
                 avatar_url={data.profileById.avatar_url}
+                user_id={data.profileById.user_id}
+                isContactable
             />
             <ProfileAbout description={data.profileById.bio} />
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

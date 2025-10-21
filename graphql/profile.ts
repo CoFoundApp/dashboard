@@ -29,6 +29,7 @@ export type GetMyProfileResult = {
             name: string;
         }>;
         tags: string[];
+        user_id: string;
         visibility: ProfileVisibility;
         website_url: string | null;
         workExperiences: Array<{
@@ -71,6 +72,7 @@ export const GET_MY_PROFILE = gql`
                 name
             }
             tags
+            user_id
             visibility
             website_url
             workExperiences {
@@ -113,6 +115,7 @@ export type GetProfileByIdResult = {
             name: string;
         }>;
         tags: string[];
+        user_id: string;
         visibility: ProfileVisibility;
         website_url: string | null;
         workExperiences: Array<{
@@ -155,6 +158,7 @@ export const GET_PROFILE_BY_ID = gql`
                 name
             }
             tags
+            user_id
             visibility
             website_url
             workExperiences {
