@@ -5,6 +5,7 @@ import DashboardHeader from "./dashboard-header";
 import { GET_DASHBOARD, GetDashboardResult } from "@/graphql/dashboard";
 import { Loader2 } from "lucide-react";
 import DashboardStats from "./dashboard-stats";
+import DashboardSuggestProfiles from "./dashboard-suggest-profiles";
 
 export default function DashboardLayout() {
     const { data, loading, error } = useQuery<GetDashboardResult>(GET_DASHBOARD, {
@@ -49,6 +50,7 @@ export default function DashboardLayout() {
                 applicationsCount={data.myApplications.items.length}
                 conversationsCount={data.conversationsQuery.length} 
             />
+            <DashboardSuggestProfiles />
         </section>
     );
 }
