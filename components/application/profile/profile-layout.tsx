@@ -58,6 +58,9 @@ export default function ProfileLayout({ profileId }: ProfileLayoutProps) {
                 display_name={data.profileById.display_name}
                 headline={data.profileById.headline}
                 avatar_url={data.profileById.avatar_url}
+                location={data.profileById.location}
+                availability_hours={data.profileById.availability_hours}
+                looking_for={data.profileById.looking_for}
                 user_id={data.profileById.user_id}
                 isContactable
             />

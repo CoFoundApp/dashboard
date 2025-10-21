@@ -52,6 +52,9 @@ export default function MyProfileLayout() {
                 display_name={data.myProfile.display_name}
                 headline={data.myProfile.headline}
                 avatar_url={data.myProfile.avatar_url}
+                location={data.myProfile.location}
+                availability_hours={data.myProfile.availability_hours}
+                looking_for={data.myProfile.looking_for}
                 user_id={data.myProfile.user_id}
                 isEditable
             />
