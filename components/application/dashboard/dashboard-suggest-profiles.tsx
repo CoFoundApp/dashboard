@@ -6,7 +6,7 @@ import { Lightbulb, Loader2, Star } from "lucide-react";
 import Link from "next/link";
 
 export default function DashboardSuggestProfiles() {
-    const  { data, loading, error } = useQuery<SuggestProfilesForMeResult>(SUGGEST_PROFILES_FOR_ME, {
+    const { data, loading, error } = useQuery<SuggestProfilesForMeResult>(SUGGEST_PROFILES_FOR_ME, {
         variables: {
             limit: 3,
         },

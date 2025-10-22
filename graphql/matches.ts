@@ -71,3 +71,102 @@ export type SuggestProfilesForMeResult = {
         score: number;
     }[];
 }
+
+export const SUGGEST_PROJECTS_FOR_ME = gql`
+    query SuggestProjectsForMe($input: MatchProjectsInput!) {
+        getBidirectionalProjectMatches(input: $input) {
+            items {
+                project {
+                    id
+                    title
+                    summary
+                }
+                score
+                confidence
+                successProbability
+                dimensionScores {
+                    key
+                    score
+                    confidence
+                    strengths
+                    gaps
+                }
+                forces {
+                    dimension
+                    label
+                    description
+                }
+                gaps {
+                    dimension
+                    label
+                    description
+                    impact
+                }
+                recommendations {
+                    dimension
+                    label
+                    impact
+                    effort
+                    eta
+                    priority
+                }
+                chemistry {
+                    score
+                    successProbability
+                    successConfidence
+                    modelVersion
+                    notes
+                }
+            }
+        }
+    }
+`;
+
+export type SuggestProjectsForMeResult = {
+    getBidirectionalProjectMatches: {
+        items: Array<{
+            project: {
+                id: string;
+                title: string;
+                summary: string;
+            };
+            score: number;
+            confidence: number | null;
+            successProbability: number | null;
+            dimensionScores: Array<{
+                key: string;
+                score: number;
+                confidence: number | null;
+                strengths: string[] | null;
+                gaps: string[] | null;
+            }> | null;
+            forces: Array<{
+                dimension: string;
+                label: string;
+                description: string;
+            }> | null;
+            gaps: Array<{
+                dimension: string;
+                label: string;
+                description: string;
+                impact: string;
+            }> | null;
+            recommendations: Array<{
+                dimension: string;
+                label: string;
+                impact: string;
+                effort: string;
+                eta: string;
+                priority: string;
+            }> | null;
+            chemistry: {
+                score: number;
+                successProbability: number;
+                successConfidence: number;
+                modelVersion: string;
+                notes: string | null;
+            } | null;
+        }>;
+    };
+};
+
