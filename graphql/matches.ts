@@ -11,9 +11,52 @@ export const GET_PROFILEs_MATCHES = gql`
                     user_id
                 }
                 score
+                chemistry {
+                    modelVersion
+                    notes
+                    score
+                    successConfidence
+                    successProbability
+                }
                 competitive {
+                    confidence
+                    percentile
+                    rank
+                    totalCandidates
                     uniqueAdvantages
                 }
+                confidence
+                dimensionScores {
+                    confidence
+                    debug
+                    gaps
+                    key
+                    score
+                    strengths
+                    weight
+                }
+                forces {
+                    description
+                    dimension
+                    label
+                }
+                gaps {
+                    description
+                    dimension
+                    impact
+                    label
+                }
+                recommendations {
+                    detailLevel
+                    dimension
+                    effort
+                    eta
+                    impact
+                    label
+                    priority
+                }
+                successConfidence
+                successProbability
                 contactPlan {
                     title
                     description
@@ -29,20 +72,63 @@ export type GetProfilesMatchesResult = {
             profile: {
                 id: string;
                 display_name: string;
-                headline: string;
-                user_id: string;
+                headline?: string | null;
+                user_id?: string | null;
             };
             score: number;
-            competitive: {
-                uniqueAdvantages: string[];
+            chemistry: {
+                modelVersion: string;
+                notes: string[];
+                score: number;
+                successConfidence: number;
+                successProbability: number;
             };
+            competitive: {
+                confidence: number;
+                percentile?: number | null;
+                rank?: number | null;
+                totalCandidates?: number | null;
+                uniqueAdvantages?: string[] | null;
+            };
+            confidence?: number | null;
+            dimensionScores: Array<{
+                confidence: number;
+                debug?: Record<string, any>;
+                gaps: string[];
+                key: string;
+                score: number;
+                strengths: string[];
+                weight: number;
+            }>;
+            forces: Array<{
+                description: string;
+                dimension: string;
+                label: string;
+            }>;
+            gaps: Array<{
+                description: string;
+                dimension: string;
+                impact: number;
+                label?: string | null;
+            }>;
+            recommendations: Array<{
+                detailLevel?: string | null;
+                dimension: string;
+                effort: number;
+                eta: string;
+                impact: number;
+                label: string;
+                priority: number;
+            }>;
+            successConfidence: number;
+            successProbability: number;
             contactPlan: Array<{
                 title: string;
                 description: string;
-            }>
+            }>;
         }>;
     };
-}
+};
 
 export const SUGGEST_PROFILES_FOR_ME = gql`
     query SuggestProfilesForMe($limit: Int) {
