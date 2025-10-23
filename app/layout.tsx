@@ -9,7 +9,7 @@ const fontSans = FontSans({
     variable: "--font-sans",
 });
 
-const siteUrl = "https://cofound-app.com/"
+const siteUrl = process.env.NEXT_PUBLIC_DASHBOARD_URL || "";
 
 export const metadata: Metadata = {
     title: "CoFound",
