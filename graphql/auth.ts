@@ -15,3 +15,13 @@ export const REGISTER = gql`
         }
     }
 `;
+
+export type VerifyEmailResult = {
+    verifyEmail: boolean;
+}
+
+export const VERIFY_EMAIL = gql`
+    mutation verifyEmail($token: String!) {
+        verifyEmail(token: $token)
+    }
+`;
