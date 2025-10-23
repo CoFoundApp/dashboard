@@ -16,6 +16,12 @@ export const REGISTER = gql`
     }
 `;
 
+export const LOGOUT = gql`
+    mutation Logout {
+        logout
+    }
+`;
+
 export type VerifyEmailResult = {
     verifyEmail: boolean;
 }

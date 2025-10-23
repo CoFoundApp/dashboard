@@ -12,13 +12,14 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
-import { useQuery } from "@apollo/client/react"
+import { useMutation, useQuery } from "@apollo/client/react"
 import { GET_NAVIGATION, type GetNavigationResult } from "@/graphql/navigation"
 import { Skeleton } from "../ui/skeleton"
 import { ChevronDown, LogOut } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
+import { LOGOUT } from "@/graphql/auth"
 
 interface NavUserProps {
     menu?: {
@@ -35,8 +36,11 @@ export default function NavUser({ menu }: NavUserProps) {
         errorPolicy: "all",
     });
 
+    const [logout] = useMutation(LOGOUT);
+
     const handleLogout = async () => {
         try {
+            await logout();
             toast.success("Déconnexion réussie", {
                 description: "À bientôt !",
             });
