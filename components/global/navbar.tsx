@@ -49,7 +49,7 @@ interface NavbarProps {
 
 const Navbar = ({
     logo = {
-        url: process.env.NEXT_PUBLIC_DASHBOARD_URL || "",
+        url: "/",
         alt: "Logo",
         title: "CoFound",
     },
