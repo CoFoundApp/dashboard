@@ -76,7 +76,7 @@ export default function DashboardSuggestProjects({ profile_id }: DashboardSugges
         );
     }
 
-    const projects = data.getBidirectionalProjectMatches.items
+    const projects = data.getBidirectionalProjectMatches.items;
 
     return (
         <div className="space-y-4">
@@ -138,12 +138,12 @@ export default function DashboardSuggestProjects({ profile_id }: DashboardSugges
                                                 <div className="space-y-3 p-4 bg-muted/50 rounded-lg">
                                                     <div className="flex items-center justify-between">
                                                         <span className="text-sm text-muted-foreground">Score global</span>
-                                                        <span className="text-2xl font-bold text-primary">{(suggest.score * 100).toFixed(1)}%</span>
+                                                        <span className="text-2xl font-bold">{(suggest.score * 100).toFixed(1)}%</span>
                                                     </div>
                                                     {suggest.successProbability && (
                                                         <div className="flex items-center justify-between">
                                                             <span className="text-sm text-muted-foreground">Probabilité de succès</span>
-                                                            <span className="text-2xl font-bold text-primary">
+                                                            <span className="text-2xl font-bold">
                                                                 {(suggest.successProbability * 100).toFixed(1)}%
                                                             </span>
                                                         </div>
@@ -151,7 +151,7 @@ export default function DashboardSuggestProjects({ profile_id }: DashboardSugges
                                                     {suggest.confidence && (
                                                         <div className="flex items-center justify-between">
                                                             <span className="text-sm text-muted-foreground">Confiance</span>
-                                                            <span className="text-2xl font-bold text-primary">
+                                                            <span className="text-2xl font-bold">
                                                                 {(suggest.confidence * 100).toFixed(1)}%
                                                             </span>
                                                         </div>
