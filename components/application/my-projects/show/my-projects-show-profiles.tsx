@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import {
     Dialog,
     DialogContent,
@@ -14,7 +15,8 @@ import {
 import { Progress } from "@/components/ui/progress"
 import { GET_PROFILEs_MATCHES, type GetProfilesMatchesResult } from "@/graphql/matches"
 import { useQuery } from "@apollo/client/react"
-import { Info, Lightbulb, Loader2, Star, TrendingUp, AlertCircle, Target } from "lucide-react"
+import { Info, Lightbulb, Loader2, Star, TrendingUp, AlertCircle, Target, ChevronDown } from "lucide-react"
+import Link from "next/link"
 import { useState } from "react"
 
 interface MyProjectsShowProfilesProps {
@@ -50,6 +52,7 @@ const translate = (key: string): string => {
 
 export default function MyProjectsShowProfiles({ projectId }: MyProjectsShowProfilesProps) {
     const [selectedProfile, setSelectedProfile] = useState<any>(null);
+    const [isContactPlanOpen, setIsContactPlanOpen] = useState(false);
 
     const { data, loading, error } = useQuery<GetProfilesMatchesResult>(GET_PROFILEs_MATCHES, {
         variables: {
@@ -299,25 +302,42 @@ export default function MyProjectsShowProfiles({ projectId }: MyProjectsShowProf
                                                 )}
 
                                                 {match.contactPlan && match.contactPlan.length > 0 && (
-                                                    <div className="space-y-3">
-                                                        <h3 className="font-semibold">Plan de contact</h3>
-                                                        <div className="space-y-2">
-                                                            {match.contactPlan.map((step, idx) => (
-                                                                <div key={idx} className="rounded-lg border bg-muted/30 p-3 space-y-1">
-                                                                    <div className="font-medium flex items-center gap-2">
-                                                                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs">
-                                                                            {idx + 1}
-                                                                        </span>
-                                                                        {step.title}
+                                                    <Collapsible open={isContactPlanOpen} onOpenChange={setIsContactPlanOpen}>
+                                                        <div className="space-y-3">
+                                                            <CollapsibleTrigger asChild>
+                                                                <Button
+                                                                    variant="ghost"
+                                                                    className="w-full justify-between p-0 h-auto hover:bg-transparent"
+                                                                >
+                                                                    <h3 className="font-semibold">Plan de contact</h3>
+                                                                    <ChevronDown
+                                                                        className={`h-4 w-4 transition-transform ${isContactPlanOpen ? "rotate-180" : ""}`}
+                                                                    />
+                                                                </Button>
+                                                            </CollapsibleTrigger>
+                                                            <CollapsibleContent className="space-y-2">
+                                                                {match.contactPlan.map((step, idx) => (
+                                                                    <div key={idx} className="rounded-lg border bg-muted/30 p-3 space-y-1">
+                                                                        <div className="font-medium flex items-center gap-2">
+                                                                            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs">
+                                                                                {idx + 1}
+                                                                            </span>
+                                                                            {step.title}
+                                                                        </div>
+                                                                        <p className="text-xs text-muted-foreground leading-relaxed pl-7">
+                                                                            {step.description}
+                                                                        </p>
                                                                     </div>
-                                                                    <p className="text-xs text-muted-foreground leading-relaxed pl-7">
-                                                                        {step.description}
-                                                                    </p>
-                                                                </div>
-                                                            ))}
+                                                                ))}
+                                                            </CollapsibleContent>
                                                         </div>
-                                                    </div>
+                                                    </Collapsible>
                                                 )}
+                                                <div className="pt-4 border-t">
+                                                    <Button asChild className="w-full">
+                                                        <Link href={`/profile/${match.profile.id}`}>Voir le profil</Link>
+                                                    </Button>
+                                                </div>
                                             </div>
                                         </DialogContent>
                                     </Dialog>
