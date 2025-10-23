@@ -41,7 +41,7 @@ export default function ProjectApplyDialog({
         },
         onError: (error) => {
             toast.error("Oups !", {
-                description: error.message || "Une erreur est survenue lors de l'envoi de votre candidature.",
+                description: "Une erreur est survenue lors de l'envoi de votre candidature.",
             });
         },
     })
@@ -91,7 +91,7 @@ export default function ProjectApplyDialog({
             });
         } catch (error) {
             toast.error("Oups !", {
-                description: error.message || "Une erreur est survenue lors de l'envoi de votre candidature.",
+                description: "Une erreur est survenue lors de l'envoi de votre candidature.",
             });
         }
     }

@@ -30,7 +30,7 @@ export default function MyProjectsShowPositions({ projectId }: MyProjectsShowPos
         },
         onError: (error) => {
             toast.error("Oups !", {
-                description: error.message || "Une erreur est survenue lors du retrait de votre candidature.",
+                description: "Une erreur est survenue lors du retrait de votre candidature.",
             });
         },
     });
