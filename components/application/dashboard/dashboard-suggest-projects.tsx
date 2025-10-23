@@ -15,6 +15,7 @@ import { Progress } from "@/components/ui/progress"
 import { SUGGEST_PROJECTS_FOR_ME, type SuggestProjectsForMeResult } from "@/graphql/matches"
 import { useQuery } from "@apollo/client/react"
 import { Loader2, Star } from "lucide-react"
+import Link from "next/link"
 
 interface DashboardSuggestProjectsProps {
     profile_id: string;
@@ -311,6 +312,11 @@ export default function DashboardSuggestProjects({ profile_id }: DashboardSugges
                                                         </div>
                                                     </div>
                                                 )}
+                                                <div className="pt-4 border-t">
+                                                    <Button asChild className="w-full">
+                                                        <Link href={`/projects/${suggest.project.id}`}>Voir le projet</Link>
+                                                    </Button>
+                                                </div>
                                             </div>
                                         </DialogContent>
                                     </Dialog>
