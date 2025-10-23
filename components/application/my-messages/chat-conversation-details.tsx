@@ -239,9 +239,9 @@ export default function ChatConversationDetail({ conversationId, onBack }: ChatC
                         {allMessages.map((message, index) => {
                             const isCurrentUser = message.sender_id === currentUserData?.myProfile.user_id;
                             const previousMessage = index > 0 ? allMessages[index - 1] : null;
-                            const isGrouped = shouldGroupMessages(message, previousMessage, currentUserData?.myProfile.user_id);
+                            const isGrouped = shouldGroupMessages(message, previousMessage);
                             const nextMessage = index < allMessages.length - 1 ? allMessages[index + 1] : null;
-                            const isLastInGroup = !shouldGroupMessages(nextMessage, message, currentUserData?.myProfile.user_id);
+                            const isLastInGroup = !shouldGroupMessages(nextMessage, message);
 
                             return (
                                 <div
