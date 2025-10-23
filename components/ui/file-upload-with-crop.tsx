@@ -40,7 +40,7 @@ interface FileUploadWithCropProps {
     label?: string;
     description?: ReactNode;
     aspectRatio?: number;
-    shape?: "rect" | "circle";
+    shape?: "rectangle" | "circle";
     maxFiles?: number;
 }
 
