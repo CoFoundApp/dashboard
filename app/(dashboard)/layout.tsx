@@ -1,3 +1,4 @@
+import CookieConsentBanner from "@/components/global/cookie-consent";
 import { Footer } from "@/components/global/footer";
 import { Navbar } from "@/components/global/navbar";
 
@@ -11,6 +12,7 @@ export default function ApplicationLayout({
             <Navbar />
             <div className="flex-1">
                 {children}
+                <CookieConsentBanner />
             </div>
             <Footer />
         </div>
