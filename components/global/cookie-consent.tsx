@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useMutation, useQuery } from "@apollo/client/react";
-import { GET_CURRENT_CONSENTS, SET_MY_CONSENT } from "@/graphql/consent";
+import { GET_CURRENT_CONSENTS, GetCurrentConsentsResult, SET_MY_CONSENT } from "@/graphql/consent";
 
 export default function CookieConsentBanner() {
     const [showBanner, setShowBanner] = useState(false);
-    const { data, loading } = useQuery(GET_CURRENT_CONSENTS);
+    const { data, loading } = useQuery<GetCurrentConsentsResult>(GET_CURRENT_CONSENTS);
     const [setConsent] = useMutation(SET_MY_CONSENT);
 
     useEffect(() => {

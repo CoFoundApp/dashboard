@@ -11,6 +11,13 @@ export const SET_MY_CONSENT = gql`
     }
 `;
 
+export type GetCurrentConsentsResult = {
+    myCurrentConsents: Array<{
+        consent_type: string;
+        granted: boolean;
+    }>;
+}
+
 export const GET_CURRENT_CONSENTS = gql`
     query MyCurrentConsents {
         myCurrentConsents {
