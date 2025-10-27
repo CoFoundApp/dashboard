@@ -151,6 +151,7 @@ export function FileUploadWithCrop({
                                     <Button
                                         variant="ghost"
                                         size="icon"
+                                        type="button"
                                         className="size-8"
                                         onClick={() => openCropDialog(file)}
                                     >
@@ -214,10 +215,10 @@ export function FileUploadWithCrop({
                         </div>
                     )}
                     <DialogFooter>
-                        <Button onClick={resetCrop} variant="outline">
+                        <Button onClick={resetCrop} variant="outline" type="button">
                             Réinitialiser
                         </Button>
-                        <Button onClick={handleCropApply} disabled={!croppedArea}>
+                        <Button onClick={handleCropApply} type="button" disabled={!croppedArea}>
                             Rogner
                         </Button>
                     </DialogFooter>

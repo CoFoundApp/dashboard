@@ -30,7 +30,7 @@ export default function IntroductionProForm() {
                 name="availability_hours"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Heures disponibles</FormLabel>
+                        <FormLabel>Heures disponibles (par semaine)</FormLabel>
                         <FormControl>
                             <Input
                                 type="number"
