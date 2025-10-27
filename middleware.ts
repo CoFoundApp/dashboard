@@ -1,12 +1,18 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
+const GENERAL_PATHS = ["/privacy-policy", "/terms-and-conditions"]
 const PUBLIC_PATHS = ["/login", "/register", "/forgot-password"]
 
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
-    const isPublicPath = PUBLIC_PATHS.some(path => pathname.startsWith(path));
 
+    const isGeneralPath = GENERAL_PATHS.some(path => pathname.startsWith(path));
+    if (isGeneralPath) {
+        return NextResponse.next();
+    }
+
+    const isPublicPath = PUBLIC_PATHS.some(path => pathname.startsWith(path));
     if (isPublicPath) {
         const accessToken = request.cookies.get("access_token");
         
