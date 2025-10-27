@@ -31,3 +31,31 @@ export const VERIFY_EMAIL = gql`
         verifyEmail(token: $token)
     }
 `;
+
+export type StartOAuthResult = {
+    startOAuth: {
+        url: string;
+    }
+};
+
+export const START_OAUTH = gql`
+    mutation StartOAuth($provider: OAuthProvider!, $redirectUri: String!) {
+        startOAuth(provider: $provider, redirectUri: $redirectUri) {
+            url
+        }
+    }
+`;
+
+export type CompleteOAuthResult = {
+    completeOAuth: {
+        __typename: string;
+    }
+}
+
+export const COMPLETE_OAUTH = gql`
+    mutation CompleteOAuth($input: CompleteOAuthInput!) {
+        completeOAuth(input: $input) {
+            __typename
+        }
+    }
+`;

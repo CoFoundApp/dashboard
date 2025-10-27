@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
 const GENERAL_PATHS = ["/privacy-policy", "/terms-and-conditions"]
-const PUBLIC_PATHS = ["/login", "/register", "/forgot-password"]
+const PUBLIC_PATHS = ["/login", "/register", "/forgot-password", "/oauth/google/callback"]
 
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
