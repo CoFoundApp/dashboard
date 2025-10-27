@@ -59,3 +59,13 @@ export const COMPLETE_OAUTH = gql`
         }
     }
 `;
+
+export type RequestPasswordResetResult = {
+    requestPasswordReset: boolean;
+}
+
+export const REQUEST_PASSWORD_RESET = gql`
+    mutation RequestPasswordReset($input: RequestPasswordResetInput!) {
+        requestPasswordReset(input: $input)
+    }
+`;

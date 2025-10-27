@@ -35,3 +35,11 @@ export const RegisterSchema = z.object({
     path: ["confirmPassword"],
     message: "Les mots de passe ne correspondent pas.",
 });
+
+export const RequestPasswordResetSchema = z.object({
+    email: z
+        .string()
+        .email({
+            message: "Vous devez renseigner une adresse e-mail valide.",
+        }),
+});
