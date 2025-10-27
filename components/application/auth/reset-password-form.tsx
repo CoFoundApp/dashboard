@@ -1,25 +1,27 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { RequestPasswordResetSchema, ResetPasswordSchema } from "@/schemas/auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, Loader2 } from "lucide-react";
-import { useMutation } from '@apollo/client/react';
-import { useRouter, useSearchParams } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import z from "zod";
-import { RESET_PASSWORD } from "@/graphql/auth";
-import { useState } from "react";
+import { Button } from "@/components/ui/button"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { ResetPasswordSchema } from "@/schemas/auth"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Eye, EyeOff, Loader2 } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import type z from "zod"
+import { RESET_PASSWORD } from "@/graphql/auth"
+import { useState } from "react"
+import { useMutation } from "@apollo/client/react"
 
-export default function ResetPasswordForm() {
-    const [showPassword, setShowPassword] = useState(false);
-    
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const [resetPassword, { loading }] = useMutation(RESET_PASSWORD);
+interface ResetPasswordFormProps {
+    token: string
+}
+
+export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
+    const [showPassword, setShowPassword] = useState(false)
+    const router = useRouter()
+    const [resetPassword, { loading }] = useMutation(RESET_PASSWORD)
 
     const form = useForm<z.infer<typeof ResetPasswordSchema>>({
         resolver: zodResolver(ResetPasswordSchema),
@@ -28,37 +30,29 @@ export default function ResetPasswordForm() {
             confirmPassword: "",
         },
         mode: "onTouched",
-    });
+    })
 
     const onSubmit = (values: z.infer<typeof ResetPasswordSchema>) => {
-        const token = searchParams.get("token");
-        const { password } = values;
-
-        if (!token) {
-            toast.error("Réinitialisation échouée !", {
-                description: "Le lien de réinitialisation est invalide ou a expiré.",
-            });
-        }
-
-        resetPassword({ 
-            variables: { 
+        const { password } = values
+        resetPassword({
+            variables: {
                 input: {
                     token,
-                    password 
-                }
-            } 
+                    password,
+                },
+            },
         })
-            .then(() => {
-                toast.success("Réinitialisation réussie !", {
-                    description: "Vous avez réinitialisé votre mot de passe avec succès.",
-                });
-                router.push("/");
-            })
-            .catch((err: Error) => {
-                toast.error("Oups !", {
-                    description: err.message || "Une erreur est survenue.",
-                });
+        .then(() => {
+            toast.success("Réinitialisation réussie !", {
+                description: "Vous avez réinitialisé votre mot de passe avec succès.",
             });
+            router.push("/login");
+        })
+        .catch((err: Error) => {
+            toast.error("Oups !", {
+                description: err.message || "Une erreur est survenue.",
+            });
+        })
     }
 
     return (
@@ -74,11 +68,7 @@ export default function ResetPasswordForm() {
                                     <FormLabel>Mot de passe</FormLabel>
                                     <FormControl>
                                         <div className="relative">
-                                            <Input
-                                                type={showPassword ? "text" : "password"}
-                                                {...field}
-                                                disabled={loading}
-                                            />
+                                            <Input type={showPassword ? "text" : "password"} {...field} disabled={loading} />
                                             <button
                                                 type="button"
                                                 onClick={() => setShowPassword(!showPassword)}
@@ -101,11 +91,7 @@ export default function ResetPasswordForm() {
                                 <FormItem>
                                     <FormLabel>Mot de passe (Confirmation)</FormLabel>
                                     <FormControl>
-                                        <Input
-                                            type="password"
-                                            {...field}
-                                            disabled={loading}
-                                        />
+                                        <Input type="password" {...field} disabled={loading} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
