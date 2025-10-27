@@ -69,3 +69,13 @@ export const REQUEST_PASSWORD_RESET = gql`
         requestPasswordReset(input: $input)
     }
 `;
+
+export type ResetPasswordResult = {
+    resetPassword: boolean;
+}
+
+export const RESET_PASSWORD = gql`
+    mutation ResetPassword($input: ResetPasswordInput!) {
+        resetPassword(input: $input)
+    }
+`;
