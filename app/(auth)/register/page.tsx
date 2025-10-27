@@ -16,8 +16,8 @@ export default function RegisterPage() {
                 </CardContent>
             </Card>
             <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-                En cliquant sur « Continuer », vous acceptez nos <a href="#">Conditions d&apos;utilisation</a>{" "}
-                et notre <a href="#">Politique de confidentialité</a>.
+                En cliquant sur « Continuer », vous acceptez nos <a href="/terms-and-conditions">Conditions d&apos;utilisation</a>{" "}
+                et notre <a href="/privacy-policy">Politique de confidentialité</a>.
             </div>
         </div>
     );

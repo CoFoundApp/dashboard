@@ -9,8 +9,8 @@ interface FooterProps {
 const Footer = ({
     copyright = "© 2025 CoFound. Tous droits réservés.",
     bottomLinks = [
-        { text: "Mentions légales", url: `${process.env.NEXT_PUBLIC_LANDING_URL}/mentions-legales` },
-        { text: "Politique de confidentialité", url: `${process.env.NEXT_PUBLIC_LANDING_URL}/politique-confidentialite` },
+        { text: "Mentions légales", url: `${process.env.NEXT_PUBLIC_LANDING_URL}/terms-and-conditions` },
+        { text: "Politique de confidentialité", url: `${process.env.NEXT_PUBLIC_LANDING_URL}/privacy-policy` },
     ],
 }: FooterProps) => {
     return (
