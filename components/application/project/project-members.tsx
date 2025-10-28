@@ -129,7 +129,7 @@ export default function ProjectMembers({ projectId, userId, isOwner }: ProjectMe
                                     </div>
                                 </CardHeader>
                                 <CardFooter className="flex gap-2 items-center justify-end">
-                                    {isOwner && member.users.id !== userId && (
+                                    {isOwner && member.role !== "OWNER" && (
                                         <AlertDialog>
                                             <AlertDialogTrigger asChild>
                                                 <Button 
