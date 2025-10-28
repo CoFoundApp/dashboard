@@ -10,7 +10,7 @@ interface ProfileHeaderProps {
     headline: string;
     avatar_url: string | null;
     location: string | null;
-    availability_hours: string | null;
+    availability_hours: number | null;
     looking_for: string | null;
     user_id: string;
     isEditable?: boolean;
@@ -49,7 +49,7 @@ export default function ProfileHeader({
                     <div className="flex items-center gap-2">
                         {looking_for && <Badge variant="secondary">{looking_for}</Badge>}
                         {location && <Badge variant="outline">{location}</Badge>}
-                        {availability_hours && <Badge variant="outline">{availability_hours}h/semaine</Badge>}
+                        {availability_hours !== 0 && <Badge variant="outline">{availability_hours}h/semaine</Badge>}
                     </div>
                 </div>
             </div>

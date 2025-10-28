@@ -5,7 +5,7 @@ export type ProfileVisibility = "PRIVATE" | "PUBLIC" | "UNLISTED";
 export type GetMyProfileResult = {
     myProfile: {
         avatar_url: string | null;
-        availability_hours: string | null;
+        availability_hours: number | null;
         bio: string | null;
         display_name: string;
         educations: Array<{
@@ -91,7 +91,7 @@ export const GET_MY_PROFILE = gql`
 export type GetProfileByIdResult = {
     profileById: {
         avatar_url: string | null;
-        availability_hours: string | null;
+        availability_hours: number | null;
         bio: string | null;
         display_name: string;
         educations: Array<{
