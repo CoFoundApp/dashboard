@@ -14,8 +14,8 @@ import { toast } from "sonner";
 
 interface ProjectMembersProps {
     projectId: string;
-    userId: string;
-    isOwner: boolean;
+    userId?: string;
+    isOwner?: boolean;
 }
 
 export default function ProjectMembers({ projectId, userId, isOwner }: ProjectMembersProps) {
