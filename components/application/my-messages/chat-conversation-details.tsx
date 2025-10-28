@@ -188,7 +188,7 @@ export default function ChatConversationDetail({ conversationId, onBack }: ChatC
                 >
                     <Avatar className="h-10 w-10 shadow-sm">
                         {otherParticipant?.profile?.avatar_url && (
-                            <AvatarImage src={otherParticipant.profile.avatar_url || "/placeholder.svg"} alt={displayName} />
+                            <AvatarImage src={otherParticipant.profile.avatar_url} alt={displayName} />
                         )}
                         <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
                             {displayName.charAt(0).toUpperCase()}
@@ -258,7 +258,7 @@ export default function ChatConversationDetail({ conversationId, onBack }: ChatC
                                             >
                                                 {otherParticipant?.profile?.avatar_url && (
                                                     <AvatarImage
-                                                        src={otherParticipant.profile.avatar_url || "/placeholder.svg"}
+                                                        src={otherParticipant.profile.avatar_url}
                                                         alt={displayName}
                                                     />
                                                 )}

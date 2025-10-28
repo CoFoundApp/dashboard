@@ -19,7 +19,7 @@ export default function IntroductionGeneralForm() {
                         <FormLabel>Nom d&apos;utilisateur</FormLabel>
                         <FormControl>
                             <Input
-                                placeholder="Mark Evans"
+                                placeholder="Entrez votre nom d'utilisateur..."
                                 {...field}
                             />
                         </FormControl>
@@ -35,7 +35,7 @@ export default function IntroductionGeneralForm() {
                         <FormLabel>Titre</FormLabel>
                         <FormControl>
                             <Input
-                                placeholder="Gardien de but"
+                                placeholder="Entrez votre titre..."
                                 {...field}
                             />
                         </FormControl>
@@ -51,7 +51,7 @@ export default function IntroductionGeneralForm() {
                         <FormLabel>Description</FormLabel>
                         <FormControl>
                             <Textarea 
-                                placeholder="Gardien de but, libéro et capitaine de l'équipe du collège Raimon"
+                                placeholder="Entrez votre description..."
                                 {...field}
                             />
                         </FormControl>

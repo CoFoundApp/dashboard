@@ -66,7 +66,7 @@ export default function ProfileEditExperiencesForm() {
                                             <FormItem>
                                                 <FormLabel>Entreprise</FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="Google" {...field} />
+                                                    <Input placeholder="Entrez votre entreprise..." {...field} />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -80,7 +80,7 @@ export default function ProfileEditExperiencesForm() {
                                         <FormItem>
                                             <FormLabel>Titre du poste</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="Développeur Full Stack" {...field} />
+                                                <Input placeholder="Entrez votre titre..." {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -95,7 +95,7 @@ export default function ProfileEditExperiencesForm() {
                                         <FormItem>
                                             <FormLabel>Localisation</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="Paris, France" {...field} />
+                                                <Input placeholder="Entrez votre localisation..." {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>

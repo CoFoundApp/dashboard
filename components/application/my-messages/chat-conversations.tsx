@@ -82,7 +82,7 @@ export default function ChatConversations({ onSelectConversation, selectedConver
                                         <Avatar className="h-12 w-12 shadow-sm">
                                             {otherParticipant?.profile?.avatar_url && (
                                                 <AvatarImage
-                                                    src={otherParticipant.profile.avatar_url || "/placeholder.svg"}
+                                                    src={otherParticipant.profile.avatar_url}
                                                     alt={displayName}
                                                 />
                                             )}

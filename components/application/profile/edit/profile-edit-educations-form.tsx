@@ -64,7 +64,7 @@ export default function ProfileEditEducationsForm() {
                                         <FormItem>
                                             <FormLabel>École / Université</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="Université de Paris" {...field} />
+                                                <Input placeholder="Entrez votre école..." {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -79,7 +79,7 @@ export default function ProfileEditEducationsForm() {
                                             <FormItem>
                                                 <FormLabel>Diplôme</FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="Master" {...field} />
+                                                    <Input placeholder="Entrez votre diplôme..." {...field} />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -93,7 +93,7 @@ export default function ProfileEditEducationsForm() {
                                             <FormItem>
                                                 <FormLabel>Domaine d'études</FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="Informatique" {...field} />
+                                                    <Input placeholder="Entrez votre domaine..." {...field} />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>

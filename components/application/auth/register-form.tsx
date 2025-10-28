@@ -110,7 +110,7 @@ export default function RegisterForm() {
                                     <FormLabel>Adresse e-mail</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="dark-vador@etoile-noir.com"
+                                            placeholder="Entrez votre adresse e-mail..."
                                             {...field}
                                             disabled={loading || oauthLoading}
                                         />

@@ -75,7 +75,7 @@ export default function IntroductionExperiencesForm() {
                                 <FormItem>
                                     <FormLabel>École / Université</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Université de Paris" {...field} />
+                                        <Input placeholder="Entrez votre école..." {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -90,7 +90,7 @@ export default function IntroductionExperiencesForm() {
                                     <FormItem>
                                         <FormLabel>Diplôme</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Master" {...field} />
+                                            <Input placeholder="Entrez votre diplôme..." {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -104,7 +104,7 @@ export default function IntroductionExperiencesForm() {
                                     <FormItem>
                                         <FormLabel>Domaine d'études</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Informatique" {...field} />
+                                            <Input placeholder="Entrez votre domaine..." {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -215,7 +215,7 @@ export default function IntroductionExperiencesForm() {
                                 <FormItem>
                                     <FormLabel>Entreprise</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Google" {...field} />
+                                        <Input placeholder="Entrez votre entreprise..." {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -229,7 +229,7 @@ export default function IntroductionExperiencesForm() {
                                 <FormItem>
                                     <FormLabel>Titre du poste</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Développeur Full Stack" {...field} />
+                                        <Input placeholder="Entrez votre titre..." {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -244,7 +244,7 @@ export default function IntroductionExperiencesForm() {
                                 <FormItem>
                                     <FormLabel>Localisation</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Paris, France" {...field} />
+                                        <Input placeholder="Entrez votre localisation..." {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

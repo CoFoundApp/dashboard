@@ -18,7 +18,7 @@ export default function MyProjectsCard({ project }: MyProjectsCardProps) {
                     <div className="flex items-start justify-between gap-4">
                         <div className="flex flex-1 items-start gap-3">
                             <Avatar className="size-12 shrink-0">
-                                <AvatarImage src={project.avatar_url || "/placeholder.svg"} alt={project.title} />
+                                <AvatarImage src={project.avatar_url} alt={project.title} />
                                 <AvatarFallback className="bg-primary text-sm font-medium text-primary-foreground">
                                     {project.title.charAt(0).toUpperCase()}
                                 </AvatarFallback>

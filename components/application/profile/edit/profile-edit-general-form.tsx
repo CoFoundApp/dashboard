@@ -24,7 +24,7 @@ export default function ProfileEditGeneralForm() {
                                     <FormLabel>Nom d'utilisateur</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="Mark Evans"
+                                            placeholder="Entrez votre nom d'utilisateur..."
                                             {...field}
                                         />
                                     </FormControl>
@@ -72,7 +72,7 @@ export default function ProfileEditGeneralForm() {
                                     <FormLabel>Titre</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="Gardien de but"
+                                            placeholder="Entrez votre titre..."
                                             {...field}
                                         />
                                     </FormControl>
@@ -90,7 +90,7 @@ export default function ProfileEditGeneralForm() {
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
                                         <Textarea 
-                                            placeholder="Gardien de but, libéro et capitaine de l'équipe du collège Raimon"
+                                            placeholder="Entrez votre description..."
                                             {...field}
                                         />
                                     </FormControl>

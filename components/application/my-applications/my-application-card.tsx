@@ -54,7 +54,7 @@ export default function MyApplicationCard({ application }: MyApplicationCardProp
             <CardHeader>
                 <div className="flex items-start gap-3">
                     <Avatar className="size-12 shrink-0">
-                        <AvatarImage src={application.project?.avatar_url || "/placeholder.svg"} alt={application.project?.title} />
+                        <AvatarImage src={application.project?.avatar_url} alt={application.project?.title} />
                         <AvatarFallback className="bg-primary text-primary-foreground">{application.project?.title?.charAt(0)}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1 min-w-0">

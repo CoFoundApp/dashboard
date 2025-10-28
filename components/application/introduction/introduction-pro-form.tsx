@@ -17,7 +17,7 @@ export default function IntroductionProForm() {
                         <FormLabel>Localisation</FormLabel>
                         <FormControl>
                             <Input
-                                placeholder="Raimon"
+                                placeholder="Entrez votre localisation..."
                                 {...field}
                             />
                         </FormControl>
@@ -40,7 +40,7 @@ export default function IntroductionProForm() {
                                 onChange={(e) =>
                                     field.onChange(e.target.value === "" ? undefined : e.target.valueAsNumber)
                                 }
-                                placeholder="35"
+                                placeholder="Entrez vos disponibilités..."
                             />
                         </FormControl>
                         <FormMessage />
@@ -55,7 +55,7 @@ export default function IntroductionProForm() {
                         <FormLabel>Ce que vous recherchez</FormLabel>
                         <FormControl>
                             <Input
-                                placeholder="Gagner le Football Frontier"
+                                placeholder="Entrez votre objectif..."
                                 {...field}
                             />
                         </FormControl>

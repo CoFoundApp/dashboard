@@ -21,7 +21,7 @@ export default function ProfileEditProForm() {
                                     <FormLabel>Localisation</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="Raimon"
+                                            placeholder="Entrez votre localisation..."
                                             {...field}
                                         />
                                     </FormControl>
@@ -46,7 +46,7 @@ export default function ProfileEditProForm() {
                                             onChange={(e) =>
                                                 field.onChange(e.target.value === "" ? 0 : e.target.valueAsNumber)
                                             }
-                                            placeholder="35"
+                                            placeholder="Entrez vos disponibilités..."
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -63,7 +63,7 @@ export default function ProfileEditProForm() {
                                     <FormLabel>Ce que vous recherchez</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="Gagner le Football Frontier"
+                                            placeholder="Entrez votre objectif..."
                                             {...field}
                                         />
                                     </FormControl>

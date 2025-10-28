@@ -60,7 +60,7 @@ export default function ForgotPasswordForm() {
                                     <FormLabel>Adresse e-mail</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="harry-potter@poudlard.com"
+                                            placeholder="Entrez votre adresse e-mail..."
                                             {...field}
                                             disabled={loading}
                                         />
