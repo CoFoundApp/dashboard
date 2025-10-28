@@ -3,9 +3,9 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { DELETE_PROJECT, ProjectStage, ProjectStatus } from "@/graphql/projects";
+import { DELETE_PROJECT, LEAVE_PROJECT, ProjectStage, ProjectStatus } from "@/graphql/projects";
 import { projectStageLabels, projectStatusLabels } from "@/lib/utils";
-import { Edit, Trash2, X } from "lucide-react";
+import { DoorClosed, Edit, Trash2, X } from "lucide-react";
 import ProjectApplyDialog from "./project-apply-dialog";
 import { useMutation } from "@apollo/client/react";
 import { toast } from "sonner";
@@ -25,6 +25,7 @@ interface ProjectHeaderProps {
     isEditable?: boolean;
     isCandidate?: boolean;
     isContactable?: boolean;
+    isLeavable?: boolean;
 }
 
 export default function ProjectHeader({
@@ -38,9 +39,11 @@ export default function ProjectHeader({
     isRemovable = false,
     isEditable = false,
     isCandidate = false,
+    isLeavable = false,
 }: ProjectHeaderProps) {
     const router = useRouter();
     const [deleteProject, { loading: deleting }] = useMutation(DELETE_PROJECT);
+    const [leaveProject, { loading: leaving }] = useMutation(LEAVE_PROJECT);
 
     const handleDelete = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -57,6 +60,26 @@ export default function ProjectHeader({
             })
             .catch((err: Error) => {
                 console.log(err)
+                toast.error("Oups !", {
+                    description: err.message || "Une erreur est survenue.",
+                });
+            })
+    }
+
+    const handleLeave = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        leaveProject({
+            variables: {
+                project_id: projectId
+            }
+        })
+            .then(() => {
+                router.push("/my-projects");
+                toast.success("Projet quitté !", {
+                    description: "Vous avez quitté le projet avec succès.",
+                });
+            })
+            .catch((err: Error) => {
                 toast.error("Oups !", {
                     description: err.message || "Une erreur est survenue.",
                 });
@@ -89,6 +112,35 @@ export default function ProjectHeader({
                 </div>
             </div>
             <div className="flex items-center gap-4">
+                {isLeavable && (
+                    <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                            <Button 
+                                variant="ghost" 
+                                className="text-destructive hover:text-destructive"
+                                onClick={(e) => e.stopPropagation()}
+                                disabled={deleting}
+                            >
+                                <DoorClosed className="size-4 mr-1 text-destructive" />
+                                Quitter le projet
+                            </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent onClick={(e) => e.stopPropagation()}>
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>Quitter le projet ?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    Êtes-vous sûr de vouloir quitter le projet ? Cette action est irréversible.
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                                <AlertDialogCancel onClick={(e) => e.stopPropagation()}>Annuler</AlertDialogCancel>
+                                <AlertDialogAction onClick={handleLeave} disabled={leaving}>
+                                    {leaving ? "Chargement..." : "Quitter"}
+                                </AlertDialogAction>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
+                )}
                 {isRemovable && (
                     <AlertDialog>
                         <AlertDialogTrigger asChild>

@@ -74,6 +74,8 @@ export default function ProjectApplyDialog({
         );
     }
 
+    const positions = data.listProjectPositions.filter((position) => position.status === "OPEN");
+
     const handleSubmit = async () => {
         if (!note.trim() || !positionId) {
             return;
@@ -116,7 +118,7 @@ export default function ProjectApplyDialog({
                                 <SelectValue placeholder="Sélectionnez un poste à candidater..." />
                             </SelectTrigger>
                             <SelectContent>
-                                {data.listProjectPositions.map((position) => (
+                                {positions.map((position) => (
                                     <SelectItem key={position.id} value={position.id}>{position.title}</SelectItem>
                                 ))}
                             </SelectContent>

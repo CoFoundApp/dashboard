@@ -42,6 +42,9 @@ export const GET_MY_PROJECTS = gql`
 `;
 
 export type GetProjectByIdResult = {
+    myProfile: {
+        user_id: string;
+    };
     projectById: {
         id: string;
         title: string;
@@ -62,6 +65,9 @@ export type GetProjectByIdResult = {
 
 export const GET_PROJECT_BY_ID = gql`
     query GetProjectById($id: String!) {
+        myProfile {
+            user_id
+        }
         projectById(id: $id) {
             avatar_url
             banner_url
@@ -280,5 +286,17 @@ export const UPDATE_PROJECT = gql`
         updateProject(id: $id, input: $input) {
             __typename
         }
+    }
+`;
+
+export const LEAVE_PROJECT = gql`
+    mutation LeaveProject($project_id: String!) {
+        leaveProject(project_id: $project_id)
+    }
+`;
+
+export const REMOVE_PROJECT_MEMBER = gql`
+    mutation RemoveProjectMember($project_id: String!, $user_id: String!) {
+        removeProjectMember(project_id: $project_id, user_id: $user_id)
     }
 `;

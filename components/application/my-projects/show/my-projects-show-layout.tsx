@@ -53,6 +53,8 @@ export default function MyProjectsShowLayout({ projectId }: MyProjectsShowLayout
         );
     }
 
+    const isOwner = data.myProfile.user_id === data.projectById.owner_id;
+
     return (
         <section className="space-y-12">
             <ProjectHeader
@@ -63,8 +65,9 @@ export default function MyProjectsShowLayout({ projectId }: MyProjectsShowLayout
                 industry={data.projectById.industry}
                 stage={data.projectById.stage}
                 status={data.projectById.status}
-                isEditable
-                isRemovable
+                isLeavable={!isOwner}
+                isEditable={isOwner}
+                isRemovable={isOwner}
             />
             <ProjectDescription description={data.projectById.description} />
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -72,7 +75,7 @@ export default function MyProjectsShowLayout({ projectId }: MyProjectsShowLayout
                 <ProjectInterests interests={data.projectById.project_interests} />
                 <ProjectTags tags={data.projectById.tags} />
             </div>
-            <ProjectMembers projectId={projectId} />
+            <ProjectMembers projectId={projectId} userId={data.myProfile.user_id} isOwner />
             <MyProjectsShowPositions projectId={projectId} />
             <MyProjectsShowApplies projectId={projectId} />
             <MyProjectsShowProfiles projectId={projectId} />

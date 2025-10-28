@@ -44,7 +44,7 @@ export default function ProfileEditProForm() {
                                             step={1}
                                             value={field.value ?? ""}
                                             onChange={(e) =>
-                                                field.onChange(e.target.value === "" ? undefined : e.target.valueAsNumber)
+                                                field.onChange(e.target.value === "" ? 0 : e.target.valueAsNumber)
                                             }
                                             placeholder="35"
                                         />

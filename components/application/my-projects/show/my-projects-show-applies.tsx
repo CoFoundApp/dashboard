@@ -8,6 +8,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/ca
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { ApplicationStatus, DECIDE_PROJECT_APPLICATION, GET_PROJECT_APPLICATIONS, GetProjectApplicationsResult } from "@/graphql/application";
+import { GET_PROJECT_MEMBERS } from "@/graphql/projects";
 import { applicationStatusLabels } from "@/lib/utils";
 import { useMutation, useQuery } from "@apollo/client/react";
 import { Check, FileText, Loader2, X } from "lucide-react";
@@ -45,6 +46,10 @@ export default function MyProjectsShowApplies({ projectId }: MyProjectsShowAppli
                 query: GET_PROJECT_APPLICATIONS,
                 variables: { project_id: projectId },
             },
+            {
+                query: GET_PROJECT_MEMBERS,
+                variables: { project_id: projectId },
+            }
         ],
     });
 
