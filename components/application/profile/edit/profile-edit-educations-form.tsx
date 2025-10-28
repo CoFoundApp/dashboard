@@ -11,7 +11,7 @@ export default function ProfileEditEducationsForm() {
 
     const {
         fields: educationFields,
-        append: appendEducation,
+        prepend: prependEducation,
         remove: removeEducation,
     } = useFieldArray({
         control,
@@ -32,7 +32,7 @@ export default function ProfileEditEducationsForm() {
                                 variant="outline"
                                 size="sm"
                                 onClick={() =>
-                                    appendEducation({
+                                    prependEducation({
                                         school: "",
                                         degree: "",
                                         field_of_study: "",
@@ -159,9 +159,6 @@ export default function ProfileEditEducationsForm() {
                                 />
                             </div>
                         ))}
-                    </div>
-                    <div className="col-span-full">
-
                     </div>
                 </div>
             </div>

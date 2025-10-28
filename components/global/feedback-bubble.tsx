@@ -12,7 +12,7 @@ export function FeedbackBubble() {
         <div className="fixed bottom-6 right-6 z-50">
             {isOpen ? (
                 <Card className="mb-4 w-80 shadow-lg animate-in slide-in-from-bottom-2">
-                    <CardHeader className="pb-3">
+                    <CardHeader>
                         <div className="flex items-start justify-between">
                             <CardTitle className="text-lg">Aidez-nous à faire grandir CoFound 🚀</CardTitle>
                             <Button

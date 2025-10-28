@@ -13,7 +13,7 @@ export default function ProfileEditExperiencesForm() {
 
     const {
         fields: workFields,
-        append: appendWork,
+        prepend: prependWork,
         remove: removeWork,
     } = useFieldArray({
         control,
@@ -34,8 +34,8 @@ export default function ProfileEditExperiencesForm() {
                                 variant="outline"
                                 size="sm"
                                 onClick={() =>
-                                    appendWork({
-                                        work: "",
+                                    prependWork({
+                                        company: "",
                                         title: "",
                                         location: "",
                                         start_date: "",

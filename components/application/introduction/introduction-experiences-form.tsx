@@ -16,7 +16,7 @@ export default function IntroductionExperiencesForm() {
 
     const {
         fields: educationFields,
-        append: appendEducation,
+        prepend: prependEducation,
         remove: removeEducation,
     } = useFieldArray({
         control,
@@ -25,7 +25,7 @@ export default function IntroductionExperiencesForm() {
 
     const {
         fields: workFields,
-        append: appendWork,
+        prepend: prependWork,
         remove: removeWork,
     } = useFieldArray({
         control,
@@ -42,7 +42,7 @@ export default function IntroductionExperiencesForm() {
                         variant="outline"
                         size="sm"
                         onClick={() =>
-                            appendEducation({
+                            prependEducation({
                                 school: "",
                                 degree: "",
                                 field_of_study: "",
@@ -182,7 +182,7 @@ export default function IntroductionExperiencesForm() {
                         variant="outline"
                         size="sm"
                         onClick={() =>
-                            appendWork({
+                            prependWork({
                                 company: "",
                                 title: "",
                                 location: "",
