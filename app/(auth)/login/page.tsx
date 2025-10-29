@@ -1,5 +1,10 @@
 import LoginForm from "@/components/application/auth/login-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "CoFound - Connexion",
+}
 
 export default function LoginPage() {
     return (

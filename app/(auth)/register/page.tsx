@@ -1,5 +1,10 @@
 import RegisterForm from "@/components/application/auth/register-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "CoFound - Inscription",
+}
 
 export default function RegisterPage() {
     return (

@@ -1,5 +1,10 @@
 import ResetPasswordForm from "@/components/application/auth/reset-password-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "CoFound - Réinitialisation du mot de passe",
+}
 
 interface ResetPasswordPageProps {
   searchParams: Promise<{ token?: string }>
