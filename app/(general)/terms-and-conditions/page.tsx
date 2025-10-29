@@ -33,7 +33,7 @@ export default function TermsAndConditionsPage() {
                   <strong className="text-foreground">Ludovic ROUX</strong>, agissant à titre professionnel en attente
                   de création de la société <strong className="text-foreground">CoFound SAS</strong>.
                 </p>
-                <p>Adresse : [adresse postale professionnelle d'un des fondateurs]</p>
+                <p>Adresse : Adresse professionnelle communiquée sur demande pour des raisons de confidentialité.</p>
                 <p>
                   E-mail :{" "}
                   <a href="mailto:contact@cofounds.app" className="font-medium text-foreground hover:underline">
