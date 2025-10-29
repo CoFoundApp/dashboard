@@ -418,7 +418,7 @@ function FileUploadRoot(props: FileUploadRootProps) {
               store.dispatch({
                 type: "SET_ERROR",
                 file,
-                error: error.message ?? "Upload failed",
+                error: error.message ?? "Échec de l’envoi du fichier",
               });
             },
           });
@@ -429,7 +429,7 @@ function FileUploadRoot(props: FileUploadRootProps) {
         }
       } catch (error) {
         const errorMessage =
-          error instanceof Error ? error.message : "Upload failed";
+          error instanceof Error ? error.message : "Échec de l’envoi du fichier";
         for (const file of files) {
           store.dispatch({
             type: "SET_ERROR",
@@ -460,7 +460,7 @@ function FileUploadRoot(props: FileUploadRootProps) {
           filesToProcess = filesToProcess.slice(0, remainingSlotCount);
 
           for (const file of rejectedFiles) {
-            let rejectionMessage = `Maximum ${maxFiles} files allowed`;
+            let rejectionMessage = `Maximum ${maxFiles} fichiers autorisés`;
 
             if (onFileValidate) {
               const validationMessage = onFileValidate(file);
@@ -505,7 +505,7 @@ function FileUploadRoot(props: FileUploadRootProps) {
                   fileType.startsWith(type.replace("/*", "/"))),
             )
           ) {
-            rejectionMessage = "File type not accepted";
+            rejectionMessage = "Type de fichier non accepté";
             onFileReject?.(file, rejectionMessage);
             rejected = true;
             invalid = true;
@@ -513,7 +513,7 @@ function FileUploadRoot(props: FileUploadRootProps) {
         }
 
         if (maxSize && file.size > maxSize) {
-          rejectionMessage = "File too large";
+          rejectionMessage = "Fichier trop volumineux";
           onFileReject?.(file, rejectionMessage);
           rejected = true;
           invalid = true;
