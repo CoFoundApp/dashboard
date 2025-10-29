@@ -1,5 +1,5 @@
 import { FileUploadWithCrop } from "@/components/ui/file-upload-with-crop";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useFormContext } from "react-hook-form";
@@ -63,6 +63,7 @@ export default function MyProjectsGeneralForm() {
                                             {...field}
                                         />
                                     </FormControl>
+                                    <FormDescription>Le résumé du projet doit faire 120 caractères maximum.</FormDescription>
                                     <FormMessage />
                                 </FormItem>
                             )}

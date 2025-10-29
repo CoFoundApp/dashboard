@@ -15,6 +15,9 @@ export const ProfileSchema = z.object({
         })
         .min(3, {
             message: "Votre titre doit faire 3 caractères minimum.",
+        })
+        .max(100, {
+            message: "Votre titre doit faire 100 caractères maximum.",
         }),
     bio: z
         .string({

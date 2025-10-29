@@ -33,6 +33,9 @@ export const ProjectSchema = z.object({
         })
         .min(3, {
             message: "Vous devez spécifier le résumé du projet.",
+        })
+        .max(120, {
+            message: "Votre résumé doit faire 120 caractères maximum.",
         }),
     description: z
         .string({
