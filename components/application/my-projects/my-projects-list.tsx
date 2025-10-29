@@ -26,9 +26,11 @@ export default function MyProjectsList({ projects }: MyProjectsListProps) {
                         </p>
                     </div>
                     <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
-                        <Button>
-                            <Plus className="size-4 mr-1" />
-                            Créer un projet
+                        <Button asChild>
+                            <Link href="/my-projects/create">
+                                <Plus className="size-4 mr-1" />
+                                Créer un projet
+                            </Link>
                         </Button>
                         <Button variant="ghost" asChild>
                             <Link href="/discover">
