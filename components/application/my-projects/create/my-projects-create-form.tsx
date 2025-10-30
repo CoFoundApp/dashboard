@@ -9,12 +9,14 @@ import { useForm } from "react-hook-form";
 import { Separator } from "@/components/ui/separator";
 import MyProjectsGeneralForm from "./my-projects-general-form";
 import MyProjectsSettingsForm from "./my-projects-settings-form";
-import MyProjectsCollectionsForm from "./my-projects-collections-form";
 import { Button } from "@/components/ui/button";
 import z from "zod";
 import { sideCannons } from "@/lib/utils";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import MyProjectsVibeForm from "./my-projects-vibe-form";
+import MyProjectsCollaborationForm from "./my-projects-collaboration-form";
+import MyProjectsSearchingForm from "./my-projects-searching-form";
 
 export default function MyProjectsCreateForm() {
     const router = useRouter();
@@ -32,6 +34,9 @@ export default function MyProjectsCreateForm() {
             stage: "IDEA",
             visibility: "PRIVATE",
             tags: [],
+            culture_values: [],
+            culture_work_styles: [],
+            management_style: undefined,
             project_interests: [],
             project_skills: [],
         },
@@ -73,7 +78,11 @@ export default function MyProjectsCreateForm() {
                     <Separator className="my-8" />
                     <MyProjectsSettingsForm />
                     <Separator className="my-8" />
-                    <MyProjectsCollectionsForm />
+                    <MyProjectsVibeForm />
+                    <Separator className="my-8" />
+                    <MyProjectsCollaborationForm />
+                    <Separator className="my-8" />
+                    <MyProjectsSearchingForm />
                     <Separator className="my-8" />
                     <div className="flex items-center justify-end space-x-4">
                         <Button type="submit" className="whitespace-nowrap">

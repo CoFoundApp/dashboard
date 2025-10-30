@@ -2,7 +2,7 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/comp
 import { TagInput } from "@/components/ui/tag-input";
 import { useFormContext } from "react-hook-form";
 
-export default function MyProjectsCollectionsForm() {
+export default function MyProjectsSearchingForm() {
     const { control } = useFormContext();
 
     return (
@@ -43,25 +43,6 @@ export default function MyProjectsCollectionsForm() {
                                             tags={field.value ?? []}
                                             onTagsChange={(next) => field.onChange(next)}
                                             placeholder="Tapez et Entrée pour ajouter un intérêt..."
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-                    <div className="col-span-full">
-                        <FormField
-                            control={control}
-                            name="tags"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Tags</FormLabel>
-                                    <FormControl>
-                                        <TagInput
-                                            tags={field.value ?? []}
-                                            onTagsChange={(next) => field.onChange(next)}
-                                            placeholder="Tapez et Entrée pour ajouter un tag..."
                                         />
                                     </FormControl>
                                     <FormMessage />

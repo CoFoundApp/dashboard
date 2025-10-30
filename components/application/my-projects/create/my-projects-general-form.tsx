@@ -1,6 +1,7 @@
 import { FileUploadWithCrop } from "@/components/ui/file-upload-with-crop";
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { TagInput } from "@/components/ui/tag-input";
 import { Textarea } from "@/components/ui/textarea";
 import { useFormContext } from "react-hook-form";
 
@@ -104,6 +105,25 @@ export default function MyProjectsGeneralForm() {
                                         <Textarea 
                                             placeholder="Entrez la description de votre projet..."
                                             {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <div className="col-span-full">
+                        <FormField
+                            control={control}
+                            name="tags"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Tags</FormLabel>
+                                    <FormControl>
+                                        <TagInput
+                                            tags={field.value ?? []}
+                                            onTagsChange={(next) => field.onChange(next)}
+                                            placeholder="Tapez et Entrée pour ajouter un tag..."
                                         />
                                     </FormControl>
                                     <FormMessage />

@@ -13,7 +13,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import MyProjectsGeneralForm from "../create/my-projects-general-form";
 import MyProjectsSettingsForm from "../create/my-projects-settings-form";
-import MyProjectsCollectionsForm from "../create/my-projects-collections-form";
+import MyProjectsCollectionsForm from "../create/my-projects-searching-form";
 
 interface MyProjectsEditFormProps {
     project: {

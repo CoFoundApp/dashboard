@@ -83,6 +83,54 @@ export const LANGUAGE_OPTIONS = [
     { label: "Italien", value: "it" },
 ] as const;
 
+export const CULTURE_VALUES_OPTIONS = [
+    { label: "Croissance", value: "GROWTH" },
+    { label: "Innovation", value: "INNOVATION" },
+    { label: "Impact Social", value: "SOCIAL_IMPACT" },
+    { label: "Stabilité", value: "STABILITY" },
+] as const;
+
+export const CULTURE_WORK_STYLES_OPTIONS = [
+    { label: "Agile", value: "AGILE" },
+    { label: "Autonome", value: "AUTONOMOUS" },
+    { label: "Collaboratif", value: "COLLABORATIVE" },
+    { label: "Structuré", value: "STRUCTURED" },
+] as const;
+
+export const MANAGEMENT_STYLE_OPTIONS = [
+    { label: "Coaching", value: "COACHING" },
+    { label: "Sans intervention", value: "HANDS_OFF" },
+    { label: "Avec intervention", value: "HANDS_ON" },
+    { label: "Autogestion", value: "SELF_MANAGED" },
+] as const;
+
+export const COMMUNICATION_STYLE_OPTIONS = [
+    { label: "Décontracté", value: "CASUAL" },
+    { label: "Diplomatique", value: "DIPLOMATIC" },
+    { label: "Direct", value: "DIRECT" },
+    { label: "Formel", value: "FORMAL" },
+] as const;
+
+export const COMMUNICATION_FREQUENCY_OPTIONS = [
+    { label: "Asynchrone", value: "ASYNC" },
+    { label: "Bi-hebdomadaire", value: "BIWEEKLY" },
+    { label: "Quotidien", value: "DAILY" },
+    { label: "Hebdomadaire", value: "WEEKLY" },
+] as const;
+
+export const COLLABORATION_MODE_OPTIONS = [
+    { label: "Asynchrone", value: "ASYNCHRONOUS" },
+    { label: "Hybride", value: "HYBRID" },
+    { label: "Synchrone", value: "SYNCHRONOUS" },
+] as const;
+
+export const ENVIRONMENT_OPTIONS = [
+    { label: "Entreprise", value: "ENTERPRISE" },
+    { label: "Croissance à l'échelle", value: "SCALEUP" },
+    { label: "Solo", value: "SOLO" },
+    { label: "Startup", value: "STARTUP" },
+] as const;
+
 export function getLanguageName(code: string): string {
     const language = LANGUAGE_OPTIONS.find((lang) => lang.value.toLowerCase() === code.toLowerCase());
     return language ? language.label : code.toUpperCase();
