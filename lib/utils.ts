@@ -131,6 +131,35 @@ export const ENVIRONMENT_OPTIONS = [
     { label: "Startup", value: "STARTUP" },
 ] as const;
 
+export const PREFERRED_TEAM_ROLE_OPTIONS = [
+    { label: "Contributeur", value: "CONTRIBUTOR" },
+    { label: "Leader", value: "LEADER" },
+    { label: "Apprenant", value: "LEARNER" },
+    { label: "Mentor", value: "MENTOR" },
+] as const;
+
+export const PREFERRED_TEAM_SIZE_OPTIONS = [
+    { label: "Flexible", value: "FLEXIBLE" },
+    { label: "Grande", value: "LARGE" },
+    { label: "Moyenne", value: "MEDIUM" },
+    { label: "Petite", value: "SMALL" },
+] as const;
+
+export const URGENCY_OPTIONS = [
+    { label: "Critique", value: "CRITICAL" },
+    { label: "Haut", value: "HIGH" },
+    { label: "Moyen", value: "MEDIUM" },
+    { label: "Bas", value: "LOW" },
+] as const;
+
+export const PRIMARY_MOTIVATIONS_OPTIONS = [
+    { label: "Créer", value: "CREATE" },
+    { label: "Gagner de l'argent", value: "EARN" },
+    { label: "Aider", value: "HELP" },
+    { label: "Apprendre", value: "LEARN" },
+    { label: "Technologie", value: "TECH" },
+]
+
 export function getLanguageName(code: string): string {
     const language = LANGUAGE_OPTIONS.find((lang) => lang.value.toLowerCase() === code.toLowerCase());
     return language ? language.label : code.toUpperCase();

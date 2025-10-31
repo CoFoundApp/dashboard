@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/components/ui/form";
-import { ProjectStage, ProjectStatus, ProjectVisibility, UPDATE_PROJECT } from "@/graphql/projects";
+import { UPDATE_PROJECT } from "@/graphql/projects";
 import { ProjectSchema } from "@/schemas/projects";
 import { useMutation } from "@apollo/client/react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,22 +13,17 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import MyProjectsGeneralForm from "../create/my-projects-general-form";
 import MyProjectsSettingsForm from "../create/my-projects-settings-form";
-import MyProjectsCollectionsForm from "../create/my-projects-searching-form";
+import MyProjectsVibeForm from "../create/my-projects-vibe-form";
+import MyProjectsCollaborationForm from "../create/my-projects-collaboration-form";
+import MyProjectsSearchingForm from "../create/my-projects-searching-form";
+import MyProjectsCommitmentForm from "../create/my-projects-commitment-form";
+import MyProjectsDisponibilityForm from "../create/my-projects-disponibility-form";
+
+type ProjectFormValues = z.infer<typeof ProjectSchema>;
+type ProjectWithId = ProjectFormValues & { id: string };
 
 interface MyProjectsEditFormProps {
-    project: {
-        id: string;
-        title: string;
-        summary: string;
-        description?: string | null;
-        industry: string | null;
-        status: ProjectStatus;
-        stage: ProjectStage;
-        visibility: ProjectVisibility;
-        tags: string[];
-        project_skills: string[];
-        project_interests: string[];
-    };
+    project: ProjectWithId;
 }
 
 export default function MyProjectsEditForm({ project }: MyProjectsEditFormProps) {
@@ -42,13 +37,30 @@ export default function MyProjectsEditForm({ project }: MyProjectsEditFormProps)
             summary: project.summary,
             description: project.description || "",
             industry: project.industry || "",
+            tags: project.tags,
             avatar: [],
             status: project.status,
             stage: project.stage,
             visibility: project.visibility,
-            tags: project.tags,
+            culture_values: project.culture_values || [],
+            culture_work_styles: project.culture_work_styles || [],
+            management_style: project.management_style || undefined,
+            communication_style: project.communication_style || undefined,
+            communication_frequency: project.communication_frequency || undefined,
+            collaboration_mode: project.collaboration_mode || undefined,
+            environment: project.environment || undefined,
+            preferred_team_role: project.preferred_team_role || undefined,
+            preferred_team_size: project.preferred_team_size || undefined,
             project_interests: project.project_interests,
             project_skills: project.project_skills,
+            required_hours_min: project.required_hours_min || 0,
+            required_hours_max: project.required_hours_max || 0,
+            duration_weeks_min: project.duration_weeks_min || 0,
+            duration_weeks_max: project.duration_weeks_max || 0,
+            urgency: project.urgency || undefined,
+            timezone: project.timezone || "",
+            remote_ratio_min: project.remote_ratio_min || 0,
+            remote_ratio_max: project.remote_ratio_max || 0,
         },
         mode: "onTouched",
     });
@@ -90,7 +102,15 @@ export default function MyProjectsEditForm({ project }: MyProjectsEditFormProps)
                     <Separator className="my-8" />
                     <MyProjectsSettingsForm />
                     <Separator className="my-8" />
-                    <MyProjectsCollectionsForm />
+                    <MyProjectsVibeForm />
+                    <Separator className="my-8" />
+                    <MyProjectsCollaborationForm />
+                    <Separator className="my-8" />
+                    <MyProjectsSearchingForm />
+                    <Separator className="my-8" />
+                    <MyProjectsCommitmentForm />
+                    <Separator className="my-8" />
+                    <MyProjectsDisponibilityForm />
                     <Separator className="my-8" />
                     <div className="flex items-center justify-end space-x-4">
                         <Button type="submit" className="whitespace-nowrap">

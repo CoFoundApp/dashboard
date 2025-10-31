@@ -1,18 +1,19 @@
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { MultiSelect } from "@/components/ui/multi-select";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CULTURE_VALUES_OPTIONS, CULTURE_WORK_STYLES_OPTIONS, MANAGEMENT_STYLE_OPTIONS } from "@/lib/utils";
-import { CultureValues, CultureWorkStyles } from "@/schemas/projects";
+import { CULTURE_VALUES_OPTIONS, PREFERRED_TEAM_ROLE_OPTIONS, PRIMARY_MOTIVATIONS_OPTIONS } from "@/lib/utils";
+import { PrimaryMotivationsValues } from "@/schemas/profiles";
+import { CultureValues } from "@/schemas/projects";
 import { useFormContext } from "react-hook-form";
 import z from "zod";
 
-export default function MyProjectsVibeForm() {
+export default function ProfileEditValuesForm() {
     const { control } = useFormContext();
 
     return (
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
             <h2 className="font-semibold text-foreground">
-                Culture & mode de travail
+                Valeurs & motivations
             </h2>
             <div className="md:col-span-2">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-6">
@@ -22,7 +23,7 @@ export default function MyProjectsVibeForm() {
                             name="culture_values"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Valeurs entreprenariales</FormLabel>
+                                    <FormLabel>Valeurs fondamentales</FormLabel>
                                     <FormControl>
                                         <MultiSelect
                                             options={CULTURE_VALUES_OPTIONS as any}
@@ -45,21 +46,21 @@ export default function MyProjectsVibeForm() {
                     <div className="col-span-full">
                         <FormField
                             control={control}
-                            name="culture_work_styles"
+                            name="primary_motivations"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Style de travail</FormLabel>
+                                    <FormLabel>Motivations principales</FormLabel>
                                     <FormControl>
                                         <MultiSelect
-                                            options={CULTURE_WORK_STYLES_OPTIONS as any}
+                                            options={PRIMARY_MOTIVATIONS_OPTIONS as any}
                                             selected={field.value ?? []}
                                             onSelectionChange={(sel) => {
-                                                const valid = (sel ?? []).filter((v): v is z.infer<typeof CultureWorkStyles> =>
-                                                    CultureWorkStyles.options.includes(v as any)
+                                                const valid = (sel ?? []).filter((v): v is z.infer<typeof PrimaryMotivationsValues> =>
+                                                    PrimaryMotivationsValues.options.includes(v as any)
                                                 );
                                                 field.onChange(valid.length > 0 ? valid : []);
                                             }}
-                                            placeholder="Sélectionnez vos styles..."
+                                            placeholder="Sélectionnez vos motivations..."
                                             className="w-full"
                                         />
                                     </FormControl>
@@ -71,20 +72,20 @@ export default function MyProjectsVibeForm() {
                     <div className="col-span-full">
                         <FormField
                             control={control}
-                            name="management_style"
+                            name="desired_team_role"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Style managérial</FormLabel>
+                                    <FormLabel>Rôle idéal en équipe</FormLabel>
                                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                                         <FormControl>
                                             <SelectTrigger className="w-full">
-                                                <SelectValue placeholder="Style managérial" />
+                                                <SelectValue placeholder="Rôle d'équipe préféré" />
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
-                                            {MANAGEMENT_STYLE_OPTIONS.map((style) => (
-                                                <SelectItem key={style.value} value={style.value}>
-                                                    {style.label}
+                                            {PREFERRED_TEAM_ROLE_OPTIONS.map((opt) => (
+                                                <SelectItem key={opt.value} value={opt.value}>
+                                                    {opt.label}
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>

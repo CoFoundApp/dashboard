@@ -17,6 +17,8 @@ import { useRouter } from "next/navigation";
 import MyProjectsVibeForm from "./my-projects-vibe-form";
 import MyProjectsCollaborationForm from "./my-projects-collaboration-form";
 import MyProjectsSearchingForm from "./my-projects-searching-form";
+import MyProjectsCommitmentForm from "./my-projects-commitment-form";
+import MyProjectsDisponibilityForm from "./my-projects-disponibility-form";
 
 export default function MyProjectsCreateForm() {
     const router = useRouter();
@@ -83,6 +85,10 @@ export default function MyProjectsCreateForm() {
                     <MyProjectsCollaborationForm />
                     <Separator className="my-8" />
                     <MyProjectsSearchingForm />
+                    <Separator className="my-8" />
+                    <MyProjectsCommitmentForm />
+                    <Separator className="my-8" />
+                    <MyProjectsDisponibilityForm />
                     <Separator className="my-8" />
                     <div className="flex items-center justify-end space-x-4">
                         <Button type="submit" className="whitespace-nowrap">

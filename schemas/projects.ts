@@ -82,7 +82,7 @@ export const ProjectSchema = z.object({
     communication_style: z
         .enum(["CASUAL", "DIPLOMATIC", "DIRECT", "FORMAL"])
         .optional(),
-    comunication_frequency: z
+    communication_frequency: z
         .enum(["ASYNC", "BIWEEKLY", "DAILY", "WEEKLY"])
         .optional(),
     collaboration_mode: z
@@ -141,14 +141,14 @@ export const ProjectSchema = z.object({
             message: "Vous devez renseigner une chaîne de caractère valide.",
         })
         .optional(),
-    remote_ration_min: z
+    remote_ratio_min: z
         .number({
             message: "Vous devez renseigner un nombre valide.",
         })
         .int()
         .min(0, { message: "Le nombre doit être positif." })
         .optional(),
-    remote_ration_max: z
+    remote_ratio_max: z
         .number({
             message: "Vous devez renseigner un nombre valide.",
         })

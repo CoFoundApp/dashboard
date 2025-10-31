@@ -10,13 +10,15 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 import ProfileEditGeneralForm from "./profile-edit-general-form";
 import { Separator } from "@/components/ui/separator";
-import ProfileEditProForm from "./profile-edit-pro-form";
 import ProfileEditEducationsForm from "./profile-edit-educations-form";
 import ProfileEditOtherForm from "./profile-edit-other-form";
 import { Button } from "@/components/ui/button";
 import ProfileEditExperiencesForm from "./profile-edit-experiences-form";
 import { toast } from "sonner";
 import { GET_NAVIGATION } from "@/graphql/navigation";
+import ProfileEditValuesForm from "./profile-edit-values-form";
+import ProfileEditCollaborationForm from "./profile-edit-collaboration-form";
+import ProfileEditDisponibilityForm from "./profile-edit-disponibility-form";
 
 export default function MyProfileEditForm({ profile }: any) {
     const router = useRouter();
@@ -135,13 +137,17 @@ export default function MyProfileEditForm({ profile }: any) {
                 >
                     <ProfileEditGeneralForm />
                     <Separator className="my-8" />
-                    <ProfileEditProForm />
-                    <Separator className="my-8" />
                     <ProfileEditEducationsForm />
                     <Separator className="my-8" />
                     <ProfileEditExperiencesForm />
                     <Separator className="my-8" />
                     <ProfileEditOtherForm />
+                    <Separator className="my-8" />
+                    <ProfileEditValuesForm/>
+                    <Separator className="my-8" />
+                    <ProfileEditCollaborationForm />
+                    <Separator className="my-8" />
+                    <ProfileEditDisponibilityForm />
                     <Separator className="my-8" />
                     <div className="flex items-center justify-end space-x-4">
                         <Button type="submit" className="whitespace-nowrap">

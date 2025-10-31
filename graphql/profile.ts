@@ -2,6 +2,27 @@ import { gql } from "@apollo/client";
 
 export type ProfileVisibility = "PRIVATE" | "PUBLIC" | "UNLISTED";
 
+export type Education = {
+  degree: string | null;
+  description: string | null;
+  end_date: string | null;
+  field_of_study: string | null;
+  grade: string | null;
+  is_current: boolean;
+  school: string;
+  start_date: string;
+};
+
+export type WorkExperience = {
+  company: string;
+  description: string | null;
+  end_date: string | null;
+  is_current: boolean;
+  location: string | null;
+  start_date: string;
+  title: string;
+};
+
 export type GetMyProfileResult = {
     myProfile: {
         avatar_url: string | null;
@@ -47,10 +68,14 @@ export type GetMyProfileResult = {
 export const GET_MY_PROFILE = gql`
     query GetMyProfile {
         myProfile {
-            avatar_url
-            availability_hours
-            bio
+            user_id
             display_name
+            headline
+            bio
+            avatar_url
+            location
+            visibility
+
             educations {
                 degree
                 description
@@ -61,20 +86,6 @@ export const GET_MY_PROFILE = gql`
                 school
                 start_date
             }
-            headline
-            interests {
-                name
-            }
-            languages
-            location
-            looking_for
-            skills {
-                name
-            }
-            tags
-            user_id
-            visibility
-            website_url
             workExperiences {
                 company
                 description
@@ -84,6 +95,31 @@ export const GET_MY_PROFILE = gql`
                 start_date
                 title
             }
+
+            skills { name }
+            interests { name }
+            tags
+            languages
+
+            core_values
+            primary_motivations
+            desired_team_role
+
+            preferred_collaboration_mode
+            preferred_environments
+            preferred_team_size
+            preferred_work_styles
+            communication_style
+            communication_frequency
+
+            availability_hours
+            mission_duration_min_weeks
+            mission_duration_max_weeks
+            remote_preference_percent
+            timezone
+            timezone_flexibility_minutes
+
+            looking_for
         }
     }
 `;
@@ -133,10 +169,14 @@ export type GetProfileByIdResult = {
 export const GET_PROFILE_BY_ID = gql`
     query GetProfileById($id: String!) {
         profileById(id: $id) {
-            avatar_url
-            availability_hours
-            bio
+            user_id
             display_name
+            headline
+            bio
+            avatar_url
+            location
+            visibility
+
             educations {
                 degree
                 description
@@ -147,20 +187,6 @@ export const GET_PROFILE_BY_ID = gql`
                 school
                 start_date
             }
-            headline
-            interests {
-                name
-            }
-            languages
-            location
-            looking_for
-            skills {
-                name
-            }
-            tags
-            user_id
-            visibility
-            website_url
             workExperiences {
                 company
                 description
@@ -170,6 +196,31 @@ export const GET_PROFILE_BY_ID = gql`
                 start_date
                 title
             }
+
+            skills { name }
+            interests { name }
+            tags
+            languages
+
+            core_values
+            primary_motivations
+            desired_team_role
+
+            preferred_collaboration_mode
+            preferred_environments
+            preferred_team_size
+            preferred_work_styles
+            communication_style
+            communication_frequency
+
+            availability_hours
+            mission_duration_min_weeks
+            mission_duration_max_weeks
+            remote_preference_percent
+            timezone
+            timezone_flexibility_minutes
+
+            looking_for
         }
     }
 `;
