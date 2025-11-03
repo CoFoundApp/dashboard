@@ -21,10 +21,13 @@ export default function ProfileEditDisponibilityForm() {
                                     <FormLabel>Heures disponibles par semaine</FormLabel>
                                     <FormControl>
                                         <Input
+                                            type="number"
                                             min={0}
                                             step={1}
                                             value={field.value ?? ""}
-                                            onChange={(e) => field.onChange(e.target.value)}
+                                            onChange={(e) =>
+                                                field.onChange(e.target.value === "" ? undefined : e.target.valueAsNumber)
+                                            }
                                             placeholder="Entrez votre nombre..."
                                         />
                                     </FormControl>
@@ -42,6 +45,7 @@ export default function ProfileEditDisponibilityForm() {
                                     <FormLabel>Préférence de télétravail (%)</FormLabel>
                                     <FormControl>
                                         <Input
+                                            type="number"
                                             min={0}
                                             step={1}
                                             value={field.value ?? ""}
@@ -65,6 +69,7 @@ export default function ProfileEditDisponibilityForm() {
                                     <FormLabel>Jours minimum par semaine</FormLabel>
                                     <FormControl>
                                         <Input
+                                            type="number"
                                             min={0}
                                             step={1}
                                             value={field.value ?? ""}
@@ -88,6 +93,7 @@ export default function ProfileEditDisponibilityForm() {
                                     <FormLabel>Jours maximum par semaine</FormLabel>
                                     <FormControl>
                                         <Input
+                                            type="number"
                                             min={0}
                                             step={1}
                                             value={field.value ?? ""}
