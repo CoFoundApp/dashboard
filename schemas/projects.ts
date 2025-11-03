@@ -1,5 +1,7 @@
 import z from "zod";
 
+const emptyToUndefined = (v: unknown) => v === "" || v === null ? undefined : v;
+
 export const ProjectPositionSchema = z.object({
     title: z
         .string({
@@ -106,32 +108,44 @@ export const ProjectSchema = z.object({
         .min(1, { message: "Vous devez renseigner une compétence minimum." })
         .default([]),
     required_hours_min: z
-        .number({
-            message: "Vous devez renseigner un nombre d'heures valide.",
-        })
-        .int()
-        .min(0, { message: "Le nombre d'heures doit être positif." })
+        .preprocess(
+            emptyToUndefined,
+            z.coerce.number({
+                message: "Vous devez renseigner un nombre valide.",
+            })
+            .int()
+            .min(0, { message: "Le nombre d'heures doit être positif." })
+        )
         .optional(),
     required_hours_max: z
-        .number({
-            message: "Vous devez renseigner un nombre d'heures valide.",
-        })
-        .int()
-        .min(0, { message: "Le nombre d'heures doit être positif." })
+        .preprocess(
+            emptyToUndefined,
+            z.coerce.number({
+                message: "Vous devez renseigner un nombre valide.",
+            })
+            .int()
+            .min(0, { message: "Le nombre d'heures doit être positif." })
+        )
         .optional(),
     duration_weeks_min: z
-        .number({
-            message: "Vous devez renseigner un nombre de jours valide.",
-        })
-        .int()
-        .min(0, { message: "Le nombre de jours doit être positif." })
+        .preprocess(
+            emptyToUndefined,
+            z.coerce.number({
+                message: "Vous devez renseigner un nombre valide.",
+            })
+            .int()
+            .min(0, { message: "Le nombre de jours doit être positif." })
+        )
         .optional(),
     duration_weeks_max: z
-        .number({
-            message: "Vous devez renseigner un nombre de jours valide.",
-        })
-        .int()
-        .min(0, { message: "Le nombre de jours doit être positif." })
+        .preprocess(
+            emptyToUndefined,
+            z.coerce.number({
+                message: "Vous devez renseigner un nombre valide.",
+            })
+            .int()
+            .min(0, { message: "Le nombre de jours doit être positif." })
+        )
         .optional(),
     urgency: z
         .enum(["CRITICAL", "HIGH", "LOW", "MEDIUM"])
@@ -142,17 +156,25 @@ export const ProjectSchema = z.object({
         })
         .optional(),
     remote_ratio_min: z
-        .number({
-            message: "Vous devez renseigner un nombre valide.",
-        })
-        .int()
-        .min(0, { message: "Le nombre doit être positif." })
+        .preprocess(
+            emptyToUndefined,
+            z.coerce.number({
+                message: "Vous devez renseigner un nombre valide.",
+            })
+            .int()
+            .min(0, { message: "Le pourcentage doit être positif." })
+            .max(100, { message: "Le pourcentage doit être entre 0 et 100." })
+        )
         .optional(),
     remote_ratio_max: z
-        .number({
-            message: "Vous devez renseigner un nombre valide.",
-        })
-        .int()
-        .min(0, { message: "Le nombre doit être positif." })
+        .preprocess(
+            emptyToUndefined,
+            z.coerce.number({
+                message: "Vous devez renseigner un nombre valide.",
+            })
+            .int()
+            .min(0, { message: "Le pourcentage doit être positif." })
+            .max(100, { message: "Le pourcentage doit être entre 0 et 100." })
+        )
         .optional(),
 });

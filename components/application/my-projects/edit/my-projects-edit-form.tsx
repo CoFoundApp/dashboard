@@ -78,7 +78,7 @@ export default function MyProjectsEditForm({ project }: MyProjectsEditFormProps)
                     toast.success("Projet modifié !", {
                         description: "Vous avez modifié votre projet avec succès.",
                     });
-                    router.push("/my-projects");
+                    router.push(`/my-projects/${project.id}`);
                 })
                 .catch((err: Error) => {
                     console.log(err)
