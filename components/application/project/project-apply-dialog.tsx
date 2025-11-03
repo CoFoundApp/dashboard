@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { APPLY_TO_PROJECT } from "@/graphql/application";
 import { GET_PROJECT_POSITIONS, GetProjectPositionsResult } from "@/graphql/projects";
 import { useMutation, useQuery } from "@apollo/client/react";
-import { ArrowBigRight, Loader2, Send } from "lucide-react";
+import { ArrowBigRight, Briefcase, Loader2, Send } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -110,50 +110,69 @@ export default function ProjectApplyDialog({
                 <DialogHeader>
                     <DialogTitle>Candidateur au projet</DialogTitle>
                 </DialogHeader>
-                <div className="grid gap-8">
-                    <div className="space-y-2">
-                        <Label htmlFor="positionId">Poste à candidater</Label>
-                        <Select value={positionId} onValueChange={setPositionId}>
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Sélectionnez un poste à candidater..." />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {positions.map((position) => (
-                                    <SelectItem key={position.id} value={position.id}>{position.title}</SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+                {positions.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center py-12 gap-4">
+                        <div className="rounded-full bg-muted p-4">
+                            <Briefcase className="size-8 text-muted-foreground" />
+                        </div>
+                        <div className="text-center space-y-2">
+                            <p className="font-medium text-foreground">Aucun poste disponible</p>
+                            <p className="text-sm text-muted-foreground max-w-sm">
+                                Il n'y a actuellement aucun poste ouvert pour ce projet. Revenez plus tard pour voir les nouvelles
+                                opportunités.
+                            </p>
+                        </div>
                     </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="note">Message de motivation (optionnel)</Label>
-                        <Textarea
-                            id="note"
-                            placeholder="Expliquez pourquoi vous êtes intéressé par ce poste..."
-                            value={note}
-                            onChange={(e) => setNote(e.target.value)}
-                            rows={5}
-                            className="resize-none"
-                        />
-                    </div>
-                </div>
-                <DialogFooter>
-                    <Button variant="outline" onClick={() => setOpen(false)} disabled={applyLoading}>
-                        Annuler
-                    </Button>
-                    <Button onClick={handleSubmit} disabled={applyLoading}>
-                        {applyLoading ? (
-                            <>
-                                <Loader2 className="size-4 mr-2 animate-spin" />
-                                Envoi...
-                            </>
-                        ) : (
-                            <>
-                                <Send className="size-4 mr-2" />
-                                Envoyer
-                            </>
-                        )}
-                    </Button>
-                </DialogFooter>
+                ) : (
+                    <>
+                        <div className="grid gap-8">
+                            <div className="space-y-2">
+                                <Label htmlFor="positionId">Poste à candidater</Label>
+                                <Select value={positionId} onValueChange={setPositionId}>
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Sélectionnez un poste à candidater..." />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {positions.map((position) => (
+                                            <SelectItem key={position.id} value={position.id}>
+                                                {position.title}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="note">Message de motivation (optionnel)</Label>
+                                <Textarea
+                                    id="note"
+                                    placeholder="Expliquez pourquoi vous êtes intéressé par ce poste..."
+                                    value={note}
+                                    onChange={(e) => setNote(e.target.value)}
+                                    rows={5}
+                                    className="resize-none"
+                                />
+                            </div>
+                        </div>
+                        <DialogFooter>
+                            <Button variant="outline" onClick={() => setOpen(false)} disabled={applyLoading}>
+                                Annuler
+                            </Button>
+                            <Button onClick={handleSubmit} disabled={applyLoading}>
+                                {applyLoading ? (
+                                    <>
+                                        <Loader2 className="size-4 mr-2 animate-spin" />
+                                        Envoi...
+                                    </>
+                                ) : (
+                                    <>
+                                        <Send className="size-4 mr-2" />
+                                        Envoyer
+                                    </>
+                                )}
+                            </Button>
+                        </DialogFooter>
+                    </>
+                )}
             </DialogContent>
         </Dialog>
     );
