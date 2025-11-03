@@ -22,7 +22,7 @@ export default function ProjectEnterpriseValues({ values }: ProjectEnterpriseVal
                     })
                 ) : (
                     <p className="text-sm text-muted-foreground">
-                        Aucune valeur renseignée.
+                        Aucunes valeurs entrepreneuriales n’ont encore été définies pour ce projet..
                     </p>
                 )}
             </div>

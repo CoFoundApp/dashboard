@@ -22,7 +22,7 @@ export default function ProjectWorkStyles({ styles }: ProjectWorkStylesProps) {
                     })
                 ) : (
                     <p className="text-sm text-muted-foreground">
-                        Aucune valeur renseignée.
+                        Aucun style de travail n’a encore été définie pour ce projet.
                     </p>
                 )}
             </div>

@@ -25,36 +25,49 @@ export default function ProjectCollaboration({
     collaboration_mode,
     environment,
 }: ProjectCollaborationProps) {
+    const hasAny =
+        management_style ||
+        communication_style ||
+        communication_frequency ||
+        collaboration_mode ||
+        environment;
+
     return (
         <div className="space-y-4">
             <h2 className="text-xl font-bold tracking-tight">Communication & Collaboration</h2>
-            <div className="flex flex-wrap gap-2">
-                {management_style && (
-                    <Badge variant="secondary" className="text-xs">
-                        {labelFrom(MANAGEMENT_STYLE_OPTIONS, management_style)}
-                    </Badge>
-                )}
-                {communication_style && (
-                    <Badge variant="secondary" className="text-xs">
-                        {labelFrom(COMMUNICATION_STYLE_OPTIONS, communication_style)}
-                    </Badge>
-                )}
-                {communication_frequency && (
-                    <Badge variant="secondary" className="text-xs">
-                        {labelFrom(COMMUNICATION_FREQUENCY_OPTIONS, communication_frequency)}
-                    </Badge>
-                )}
-                {collaboration_mode && (
-                    <Badge variant="secondary" className="text-xs">
-                        {labelFrom(COLLABORATION_MODE_OPTIONS, collaboration_mode)}
-                    </Badge>
-                )}
-                {environment && (
-                    <Badge variant="secondary" className="text-xs">
-                        {labelFrom(ENVIRONMENT_OPTIONS, environment)}
-                    </Badge>
-                )}
-            </div>
+            {hasAny ? (
+                <div className="flex flex-wrap gap-2">
+                    {management_style && (
+                        <Badge variant="secondary" className="text-xs">
+                            {labelFrom(MANAGEMENT_STYLE_OPTIONS, management_style)}
+                        </Badge>
+                    )}
+                    {communication_style && (
+                        <Badge variant="secondary" className="text-xs">
+                            {labelFrom(COMMUNICATION_STYLE_OPTIONS, communication_style)}
+                        </Badge>
+                    )}
+                    {communication_frequency && (
+                        <Badge variant="secondary" className="text-xs">
+                            {labelFrom(COMMUNICATION_FREQUENCY_OPTIONS, communication_frequency)}
+                        </Badge>
+                    )}
+                    {collaboration_mode && (
+                        <Badge variant="secondary" className="text-xs">
+                            {labelFrom(COLLABORATION_MODE_OPTIONS, collaboration_mode)}
+                        </Badge>
+                    )}
+                    {environment && (
+                        <Badge variant="secondary" className="text-xs">
+                            {labelFrom(ENVIRONMENT_OPTIONS, environment)}
+                        </Badge>
+                    )}
+                </div>
+            ) : (
+                <p className="text-sm text-muted-foreground">
+                    Aucune information de collaboration ou de communication renseignée.
+                </p>
+            )}
         </div>
     );
 }
