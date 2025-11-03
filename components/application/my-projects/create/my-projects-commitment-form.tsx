@@ -25,11 +25,8 @@ export default function MyProjectsCommitmentForm() {
                                         <Input
                                             min={0}
                                             step={1}
-                                            value={field.value ?? ""}
-                                            onChange={(e) =>
-                                                field.onChange(e.target.value === "" ? 0 : e.target.valueAsNumber)
-                                            }
                                             placeholder="Entrez votre nombre..."
+                                            {...field}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -48,11 +45,8 @@ export default function MyProjectsCommitmentForm() {
                                         <Input
                                             min={0}
                                             step={1}
-                                            value={field.value ?? ""}
-                                            onChange={(e) =>
-                                                field.onChange(e.target.value === "" ? 0 : e.target.valueAsNumber)
-                                            }
                                             placeholder="Entrez votre nombre..."
+                                            {...field}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -71,11 +65,8 @@ export default function MyProjectsCommitmentForm() {
                                         <Input
                                             min={0}
                                             step={1}
-                                            value={field.value ?? ""}
-                                            onChange={(e) =>
-                                                field.onChange(e.target.value === "" ? 0 : e.target.valueAsNumber)
-                                            }
                                             placeholder="Entrez votre nombre..."
+                                            {...field}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -94,11 +85,8 @@ export default function MyProjectsCommitmentForm() {
                                         <Input
                                             min={0}
                                             step={1}
-                                            value={field.value ?? ""}
-                                            onChange={(e) =>
-                                                field.onChange(e.target.value === "" ? 0 : e.target.valueAsNumber)
-                                            }
                                             placeholder="Entrez votre nombre..."
+                                            {...field}
                                         />
                                     </FormControl>
                                     <FormMessage />

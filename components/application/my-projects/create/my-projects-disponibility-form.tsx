@@ -41,11 +41,8 @@ export default function MyProjectsDisponibilityForm() {
                                         <Input
                                             min={0}
                                             step={1}
-                                            value={field.value ?? ""}
-                                            onChange={(e) =>
-                                                field.onChange(e.target.value === "" ? 0 : e.target.valueAsNumber)
-                                            }
                                             placeholder="Entrez votre pourcentage..."
+                                            {...field}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -64,11 +61,8 @@ export default function MyProjectsDisponibilityForm() {
                                         <Input
                                             min={0}
                                             step={1}
-                                            value={field.value ?? ""}
-                                            onChange={(e) =>
-                                                field.onChange(e.target.value === "" ? 0 : e.target.valueAsNumber)
-                                            }
                                             placeholder="Entrez votre pourcentage..."
+                                            {...field}
                                         />
                                     </FormControl>
                                     <FormMessage />
