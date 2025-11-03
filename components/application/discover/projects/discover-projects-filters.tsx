@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ProjectStage, ProjectStatus } from "@/graphql/projects"
 
-interface DiscoverFiltersProps {
+interface DiscoverProjectsFiltersProps {
     onFiltersChange: (filters: ProjectFilters) => void;
     onSortChange: (sort: SortOption) => void;
 }
@@ -44,7 +44,7 @@ const sortOptions: { value: string; label: string; sort: SortOption }[] = [
     { value: "updated_asc", label: "Première mise à jour", sort: { by: "UPDATED_AT", direction: "asc" } },
 ];
 
-export default function DiscoverFilters({ onFiltersChange, onSortChange }: DiscoverFiltersProps) {
+export default function DiscoverProjectsFilters({ onFiltersChange, onSortChange }: DiscoverProjectsFiltersProps) {
     const [searchValue, setSearchValue] = useState("");
     const [selectedStatus, setSelectedStatus] = useState<ProjectStatus | "all">("all");
     const [selectedStage, setSelectedStage] = useState<ProjectStage | "all">("all");
