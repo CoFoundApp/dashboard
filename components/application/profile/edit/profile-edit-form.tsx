@@ -41,7 +41,7 @@ export default function MyProfileEditForm({ profile }: any) {
             display_name: profile.display_name,
             visibility: profile.visibility,
             avatar: [],
-            availability_hours: Number(profile.availability_hours),
+            availability_hours: profile.availability_hours ?? undefined,
             bio: profile.bio,
             educations: profile.educations?.map(edu => ({
                 ...edu,
@@ -63,6 +63,20 @@ export default function MyProfileEditForm({ profile }: any) {
                 end_date: formatDateForInput(work.end_date),
                 description: work.description ?? "",
             })) ?? [],
+            core_values: profile.core_values ?? [],
+            primary_motivations: profile.primary_motivations ?? [],
+            desired_team_role: profile.desired_team_role ?? undefined,
+            preferred_collaboration_mode: profile.preferred_collaboration_mode ?? undefined,
+            preferred_environments: profile.preferred_environments ?? [],
+            preferred_team_size: profile.preferred_team_size ?? undefined,
+            preferred_work_styles: profile.preferred_work_styles ?? [],
+            communication_style: profile.communication_style ?? undefined,
+            communication_frequency: profile.communication_frequency ?? undefined,
+            mission_duration_min_weeks: profile.mission_duration_min_weeks ?? undefined,
+            mission_duration_max_weeks: profile.mission_duration_max_weeks ?? undefined,
+            remote_preference_percent: profile.remote_preference_percent ?? undefined,
+            timezone: profile.timezone ?? "",
+            timezone_flexibility_minutes: profile.timezone_flexibility_minutes ?? undefined,
         },
         mode: "onTouched",
     });
@@ -151,7 +165,7 @@ export default function MyProfileEditForm({ profile }: any) {
                     <Separator className="my-8" />
                     <div className="flex items-center justify-end space-x-4">
                         <Button type="submit" className="whitespace-nowrap">
-                            Modifier le profil
+                            { loading ? "Modification..." : "Modifier le profil"}
                         </Button>
                     </div>
                 </form>

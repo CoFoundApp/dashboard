@@ -21,13 +21,10 @@ export default function ProfileEditDisponibilityForm() {
                                     <FormLabel>Heures disponibles par semaine</FormLabel>
                                     <FormControl>
                                         <Input
-                                            type="number"
                                             min={0}
                                             step={1}
                                             value={field.value ?? ""}
-                                            onChange={(e) =>
-                                                field.onChange(e.target.value === "" ? 0 : e.target.valueAsNumber)
-                                            }
+                                            onChange={(e) => field.onChange(e.target.value)}
                                             placeholder="Entrez votre nombre..."
                                         />
                                     </FormControl>
@@ -45,12 +42,11 @@ export default function ProfileEditDisponibilityForm() {
                                     <FormLabel>Préférence de télétravail (%)</FormLabel>
                                     <FormControl>
                                         <Input
-                                            type="number"
                                             min={0}
                                             step={1}
                                             value={field.value ?? ""}
                                             onChange={(e) =>
-                                                field.onChange(e.target.value === "" ? 0 : e.target.valueAsNumber)
+                                                field.onChange(e.target.value === "" ? undefined : e.target.valueAsNumber)
                                             }
                                             placeholder="Entrez votre pourcentage..."
                                         />
@@ -63,18 +59,17 @@ export default function ProfileEditDisponibilityForm() {
                     <div className="col-span-full sm:col-span-3">
                         <FormField
                             control={control}
-                            name="mission_duration_weeks_min"
+                            name="mission_duration_min_weeks"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Jours minimum par semaine</FormLabel>
                                     <FormControl>
                                         <Input
-                                            type="number"
                                             min={0}
                                             step={1}
                                             value={field.value ?? ""}
                                             onChange={(e) =>
-                                                field.onChange(e.target.value === "" ? 0 : e.target.valueAsNumber)
+                                                field.onChange(e.target.value === "" ? undefined : e.target.valueAsNumber)
                                             }
                                             placeholder="Entrez votre nombre..."
                                         />
@@ -87,18 +82,17 @@ export default function ProfileEditDisponibilityForm() {
                     <div className="col-span-full sm:col-span-3">
                         <FormField
                             control={control}
-                            name="mission_duration_weeks_max"
+                            name="mission_duration_max_weeks"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Jours maximum par semaine</FormLabel>
                                     <FormControl>
                                         <Input
-                                            type="number"
                                             min={0}
                                             step={1}
                                             value={field.value ?? ""}
                                             onChange={(e) =>
-                                                field.onChange(e.target.value === "" ? 0 : e.target.valueAsNumber)
+                                                field.onChange(e.target.value === "" ? undefined : e.target.valueAsNumber)
                                             }
                                             placeholder="Entrez votre nombre..."
                                         />

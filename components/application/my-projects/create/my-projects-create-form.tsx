@@ -92,7 +92,7 @@ export default function MyProjectsCreateForm() {
                     <Separator className="my-8" />
                     <div className="flex items-center justify-end space-x-4">
                         <Button type="submit" className="whitespace-nowrap">
-                            Créer le projet
+                            {loading ? "Création..." : "Créer le projet"}
                         </Button>
                     </div>
                 </form>

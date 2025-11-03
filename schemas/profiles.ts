@@ -2,7 +2,7 @@ import z from "zod";
 import { EducationSchema, LanguageCode, WorkExperienceSchema } from "./introduction";
 import { CultureValues, CultureWorkStyles } from "./projects";
 
-export const PrimaryMotivationsValues = z.enum(["CREATE", "EARN", "HELP", "LEARN", "TECH"]);
+export const PrimaryMotivationsValues = z.enum(["CREATE", "EARN", "HELP", "LEARN", "TEACH"]);
 export const EnvironmentValues = z.enum(["ENTERPRISE", "SCALEUP", "SOLO", "STARTUP"]);
 
 export const ProfileSchema = z.object({
@@ -97,14 +97,14 @@ export const ProfileSchema = z.object({
         .int()
         .min(0, { message: "Le nombre d'heures doit être positif." })
         .optional(),
-    mission_duration_weeks_min: z
+    mission_duration_min_weeks: z
         .number({
             message: "Vous devez renseigner un nombre de jours valide.",
         })
         .int()
         .min(0, { message: "Le nombre de jours doit être positif." })
         .optional(),
-    mission_duration_weeks_max: z
+    mission_duration_max_weeks: z
         .number({
             message: "Vous devez renseigner un nombre de jours valide.",
         })

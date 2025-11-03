@@ -20,7 +20,7 @@ export default function ProfileEditValuesForm() {
                     <div className="col-span-full">
                         <FormField
                             control={control}
-                            name="culture_values"
+                            name="core_values"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Valeurs fondamentales</FormLabel>

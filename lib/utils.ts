@@ -157,7 +157,7 @@ export const PRIMARY_MOTIVATIONS_OPTIONS = [
     { label: "Gagner de l'argent", value: "EARN" },
     { label: "Aider", value: "HELP" },
     { label: "Apprendre", value: "LEARN" },
-    { label: "Technologie", value: "TECH" },
+    { label: "Enseigner", value: "TEACH" },
 ]
 
 export function getLanguageName(code: string): string {
