@@ -48,7 +48,7 @@ export default function DiscoverProjectCard({ project, score, reasons }: Discove
                             <div className="flex-1 min-w-0">
                                 <CardTitle className="text-balance">{project.title}</CardTitle>
                                 {project.summary && (
-                                    <p className="text-sm text-muted-foreground leading-relaxed text-pretty mt-2">{project.summary}</p>
+                                    <p className="text-sm text-muted-foreground leading-relaxed text-pretty mt-2 line-clamp-2">{project.summary}</p>
                                 )}
                             </div>
                         </div>
