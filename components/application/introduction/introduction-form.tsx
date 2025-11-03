@@ -40,7 +40,6 @@ export default function IntroductionForm() {
         defaultValues: {
             visibility: "PUBLIC",
             languages: [],
-            tags: [],
             skills: [],
             interests: [],
             educations: [],
@@ -62,7 +61,6 @@ export default function IntroductionForm() {
                 location?: string;
                 looking_for?: string;
                 skills?: string[];
-                tags?: string[];
                 work_experiences?: any[];
             }
 
@@ -94,7 +92,7 @@ export default function IntroductionForm() {
                     toast.success("Profil créé !", {
                         description: "Vous avez créé votre profil avec succès.",
                     });
-                    router.push("/discover");
+                    router.push("/");
                 })
                 .catch((err: Error) => {
                     console.log(err)

@@ -69,23 +69,6 @@ export default function IntroductionOtherForm() {
                     </FormItem>
                 )}
             />
-            <FormField
-                control={control}
-                name="tags"
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>Tags</FormLabel>
-                        <FormControl>
-                            <TagInput
-                                tags={field.value ?? []}
-                                onTagsChange={(next) => field.onChange(next)}
-                                placeholder="Tapez et Entrée pour ajouter un tag..."
-                            />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
         </div>
     );
 }

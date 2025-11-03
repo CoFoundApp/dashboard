@@ -239,3 +239,39 @@ export const UPDATE_MY_PROFILE = gql`
         }
     }
 `;
+
+export type SearchProfilesResult = {
+    searchProfiles: {
+        items: {
+            id: string;
+            display_name: string;
+            headline: string;
+            avatar_url: string | null;
+            location: string | null;
+            availability_hours: number | null;
+            skills: NamedItem[];
+            interests: NamedItem[];
+            languages: string[];
+        }[]
+        nextCursor: string;
+    }
+}
+
+export const SEARCH_PROFILES = gql`
+    query SearchProfiles($q: String, $cursor: String, $limit: Int, $filter: ProfileSearchFilterInput) {
+        searchProfiles(q: $q, cursor: $cursor, limit: $limit, filter: $filter) {
+            items {
+                id
+                display_name
+                headline
+                avatar_url
+                location
+                availability_hours
+                skills { name }
+                interests { name }
+                languages
+            }
+            nextCursor
+        }
+    }
+`;

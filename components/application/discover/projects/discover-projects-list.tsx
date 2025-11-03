@@ -4,15 +4,15 @@ import { useQuery } from "@apollo/client/react"
 import { LIST_PROJECTS, SEARCH_PROJECTS, type ListProjectsResult, type SearchProjectsResult } from "@/graphql/projects"
 import DiscoverProjectCard from "./discover-project-card"
 import { Inbox, Loader2 } from "lucide-react"
-import type { ProjectFilters, SortOption } from "./discover-filters"
+import type { ProjectFilters, SortOption } from "./discover-projects-filters"
 import { Card, CardContent } from "@/components/ui/card"
 
-interface DiscoverListProps {
+interface DiscoverProjectsListProps {
     filters: ProjectFilters;
     sort: SortOption;
 }
 
-export default function DiscoverList({ filters, sort }: DiscoverListProps) {
+export default function DiscoverProjectsList({ filters, sort }: DiscoverProjectsListProps) {
     const useSearchQuery = !!filters.search && filters.search.trim().length > 0;
 
     const listQuery = useQuery<ListProjectsResult>(LIST_PROJECTS, {
@@ -47,7 +47,7 @@ export default function DiscoverList({ filters, sort }: DiscoverListProps) {
         return (
             <section className="space-y-8">
                 <div className="flex items-center justify-center min-h-[400px]">
-                    <Loader2 className="size-8 animate-spin text-muted-foreground" aria-label="Chargement de vos projets" />
+                    <Loader2 className="size-8 animate-spin text-muted-foreground" aria-label="Chargement des projets" />
                 </div>
             </section>
         );
@@ -58,7 +58,7 @@ export default function DiscoverList({ filters, sort }: DiscoverListProps) {
             <section className="space-y-8">
                 <div className="flex flex-col items-center justify-center min-h-[400px] gap-4">
                     <p className="text-destructive" role="alert">
-                        Une erreur est survenue lors du chargement de vos projets.
+                        Une erreur est survenue lors du chargement des projets.
                     </p>
                     <button 
                         onClick={() => window.location.reload()} 

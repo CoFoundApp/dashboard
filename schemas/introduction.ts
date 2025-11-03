@@ -88,8 +88,4 @@ export const IntroductionOtherSchema = z.object({
         .array(z.string())
         .min(1, { message: "Vous devez renseigner un intérêt minimum." })
         .default([]),
-    tags: z
-        .array(z.string())
-        .min(1, { message: "Vous devez renseigner un tag minimum." })
-        .default([]),
 });
