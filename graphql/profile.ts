@@ -258,8 +258,8 @@ export type SearchProfilesResult = {
 }
 
 export const SEARCH_PROFILES = gql`
-    query SearchProfiles($q: String, $cursor: String, $filter: ProfileSearchFilterInput) {
-        searchProfiles(q: $q, cursor: $cursor, filter: $filter) {
+    query SearchProfiles($q: String, $cursor: String, $limit: Int, $filter: ProfileSearchFilterInput) {
+        searchProfiles(q: $q, cursor: $cursor, limit: $limit, filter: $filter) {
             items {
                 id
                 display_name

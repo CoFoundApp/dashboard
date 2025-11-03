@@ -6,19 +6,46 @@ import { SEARCH_PROFILES, SearchProfilesResult } from "@/graphql/profile";
 import { Loader2, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import DiscoverProfileCard from "./discover-profile-card";
+import { Button } from "@/components/ui/button";
 
 interface DiscoverProfilesListProps {
     filters: ProfileFilters;
 }
 
+const LIMIT = 6;
+
 export default function DiscoverProfilesList({ filters }: DiscoverProfilesListProps) {
-    const { data, loading, error } = useQuery<SearchProfilesResult>(SEARCH_PROFILES, {
+    const { data, loading, error, fetchMore } = useQuery<SearchProfilesResult>(SEARCH_PROFILES, {
         variables: {
+            limit: LIMIT,
             q: filters.search,
         },
         fetchPolicy: "network-only",
         errorPolicy: "all",
+        notifyOnNetworkStatusChange: true,
     });
+
+    const handleLoadMore = () => {
+        if (!data?.searchProfiles.nextCursor) return;
+
+        fetchMore({
+            variables: {
+                cursor: data.searchProfiles.nextCursor,
+            },
+            updateQuery: (previousResult, { fetchMoreResult }) => {
+                if (!fetchMoreResult) return previousResult;
+                return {
+                    searchProfiles: {
+                        ...fetchMoreResult.searchProfiles,
+                        items: [
+                            ...previousResult.searchProfiles.items,
+                            ...fetchMoreResult.searchProfiles.items,
+                        ],
+                    },
+                };
+            },
+        });
+    };
 
     if (loading && !data) {
         return (
@@ -49,6 +76,7 @@ export default function DiscoverProfilesList({ filters }: DiscoverProfilesListPr
     }
 
     const profiles = data.searchProfiles.items;
+    const hasNextPage = data.searchProfiles.items.length % LIMIT === 0;
 
     if (profiles.length === 0) {
         return (
@@ -76,6 +104,25 @@ export default function DiscoverProfilesList({ filters }: DiscoverProfilesListPr
                     />
                 ))}
             </div>
+            {hasNextPage && (
+                <div className="flex justify-center">
+                    <Button
+                        onClick={handleLoadMore}
+                        disabled={loading}
+                        variant="outline"
+                        size="lg"
+                    >
+                        {loading ? (
+                            <>
+                                <Loader2 className="mr-2 size-4 animate-spin" />
+                                Chargement...
+                            </>
+                        ) : (
+                            "Charger plus"
+                        )}
+                    </Button>
+                </div>
+            )}
         </div>
     );
 }
