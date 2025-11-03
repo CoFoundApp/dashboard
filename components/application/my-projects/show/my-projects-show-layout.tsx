@@ -17,6 +17,7 @@ import ProjectWorkStyles from "../../project/project-work-styles";
 import ProjectCommitment from "../../project/project-commitment";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import ProjectCollaboration from "../../project/project-collaboration";
 
 interface MyProjectsShowLayoutProps {
     projectId: string;
@@ -94,6 +95,13 @@ export default function MyProjectsShowLayout({ projectId }: MyProjectsShowLayout
                         duration_weeks_max={data.projectById.duration_weeks_max}
                         remote_ratio_min={data.projectById.remote_ratio_min}
                         remote_ratio_max={data.projectById.remote_ratio_max}
+                    />
+                    <ProjectCollaboration
+                        management_style={data.projectById.management_style}
+                        communication_style={data.projectById.communication_style}
+                        communication_frequency={data.projectById.communication_frequency}
+                        collaboration_mode={data.projectById.collaboration_mode}
+                        environment={data.projectById.environment}
                     />
                 </div>
             )}
