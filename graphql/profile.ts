@@ -2,55 +2,89 @@ import { gql } from "@apollo/client";
 
 export type ProfileVisibility = "PRIVATE" | "PUBLIC" | "UNLISTED";
 
+export type CommunicationStyle = "CASUAL" | "DIPLOMATIC" | "DIRECT" | "FORMAL";
+export type CommunicationFrequency = "ASYNC" | "BIWEEKLY" | "DAILY" | "WEEKLY";
+export type CollaborationMode = "ASYNCHRONOUS" | "HYBRID" | "SYNCHRONOUS";
+export type Environment = "ENTERPRISE" | "SCALEUP" | "SOLO" | "STARTUP";
+export type TeamRole = "CONTRIBUTOR" | "LEADER" | "LEARNER" | "MENTOR";
+export type TeamSize = "FLEXIBLE" | "LARGE" | "MEDIUM" | "SMALL";
+export type WorkStyle = "AGILE" | "AUTONOMOUS" | "COLLABORATIVE" | "STRUCTURED";
+export type CoreValue = "GROWTH" | "INNOVATION" | "SOCIAL_IMPACT" | "STABILITY";
+
+export type Education = {
+    degree: string | null;
+    description: string | null;
+    end_date: string | null;
+    field_of_study: string | null;
+    grade: string | null;
+    is_current: boolean;
+    school: string;
+    start_date: string;
+};
+
+export type WorkExperience = {
+    company: string;
+    description: string | null;
+    end_date: string | null;
+    is_current: boolean;
+    location: string | null;
+    start_date: string;
+    title: string;
+};
+
+type NamedItem = { name: string };
+
 export type GetMyProfileResult = {
     myProfile: {
-        avatar_url: string | null;
-        availability_hours: number | null;
-        bio: string | null;
-        display_name: string;
-        educations: Array<{
-            degree: string | null;
-            description: string | null;
-            end_date: string | null;
-            field_of_study: string | null;
-            grade: string | null;
-            is_current: boolean;
-            school: string;
-            start_date: string;
-        }>;
-        headline: string;
-        interests: Array<{
-            name: string;
-        }>;
-        languages: string[];
-        location: string | null;
-        looking_for: string | null;
-        skills: Array<{
-            name: string;
-        }>;
-        tags: string[];
         user_id: string;
+        display_name: string;
+        headline: string;
+        bio: string | null;
+        avatar_url: string | null;
+        location: string | null;
         visibility: ProfileVisibility;
-        website_url: string | null;
-        workExperiences: Array<{
-            company: string;
-            description: string | null;
-            end_date: string | null;
-            is_current: boolean;
-            location: string | null;
-            start_date: string;
-            title: string;
-        }>;
+
+        educations: Education[];
+        workExperiences: WorkExperience[];
+
+        skills: NamedItem[];
+        interests: NamedItem[];
+        tags: string[];
+        languages: string[];
+
+        core_values: CoreValue[] | null;
+        primary_motivations: string[] | null;
+        desired_team_role: TeamRole | null;
+
+        preferred_collaboration_mode: CollaborationMode | null;
+        preferred_environments: Environment[] | null;
+        preferred_team_size: TeamSize | null;
+        preferred_work_styles: WorkStyle[] | null;
+        communication_style: CommunicationStyle | null;
+        communication_frequency: CommunicationFrequency | null;
+
+        availability_hours: number | null;
+        mission_duration_min_weeks: number | null;
+        mission_duration_max_weeks: number | null;
+        remote_preference_percent: number | null;
+        timezone: string | null;
+        timezone_flexibility_minutes: number | null;
+
+        looking_for: string | null;
     } | null;
 };
 
 export const GET_MY_PROFILE = gql`
     query GetMyProfile {
         myProfile {
-            avatar_url
-            availability_hours
-            bio
+            user_id
             display_name
+            headline
+            bio
+            avatar_url
+            location
+            visibility
+
             educations {
                 degree
                 description
@@ -61,20 +95,6 @@ export const GET_MY_PROFILE = gql`
                 school
                 start_date
             }
-            headline
-            interests {
-                name
-            }
-            languages
-            location
-            looking_for
-            skills {
-                name
-            }
-            tags
-            user_id
-            visibility
-            website_url
             workExperiences {
                 company
                 description
@@ -84,59 +104,86 @@ export const GET_MY_PROFILE = gql`
                 start_date
                 title
             }
+
+            skills { name }
+            interests { name }
+            tags
+            languages
+
+            core_values
+            primary_motivations
+            desired_team_role
+
+            preferred_collaboration_mode
+            preferred_environments
+            preferred_team_size
+            preferred_work_styles
+            communication_style
+            communication_frequency
+
+            availability_hours
+            mission_duration_min_weeks
+            mission_duration_max_weeks
+            remote_preference_percent
+            timezone
+            timezone_flexibility_minutes
+
+            looking_for
         }
     }
 `;
 
 export type GetProfileByIdResult = {
     profileById: {
-        avatar_url: string | null;
-        availability_hours: number | null;
-        bio: string | null;
-        display_name: string;
-        educations: Array<{
-            degree: string | null;
-            description: string | null;
-            end_date: string | null;
-            field_of_study: string | null;
-            grade: string | null;
-            is_current: boolean;
-            school: string;
-            start_date: string;
-        }>;
-        headline: string;
-        interests: Array<{
-            name: string;
-        }>;
-        languages: string[];
-        location: string | null;
-        looking_for: string | null;
-        skills: Array<{
-            name: string;
-        }>;
-        tags: string[];
         user_id: string;
+        display_name: string;
+        headline: string;
+        bio: string | null;
+        avatar_url: string | null;
+        location: string | null;
         visibility: ProfileVisibility;
-        website_url: string | null;
-        workExperiences: Array<{
-            company: string;
-            description: string | null;
-            end_date: string | null;
-            is_current: boolean;
-            location: string | null;
-            start_date: string;
-            title: string;
-        }>;
+
+        educations: Education[];
+        workExperiences: WorkExperience[];
+
+        skills: NamedItem[];
+        interests: NamedItem[];
+        tags: string[];
+        languages: string[];
+
+        core_values: CoreValue[] | null;
+        primary_motivations: string[] | null;
+        desired_team_role: TeamRole | null;
+
+        preferred_collaboration_mode: CollaborationMode | null;
+        preferred_environments: Environment[] | null;
+        preferred_team_size: TeamSize | null;
+        preferred_work_styles: WorkStyle[] | null;
+        communication_style: CommunicationStyle | null;
+        communication_frequency: CommunicationFrequency | null;
+
+        availability_hours: number | null;
+        mission_duration_min_weeks: number | null;
+        mission_duration_max_weeks: number | null;
+        remote_preference_percent: number | null;
+        timezone: string | null;
+        timezone_flexibility_minutes: number | null;
+
+        looking_for: string | null;
     } | null;
 };
 
 export const GET_PROFILE_BY_ID = gql`
     query GetProfileById($id: String!) {
         profileById(id: $id) {
-            avatar_url
-            availability_hours
-            bio
+            user_id
             display_name
+            headline
+            bio
+            avatar_url
+            location
+            visibility
+
             educations {
                 degree
                 description
@@ -147,20 +194,6 @@ export const GET_PROFILE_BY_ID = gql`
                 school
                 start_date
             }
-            headline
-            interests {
-                name
-            }
-            languages
-            location
-            looking_for
-            skills {
-                name
-            }
-            tags
-            user_id
-            visibility
-            website_url
             workExperiences {
                 company
                 description
@@ -170,6 +203,31 @@ export const GET_PROFILE_BY_ID = gql`
                 start_date
                 title
             }
+
+            skills { name }
+            interests { name }
+            tags
+            languages
+
+            core_values
+            primary_motivations
+            desired_team_role
+
+            preferred_collaboration_mode
+            preferred_environments
+            preferred_team_size
+            preferred_work_styles
+            communication_style
+            communication_frequency
+
+            availability_hours
+            mission_duration_min_weeks
+            mission_duration_max_weeks
+            remote_preference_percent
+            timezone
+            timezone_flexibility_minutes
+
+            looking_for
         }
     }
 `;

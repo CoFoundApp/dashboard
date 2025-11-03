@@ -10,13 +10,15 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 import ProfileEditGeneralForm from "./profile-edit-general-form";
 import { Separator } from "@/components/ui/separator";
-import ProfileEditProForm from "./profile-edit-pro-form";
 import ProfileEditEducationsForm from "./profile-edit-educations-form";
 import ProfileEditOtherForm from "./profile-edit-other-form";
 import { Button } from "@/components/ui/button";
 import ProfileEditExperiencesForm from "./profile-edit-experiences-form";
 import { toast } from "sonner";
 import { GET_NAVIGATION } from "@/graphql/navigation";
+import ProfileEditValuesForm from "./profile-edit-values-form";
+import ProfileEditCollaborationForm from "./profile-edit-collaboration-form";
+import ProfileEditDisponibilityForm from "./profile-edit-disponibility-form";
 
 export default function MyProfileEditForm({ profile }: any) {
     const router = useRouter();
@@ -39,7 +41,7 @@ export default function MyProfileEditForm({ profile }: any) {
             display_name: profile.display_name,
             visibility: profile.visibility,
             avatar: [],
-            availability_hours: Number(profile.availability_hours),
+            availability_hours: profile.availability_hours ?? undefined,
             bio: profile.bio,
             educations: profile.educations?.map(edu => ({
                 ...edu,
@@ -61,6 +63,20 @@ export default function MyProfileEditForm({ profile }: any) {
                 end_date: formatDateForInput(work.end_date),
                 description: work.description ?? "",
             })) ?? [],
+            core_values: profile.core_values ?? [],
+            primary_motivations: profile.primary_motivations ?? [],
+            desired_team_role: profile.desired_team_role ?? undefined,
+            preferred_collaboration_mode: profile.preferred_collaboration_mode ?? undefined,
+            preferred_environments: profile.preferred_environments ?? [],
+            preferred_team_size: profile.preferred_team_size ?? undefined,
+            preferred_work_styles: profile.preferred_work_styles ?? [],
+            communication_style: profile.communication_style ?? undefined,
+            communication_frequency: profile.communication_frequency ?? undefined,
+            mission_duration_min_weeks: profile.mission_duration_min_weeks ?? undefined,
+            mission_duration_max_weeks: profile.mission_duration_max_weeks ?? undefined,
+            remote_preference_percent: profile.remote_preference_percent ?? undefined,
+            timezone: profile.timezone ?? "",
+            timezone_flexibility_minutes: profile.timezone_flexibility_minutes ?? undefined,
         },
         mode: "onTouched",
     });
@@ -135,17 +151,21 @@ export default function MyProfileEditForm({ profile }: any) {
                 >
                     <ProfileEditGeneralForm />
                     <Separator className="my-8" />
-                    <ProfileEditProForm />
-                    <Separator className="my-8" />
                     <ProfileEditEducationsForm />
                     <Separator className="my-8" />
                     <ProfileEditExperiencesForm />
                     <Separator className="my-8" />
                     <ProfileEditOtherForm />
                     <Separator className="my-8" />
+                    <ProfileEditValuesForm/>
+                    <Separator className="my-8" />
+                    <ProfileEditCollaborationForm />
+                    <Separator className="my-8" />
+                    <ProfileEditDisponibilityForm />
+                    <Separator className="my-8" />
                     <div className="flex items-center justify-end space-x-4">
                         <Button type="submit" className="whitespace-nowrap">
-                            Modifier le profil
+                            { loading ? "Modification..." : "Modifier le profil"}
                         </Button>
                     </div>
                 </form>

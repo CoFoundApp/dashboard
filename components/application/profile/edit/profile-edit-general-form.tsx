@@ -1,5 +1,5 @@
 import { FileUploadWithCrop } from "@/components/ui/file-upload-with-crop";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,7 +15,7 @@ export default function ProfileEditGeneralForm() {
             </h2>
             <div className="md:col-span-2">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-6">
-                    <div className="col-span-full sm:col-span-3">
+                    <div className="col-span-full">
                         <FormField
                             control={control}
                             name="display_name"
@@ -28,36 +28,6 @@ export default function ProfileEditGeneralForm() {
                                             {...field}
                                         />
                                     </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-                    <div className="col-span-full sm:col-span-3">
-                        <FormField
-                            control={control}
-                            name="visibility"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Visibilité</FormLabel>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                        <FormControl>
-                                            <SelectTrigger className="w-full">
-                                                <SelectValue placeholder="Visibilité" />
-                                            </SelectTrigger>
-                                        </FormControl>
-                                        <SelectContent>
-                                            <SelectItem value="PUBLIC">
-                                                Publique
-                                            </SelectItem>
-                                            <SelectItem value="PRIVATE">
-                                                Privé
-                                            </SelectItem>
-                                            <SelectItem value="UNLISTED">
-                                                Non répertorié
-                                            </SelectItem>
-                                        </SelectContent>
-                                    </Select>
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -76,6 +46,7 @@ export default function ProfileEditGeneralForm() {
                                             {...field}
                                         />
                                     </FormControl>
+                                    <FormDescription>Votre titre doit faire 100 caractères maximum.</FormDescription>
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -116,6 +87,54 @@ export default function ProfileEditGeneralForm() {
                                             onFileReject={(_, message) => {
                                                 setError("avatar", { message });
                                             }}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <div className="col-span-full sm:col-span-3">
+                        <FormField
+                            control={control}
+                            name="visibility"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Visibilité</FormLabel>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <FormControl>
+                                            <SelectTrigger className="w-full">
+                                                <SelectValue placeholder="Visibilité" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            <SelectItem value="PUBLIC">
+                                                Publique
+                                            </SelectItem>
+                                            <SelectItem value="PRIVATE">
+                                                Privé
+                                            </SelectItem>
+                                            <SelectItem value="UNLISTED">
+                                                Non répertorié
+                                            </SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <div className="col-span-full sm:col-span-3">
+                        <FormField
+                            control={control}
+                            name="location"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Localisation</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Entrez votre localisation..."
+                                            {...field}
                                         />
                                     </FormControl>
                                     <FormMessage />

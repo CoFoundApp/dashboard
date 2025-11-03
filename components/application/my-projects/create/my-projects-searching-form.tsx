@@ -1,0 +1,111 @@
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { TagInput } from "@/components/ui/tag-input";
+import { PREFERRED_TEAM_ROLE_OPTIONS, PREFERRED_TEAM_SIZE_OPTIONS } from "@/lib/utils";
+import { useFormContext } from "react-hook-form";
+
+export default function MyProjectsSearchingForm() {
+    const { control } = useFormContext();
+
+    return (
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
+            <h2 className="font-semibold text-foreground">
+                Mots-clés & Compétences
+            </h2>
+            <div className="md:col-span-2">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-6">
+                    <div className="col-span-full sm:col-span-3">
+                        <FormField
+                            control={control}
+                            name="preferred_team_role"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Rôle d'équipe préféré</FormLabel>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <FormControl>
+                                            <SelectTrigger className="w-full">
+                                                <SelectValue placeholder="Rôle d'équipe préféré" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {PREFERRED_TEAM_ROLE_OPTIONS.map((opt) => (
+                                                <SelectItem key={opt.value} value={opt.value}>
+                                                    {opt.label}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <div className="col-span-full sm:col-span-3">
+                        <FormField
+                            control={control}
+                            name="preferred_team_size"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Taille d'équipe préféré</FormLabel>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <FormControl>
+                                            <SelectTrigger className="w-full">
+                                                <SelectValue placeholder="Taille d'équipe préféré" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {PREFERRED_TEAM_SIZE_OPTIONS.map((opt) => (
+                                                <SelectItem key={opt.value} value={opt.value}>
+                                                    {opt.label}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <div className="col-span-full">
+                        <FormField
+                            control={control}
+                            name="project_skills"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Compétences</FormLabel>
+                                    <FormControl>
+                                        <TagInput
+                                            tags={field.value ?? []}
+                                            onTagsChange={(next) => field.onChange(next)}
+                                            placeholder="Tapez et Entrée pour ajouter une compétence..."
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <div className="col-span-full">
+                        <FormField
+                            control={control}
+                            name="project_interests"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Intêrets</FormLabel>
+                                    <FormControl>
+                                        <TagInput
+                                            tags={field.value ?? []}
+                                            onTagsChange={(next) => field.onChange(next)}
+                                            placeholder="Tapez et Entrée pour ajouter un intérêt..."
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}

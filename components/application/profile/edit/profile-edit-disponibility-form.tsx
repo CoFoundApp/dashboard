@@ -1,31 +1,31 @@
-import { FileUploadWithCrop } from "@/components/ui/file-upload-with-crop";
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { TagInput } from "@/components/ui/tag-input";
-import { Textarea } from "@/components/ui/textarea";
 import { useFormContext } from "react-hook-form";
 
-export default function MyProjectsGeneralForm() {
-    const { control, setError } = useFormContext();
+export default function ProfileEditDisponibilityForm() {
+    const { control } = useFormContext();
 
     return (
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
             <h2 className="font-semibold text-foreground">
-                Informations générales
+                Disponibilités
             </h2>
             <div className="md:col-span-2">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-6">
                     <div className="col-span-full sm:col-span-3">
                         <FormField
                             control={control}
-                            name="title"
+                            name="availability_hours"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Titre</FormLabel>
+                                    <FormLabel>Heures disponibles par semaine</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="Entrez le titre de votre projet..."
-                                            {...field}
+                                            min={0}
+                                            step={1}
+                                            value={field.value ?? ""}
+                                            onChange={(e) => field.onChange(e.target.value)}
+                                            placeholder="Entrez votre nombre..."
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -36,13 +36,82 @@ export default function MyProjectsGeneralForm() {
                     <div className="col-span-full sm:col-span-3">
                         <FormField
                             control={control}
-                            name="industry"
+                            name="remote_preference_percent"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Secteur d'activité</FormLabel>
+                                    <FormLabel>Préférence de télétravail (%)</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="Entrez le secteur d'activité de votre projet..."
+                                            min={0}
+                                            step={1}
+                                            value={field.value ?? ""}
+                                            onChange={(e) =>
+                                                field.onChange(e.target.value === "" ? undefined : e.target.valueAsNumber)
+                                            }
+                                            placeholder="Entrez votre pourcentage..."
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <div className="col-span-full sm:col-span-3">
+                        <FormField
+                            control={control}
+                            name="mission_duration_min_weeks"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Jours minimum par semaine</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            min={0}
+                                            step={1}
+                                            value={field.value ?? ""}
+                                            onChange={(e) =>
+                                                field.onChange(e.target.value === "" ? undefined : e.target.valueAsNumber)
+                                            }
+                                            placeholder="Entrez votre nombre..."
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <div className="col-span-full sm:col-span-3">
+                        <FormField
+                            control={control}
+                            name="mission_duration_max_weeks"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Jours maximum par semaine</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            min={0}
+                                            step={1}
+                                            value={field.value ?? ""}
+                                            onChange={(e) =>
+                                                field.onChange(e.target.value === "" ? undefined : e.target.valueAsNumber)
+                                            }
+                                            placeholder="Entrez votre nombre..."
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <div className="col-span-full">
+                        <FormField
+                            control={control}
+                            name="timezone"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Fuseau horaire principal</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Entrez le fuseau horaire..."
                                             {...field}
                                         />
                                     </FormControl>
@@ -54,76 +123,14 @@ export default function MyProjectsGeneralForm() {
                     <div className="col-span-full">
                         <FormField
                             control={control}
-                            name="summary"
+                            name="looking_for"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Résumé</FormLabel>
+                                    <FormLabel>Ce que vous recherchez actuellement</FormLabel>
                                     <FormControl>
-                                        <Textarea 
-                                            placeholder="Entrez le résumé de votre projet..."
+                                        <Input
+                                            placeholder="Entrez ce que vous recherchez..."
                                             {...field}
-                                        />
-                                    </FormControl>
-                                    <FormDescription>Le résumé du projet doit faire 120 caractères maximum.</FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-                    <div className="col-span-full">
-                        <FormField
-                            control={control}
-                            name="avatar"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Logo</FormLabel>
-                                    <FormControl>
-                                        <FileUploadWithCrop
-                                            value={field.value}
-                                            onValueChange={field.onChange}
-                                            maxSize={5 * 1024 * 1024}
-                                            aspectRatio={1}
-                                            shape="circle"
-                                            onFileReject={(_, message) => {
-                                                setError("avatar", { message });
-                                            }}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-                    <div className="col-span-full">
-                        <FormField
-                            control={control}
-                            name="description"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Description</FormLabel>
-                                    <FormControl>
-                                        <Textarea 
-                                            placeholder="Entrez la description de votre projet..."
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-                    <div className="col-span-full">
-                        <FormField
-                            control={control}
-                            name="tags"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Tags</FormLabel>
-                                    <FormControl>
-                                        <TagInput
-                                            tags={field.value ?? []}
-                                            onTagsChange={(next) => field.onChange(next)}
-                                            placeholder="Tapez et Entrée pour ajouter un tag..."
                                         />
                                     </FormControl>
                                     <FormMessage />

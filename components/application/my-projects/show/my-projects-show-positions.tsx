@@ -24,13 +24,13 @@ export default function MyProjectsShowPositions({ projectId }: MyProjectsShowPos
     const [closeProjectPosition, { loading: closing }] = useMutation(CLOSE_PROJECT_POSITION, {
         refetchQueries: [{ query: GET_PROJECT_POSITIONS, variables: { project_id: projectId } }],
         onCompleted: () => {
-            toast.success("Candidature retirée", {
-                description: "Votre candidature a été retirée avec succès.",
+            toast.success("Poste retirée", {
+                description: "Votre poste a été retirée avec succès.",
             });
         },
         onError: (error) => {
             toast.error("Oups !", {
-                description: "Une erreur est survenue lors du retrait de votre candidature.",
+                description: "Une erreur est survenue lors du retrait de votre poste.",
             });
         },
     });
@@ -121,7 +121,7 @@ export default function MyProjectsShowPositions({ projectId }: MyProjectsShowPos
                                         </AlertDialogTrigger>
                                         <AlertDialogContent onClick={(e) => e.stopPropagation()}>
                                             <AlertDialogHeader>
-                                                <AlertDialogTitle>Retirer votre candidature ?</AlertDialogTitle>
+                                                <AlertDialogTitle>Retirer votre poste ?</AlertDialogTitle>
                                                 <AlertDialogDescription>
                                                     Êtes-vous sûr de vouloir retirer le poste {" "}
                                                     <span className="font-medium">{position.title}</span> ?{" "}

@@ -1,5 +1,9 @@
 import z from "zod";
 import { EducationSchema, LanguageCode, WorkExperienceSchema } from "./introduction";
+import { CultureValues, CultureWorkStyles } from "./projects";
+
+export const PrimaryMotivationsValues = z.enum(["CREATE", "EARN", "HELP", "LEARN", "TEACH"]);
+export const EnvironmentValues = z.enum(["ENTERPRISE", "SCALEUP", "SOLO", "STARTUP"]);
 
 export const ProfileSchema = z.object({
     display_name: z
@@ -15,6 +19,9 @@ export const ProfileSchema = z.object({
         })
         .min(3, {
             message: "Votre titre doit faire 3 caractères minimum.",
+        })
+        .max(100, {
+            message: "Votre titre doit faire 100 caractères maximum.",
         }),
     bio: z
         .string({
@@ -38,18 +45,6 @@ export const ProfileSchema = z.object({
             message: "Vous devez renseigner une localisation valide.",
         })
         .optional(),
-    availability_hours: z
-        .number({
-            message: "Vous devez renseigner un nombre d'heures valide.",
-        })
-        .int()
-        .min(0, { message: "Le nombre d'heures doit être positif." })
-        .optional(),
-    looking_for: z
-        .string({
-            message: "Vous devez renseigner une chaîne de caractère valide.",
-        })
-        .optional(),
     educations: z.array(EducationSchema).default([]),
     work_experiences: z.array(WorkExperienceSchema).default([]),
     languages: z
@@ -68,4 +63,76 @@ export const ProfileSchema = z.object({
         .array(z.string())
         .min(1, { message: "Vous devez renseigner un tag minimum." })
         .default([]),
+    core_values: z
+        .array(CultureValues)
+        .optional(),
+    primary_motivations: z
+        .array(PrimaryMotivationsValues)
+        .optional(),
+    desired_team_role: z
+        .enum(["CONTRIBUTOR", "LEADER", "LEARNER", "MENTOR"])
+        .optional(),
+    preferred_collaboration_mode: z
+        .enum(["ASYNCHRONOUS", "HYBRID", "SYNCHRONOUS"])
+        .optional(),
+    preferred_environments: z
+        .array(EnvironmentValues)
+        .optional(),
+    preferred_team_size: z
+        .enum(["FLEXIBLE", "LARGE", "MEDIUM", "SMALL"])
+        .optional(),
+    preferred_work_styles: z
+        .array(CultureWorkStyles)
+        .optional(),
+    communication_style: z
+        .enum(["CASUAL", "DIPLOMATIC", "DIRECT", "FORMAL"])
+        .optional(),
+    communication_frequency: z
+        .enum(["ASYNC", "BIWEEKLY", "DAILY", "WEEKLY"])
+        .optional(),
+    availability_hours: z
+        .number({
+            message: "Vous devez renseigner un nombre d'heures valide.",
+        })
+        .int()
+        .min(0, { message: "Le nombre d'heures doit être positif." })
+        .optional(),
+    mission_duration_min_weeks: z
+        .number({
+            message: "Vous devez renseigner un nombre de jours valide.",
+        })
+        .int()
+        .min(0, { message: "Le nombre de jours doit être positif." })
+        .optional(),
+    mission_duration_max_weeks: z
+        .number({
+            message: "Vous devez renseigner un nombre de jours valide.",
+        })
+        .int()
+        .min(0, { message: "Le nombre de jours doit être positif." })
+        .optional(),
+    remote_preference_percent: z
+        .number({
+            message: "Vous devez renseigner un nombre valide.",
+        })
+        .int()
+        .min(0, { message: "Le nombre doit être positif." })
+        .optional(),
+    timezone: z
+        .string({
+            message: "Vous devez renseigner une chaîne de caractère valide.",
+        })
+        .optional(),
+    timezone_flexibility_minutes: z
+        .number({
+            message: "Vous devez renseigner un nombre valide.",
+        })
+        .int()
+        .min(0, { message: "Le nombre doit être positif." })
+        .optional(),
+    looking_for: z
+        .string({
+            message: "Vous devez renseigner une chaîne de caractère valide.",
+        })
+        .optional(),
 })

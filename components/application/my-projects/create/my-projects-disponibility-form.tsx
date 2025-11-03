@@ -2,26 +2,26 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import { useFormContext } from "react-hook-form";
 
-export default function ProfileEditProForm() {
+export default function MyProjectsDisponibilityForm() {
     const { control } = useFormContext();
 
     return (
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
             <h2 className="font-semibold text-foreground">
-                Détails professionnels
+                Culture & mode de travail
             </h2>
             <div className="md:col-span-2">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-6">
-                    <div className="col-span-full sm:col-span-3">
+                    <div className="col-span-full">
                         <FormField
                             control={control}
-                            name="location"
+                            name="timezone"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Localisation</FormLabel>
+                                    <FormLabel>Fuseau horaire principal</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="Entrez votre localisation..."
+                                            placeholder="Entrez le fuseau horaire..."
                                             {...field}
                                         />
                                     </FormControl>
@@ -33,20 +33,19 @@ export default function ProfileEditProForm() {
                     <div className="col-span-full sm:col-span-3">
                         <FormField
                             control={control}
-                            name="availability_hours"
+                            name="remote_ratio_min"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Heures disponibles</FormLabel>
+                                    <FormLabel>Télétravail minimum (%)</FormLabel>
                                     <FormControl>
                                         <Input
-                                            type="number"
                                             min={0}
                                             step={1}
                                             value={field.value ?? ""}
                                             onChange={(e) =>
                                                 field.onChange(e.target.value === "" ? 0 : e.target.valueAsNumber)
                                             }
-                                            placeholder="Entrez vos disponibilités..."
+                                            placeholder="Entrez votre pourcentage..."
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -54,17 +53,22 @@ export default function ProfileEditProForm() {
                             )}
                         />
                     </div>
-                    <div className="col-span-full">
+                    <div className="col-span-full sm:col-span-3">
                         <FormField
                             control={control}
-                            name="looking_for"
+                            name="remote_ratio_max"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Ce que vous recherchez</FormLabel>
+                                    <FormLabel>Télétravail maximum (%)</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="Entrez votre objectif..."
-                                            {...field}
+                                            min={0}
+                                            step={1}
+                                            value={field.value ?? ""}
+                                            onChange={(e) =>
+                                                field.onChange(e.target.value === "" ? 0 : e.target.valueAsNumber)
+                                            }
+                                            placeholder="Entrez votre pourcentage..."
                                         />
                                     </FormControl>
                                     <FormMessage />

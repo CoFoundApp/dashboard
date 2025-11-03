@@ -54,14 +54,32 @@ export type GetProjectByIdResult = {
         banner_url: string | null;
         industry: string | null;
         owner_id: string;
+        tags: string[];
         project_interests: string[];
         project_skills: string[];
         stage: ProjectStage;
         status: ProjectStatus;
-        tags: string[];
         visibility: ProjectVisibility;
+        culture_values: string[] | null;
+        culture_work_styles: string[] | null;
+        management_style: "COACHING" | "HANDS_OFF" | "HANDS_ON" | "SELF_MANAGED" | null;
+        communication_style: "CASUAL" | "DIPLOMATIC" | "DIRECT" | "FORMAL" | null;
+        communication_frequency: "ASYNC" | "BIWEEKLY" | "DAILY" | "WEEKLY" | null;
+        collaboration_mode: "ASYNCHRONOUS" | "HYBRID" | "SYNCHRONOUS" | null;
+        environment: "ENTERPRISE" | "SCALEUP" | "SOLO" | "STARTUP" | null;
+        preferred_team_role: "CONTRIBUTOR" | "LEADER" | "LEARNER" | "MENTOR" | null;
+        preferred_team_size: "FLEXIBLE" | "LARGE" | "MEDIUM" | "SMALL" | null;
+        required_hours_min: number | null;
+        required_hours_max: number | null;
+        duration_weeks_min: number | null;
+        duration_weeks_max: number | null;
+        urgency: "CRITICAL" | "HIGH" | "LOW" | "MEDIUM" | null;
+        timezone: string | null;
+        remote_ratio_min: number | null;
+        remote_ratio_max: number | null;
     } | null;
 };
+
 
 export const GET_PROJECT_BY_ID = gql`
     query GetProjectById($id: String!) {
@@ -69,20 +87,37 @@ export const GET_PROJECT_BY_ID = gql`
             user_id
         }
         projectById(id: $id) {
+            id
+            title
+            summary
+            description
             avatar_url
             banner_url
-            description
-            id
             industry
             owner_id
+            tags
             project_interests
             project_skills
             stage
             status
-            summary
-            tags
-            title
             visibility
+            culture_values
+            culture_work_styles
+            management_style
+            communication_style
+            communication_frequency
+            collaboration_mode
+            environment
+            preferred_team_role
+            preferred_team_size
+            required_hours_min
+            required_hours_max
+            duration_weeks_min
+            duration_weeks_max
+            urgency
+            timezone
+            remote_ratio_min
+            remote_ratio_max
         }
     }
 `;
