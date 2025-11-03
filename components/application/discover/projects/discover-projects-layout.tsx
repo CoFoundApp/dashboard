@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import DiscoverFilters, { ProjectFilters, SortOption } from "./discover-filters";
-import DiscoverHeader from "./discover-header";
-import DiscoverList from "./discover-list";
+import DiscoverProjectsHeader from "./discover-projects-header";
+import DiscoverProjectsFilters, { ProjectFilters, SortOption } from "./discover-projects-filters";
+import DiscoverProjectsList from "./discover-projects-list";
 
-export default function DiscoverLayout() {
+export default function DiscoverProjectsLayout() {
     const [filters, setFilters] = useState<ProjectFilters>({});
     const [sort, setSort] = useState<SortOption>({ by: "CREATED_AT", direction: "desc" });
 
@@ -19,10 +19,10 @@ export default function DiscoverLayout() {
 
     return (
         <section className="space-y-12">
-            <DiscoverHeader />
+            <DiscoverProjectsHeader />
             <div className="space-y-6">
-                <DiscoverFilters onFiltersChange={handleFiltersChange} onSortChange={handleSortChange} />
-                <DiscoverList filters={filters} sort={sort} />
+                <DiscoverProjectsFilters onFiltersChange={handleFiltersChange} onSortChange={handleSortChange} />
+                <DiscoverProjectsList filters={filters} sort={sort} />
             </div>
         </section>
     );

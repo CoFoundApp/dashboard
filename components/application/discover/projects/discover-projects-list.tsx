@@ -4,15 +4,15 @@ import { useQuery } from "@apollo/client/react"
 import { LIST_PROJECTS, SEARCH_PROJECTS, type ListProjectsResult, type SearchProjectsResult } from "@/graphql/projects"
 import DiscoverProjectCard from "./discover-project-card"
 import { Inbox, Loader2 } from "lucide-react"
-import type { ProjectFilters, SortOption } from "./discover-filters"
+import type { ProjectFilters, SortOption } from "./discover-projects-filters"
 import { Card, CardContent } from "@/components/ui/card"
 
-interface DiscoverListProps {
+interface DiscoverProjectsListProps {
     filters: ProjectFilters;
     sort: SortOption;
 }
 
-export default function DiscoverList({ filters, sort }: DiscoverListProps) {
+export default function DiscoverProjectsList({ filters, sort }: DiscoverProjectsListProps) {
     const useSearchQuery = !!filters.search && filters.search.trim().length > 0;
 
     const listQuery = useQuery<ListProjectsResult>(LIST_PROJECTS, {

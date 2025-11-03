@@ -63,7 +63,6 @@ export const ProfileSchema = z.object({
         .default([]),
     tags: z
         .array(z.string())
-        .min(1, { message: "Vous devez renseigner un tag minimum." })
         .default([]),
     core_values: z
         .array(CultureValues)
