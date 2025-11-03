@@ -48,7 +48,7 @@ export default function MyProjectsEditLayout({ projectId }: MyProjectsEditLayout
 
     return (
         <section className="space-y-12">
-            <MyProjectsEditHeader />
+            <MyProjectsEditHeader projectId={projectId} />
             <MyProjectsEditForm project={data.projectById} />
         </section>
     );

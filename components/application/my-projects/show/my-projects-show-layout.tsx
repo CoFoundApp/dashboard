@@ -12,6 +12,8 @@ import ProjectMembers from "../../project/project-members";
 import MyProjectsShowPositions from "./my-projects-show-positions";
 import MyProjectsShowApplies from "./my-projects-show-applies";
 import MyProjectsShowProfiles from "./my-projects-show-profiles";
+import ProjectEnterpriseValues from "../../project/project-enterprise-values";
+import ProjectWorkStyles from "../../project/project-work-styles";
 
 interface MyProjectsShowLayoutProps {
     projectId: string;
@@ -74,6 +76,10 @@ export default function MyProjectsShowLayout({ projectId }: MyProjectsShowLayout
                 <ProjectSkills skills={data.projectById.project_skills} />
                 <ProjectInterests interests={data.projectById.project_interests} />
                 <ProjectTags tags={data.projectById.tags} />
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <ProjectEnterpriseValues values={data.projectById.culture_values} />
+                <ProjectWorkStyles styles={data.projectById.culture_work_styles} />
             </div>
             <ProjectMembers projectId={projectId} userId={data.myProfile.user_id} isOwner />
             <MyProjectsShowPositions projectId={projectId} />
