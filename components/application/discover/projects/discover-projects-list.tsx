@@ -47,7 +47,7 @@ export default function DiscoverProjectsList({ filters, sort }: DiscoverProjects
         return (
             <section className="space-y-8">
                 <div className="flex items-center justify-center min-h-[400px]">
-                    <Loader2 className="size-8 animate-spin text-muted-foreground" aria-label="Chargement de vos projets" />
+                    <Loader2 className="size-8 animate-spin text-muted-foreground" aria-label="Chargement des projets" />
                 </div>
             </section>
         );
@@ -58,7 +58,7 @@ export default function DiscoverProjectsList({ filters, sort }: DiscoverProjects
             <section className="space-y-8">
                 <div className="flex flex-col items-center justify-center min-h-[400px] gap-4">
                     <p className="text-destructive" role="alert">
-                        Une erreur est survenue lors du chargement de vos projets.
+                        Une erreur est survenue lors du chargement des projets.
                     </p>
                     <button 
                         onClick={() => window.location.reload()} 
