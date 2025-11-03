@@ -23,7 +23,6 @@ export default function MyProjectsCommitmentForm() {
                                     <FormLabel>Heures minimales par jour</FormLabel>
                                     <FormControl>
                                         <Input
-                                            type="number"
                                             min={0}
                                             step={1}
                                             value={field.value ?? ""}
@@ -47,7 +46,6 @@ export default function MyProjectsCommitmentForm() {
                                     <FormLabel>Heures maximales par jour</FormLabel>
                                     <FormControl>
                                         <Input
-                                            type="number"
                                             min={0}
                                             step={1}
                                             value={field.value ?? ""}
@@ -71,7 +69,6 @@ export default function MyProjectsCommitmentForm() {
                                     <FormLabel>Jours minimum par semaine</FormLabel>
                                     <FormControl>
                                         <Input
-                                            type="number"
                                             min={0}
                                             step={1}
                                             value={field.value ?? ""}
@@ -95,7 +92,6 @@ export default function MyProjectsCommitmentForm() {
                                     <FormLabel>Jours maximum par semaine</FormLabel>
                                     <FormControl>
                                         <Input
-                                            type="number"
                                             min={0}
                                             step={1}
                                             value={field.value ?? ""}

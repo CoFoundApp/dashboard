@@ -39,7 +39,6 @@ export default function MyProjectsDisponibilityForm() {
                                     <FormLabel>Télétravail minimum (%)</FormLabel>
                                     <FormControl>
                                         <Input
-                                            type="number"
                                             min={0}
                                             step={1}
                                             value={field.value ?? ""}
@@ -63,7 +62,6 @@ export default function MyProjectsDisponibilityForm() {
                                     <FormLabel>Télétravail maximum (%)</FormLabel>
                                     <FormControl>
                                         <Input
-                                            type="number"
                                             min={0}
                                             step={1}
                                             value={field.value ?? ""}
