@@ -5,6 +5,8 @@ import { CultureValues, CultureWorkStyles } from "./projects";
 export const PrimaryMotivationsValues = z.enum(["CREATE", "EARN", "HELP", "LEARN", "TEACH"]);
 export const EnvironmentValues = z.enum(["ENTERPRISE", "SCALEUP", "SOLO", "STARTUP"]);
 
+const emptyToUndefined = (v: unknown) => v === "" || v === null ? undefined : v;
+
 export const ProfileSchema = z.object({
     display_name: z
         .string({
@@ -91,32 +93,45 @@ export const ProfileSchema = z.object({
         .enum(["ASYNC", "BIWEEKLY", "DAILY", "WEEKLY"])
         .optional(),
     availability_hours: z
-        .number({
-            message: "Vous devez renseigner un nombre d'heures valide.",
-        })
-        .int()
-        .min(0, { message: "Le nombre d'heures doit être positif." })
+        .preprocess(
+            emptyToUndefined,
+            z.coerce.number({
+                message: "Vous devez renseigner un nombre valide.",
+            })
+            .int()
+            .min(0, { message: "Le nombre d'heures doit être positif." })
+        )
         .optional(),
     mission_duration_min_weeks: z
-        .number({
-            message: "Vous devez renseigner un nombre de jours valide.",
-        })
-        .int()
-        .min(0, { message: "Le nombre de jours doit être positif." })
+        .preprocess(
+            emptyToUndefined,
+            z.coerce.number({
+                message: "Vous devez renseigner un nombre valide.",
+            })
+            .int()
+            .min(0, { message: "Le nombre de jours doit être positif." })
+        )
         .optional(),
     mission_duration_max_weeks: z
-        .number({
-            message: "Vous devez renseigner un nombre de jours valide.",
-        })
-        .int()
-        .min(0, { message: "Le nombre de jours doit être positif." })
+        .preprocess(
+            emptyToUndefined,
+            z.coerce.number({
+                message: "Vous devez renseigner un nombre valide.",
+            })
+            .int()
+            .min(0, { message: "Le nombre de jours doit être positif." })
+        )
         .optional(),
     remote_preference_percent: z
-        .number({
-            message: "Vous devez renseigner un nombre valide.",
-        })
-        .int()
-        .min(0, { message: "Le nombre doit être positif." })
+        .preprocess(
+            emptyToUndefined,
+            z.coerce.number({
+                message: "Vous devez renseigner un nombre valide.",
+            })
+            .int()
+            .min(0, { message: "Le nombre doit être positif." })
+            .max(100, { message: "Le pourcentage doit être entre 0 et 100." })
+        )
         .optional(),
     timezone: z
         .string({
@@ -124,11 +139,14 @@ export const ProfileSchema = z.object({
         })
         .optional(),
     timezone_flexibility_minutes: z
-        .number({
-            message: "Vous devez renseigner un nombre valide.",
-        })
-        .int()
-        .min(0, { message: "Le nombre doit être positif." })
+        .preprocess(
+            emptyToUndefined,
+            z.coerce.number({
+                message: "Vous devez renseigner un nombre valide.",
+            })
+            .int()
+            .min(0, { message: "Le nombre doit être positif." })
+        )
         .optional(),
     looking_for: z
         .string({
