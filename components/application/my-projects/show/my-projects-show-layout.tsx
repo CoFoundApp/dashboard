@@ -83,6 +83,21 @@ export default function MyProjectsShowLayout({ projectId }: MyProjectsShowLayout
                 <ProjectTags tags={data.projectById.tags} />
             </div>
 
+            {showMore && (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <ProjectEnterpriseValues values={data.projectById.culture_values} />
+                    <ProjectWorkStyles styles={data.projectById.culture_work_styles} />
+                    <ProjectCommitment
+                        required_hours_min={data.projectById.required_hours_min}
+                        required_hours_max={data.projectById.required_hours_max}
+                        duration_weeks_min={data.projectById.duration_weeks_min}
+                        duration_weeks_max={data.projectById.duration_weeks_max}
+                        remote_ratio_min={data.projectById.remote_ratio_min}
+                        remote_ratio_max={data.projectById.remote_ratio_max}
+                    />
+                </div>
+            )}
+
             <div className="flex justify-center">
                 <Button variant="outline" onClick={() => setShowMore(!showMore)} className="gap-2">
                     {showMore ? (
@@ -98,21 +113,6 @@ export default function MyProjectsShowLayout({ projectId }: MyProjectsShowLayout
                     )}
                 </Button>
             </div>
-
-            {showMore && (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <ProjectEnterpriseValues values={data.projectById.culture_values} />
-                    <ProjectWorkStyles styles={data.projectById.culture_work_styles} />
-                    <ProjectCommitment
-                        required_hours_min={data.projectById.required_hours_min}
-                        required_hours_max={data.projectById.required_hours_max}
-                        duration_weeks_min={data.projectById.duration_weeks_min}
-                        duration_weeks_max={data.projectById.duration_weeks_max}
-                        remote_ratio_min={data.projectById.remote_ratio_min}
-                        remote_ratio_max={data.projectById.remote_ratio_max}
-                    />
-                </div>
-            )}
 
             <ProjectMembers projectId={projectId} userId={data.myProfile.user_id} isOwner />
             <MyProjectsShowPositions projectId={projectId} />
