@@ -1,5 +1,11 @@
 import { Badge } from "@/components/ui/badge";
-import { COLLABORATION_MODE_OPTIONS, COMMUNICATION_FREQUENCY_OPTIONS, COMMUNICATION_STYLE_OPTIONS, CULTURE_VALUES_OPTIONS, ENVIRONMENT_OPTIONS, MANAGEMENT_STYLE_OPTIONS } from "@/lib/utils";
+import {
+    COLLABORATION_MODE_OPTIONS,
+    COMMUNICATION_FREQUENCY_OPTIONS,
+    COMMUNICATION_STYLE_OPTIONS,
+    ENVIRONMENT_OPTIONS,
+    MANAGEMENT_STYLE_OPTIONS,
+} from "@/lib/utils";
 
 interface ProjectCollaborationProps {
     management_style: "COACHING" | "HANDS_OFF" | "HANDS_ON" | "SELF_MANAGED" | null;
@@ -9,40 +15,43 @@ interface ProjectCollaborationProps {
     environment: "ENTERPRISE" | "SCALEUP" | "SOLO" | "STARTUP" | null;
 }
 
-export default function ProjectCollaboration({ 
+const labelFrom = (options: readonly { label: string; value: string }[], value: string) =>
+    options.find((opt) => opt.value === value)?.label ?? value;
+
+export default function ProjectCollaboration({
     management_style,
     communication_style,
     communication_frequency,
     collaboration_mode,
-    environment
- }: ProjectCollaborationProps) {
+    environment,
+}: ProjectCollaborationProps) {
     return (
         <div className="space-y-4">
             <h2 className="text-xl font-bold tracking-tight">Communication & Collaboration</h2>
             <div className="flex flex-wrap gap-2">
                 {management_style && (
                     <Badge variant="secondary" className="text-xs">
-                        {MANAGEMENT_STYLE_OPTIONS.find((opt) => opt.value)?.label || management_style}
+                        {labelFrom(MANAGEMENT_STYLE_OPTIONS, management_style)}
                     </Badge>
                 )}
                 {communication_style && (
                     <Badge variant="secondary" className="text-xs">
-                        {COMMUNICATION_STYLE_OPTIONS.find((opt) => opt.value)?.label || communication_style}
+                        {labelFrom(COMMUNICATION_STYLE_OPTIONS, communication_style)}
                     </Badge>
                 )}
                 {communication_frequency && (
                     <Badge variant="secondary" className="text-xs">
-                        {COMMUNICATION_FREQUENCY_OPTIONS.find((opt) => opt.value)?.label || communication_frequency}
+                        {labelFrom(COMMUNICATION_FREQUENCY_OPTIONS, communication_frequency)}
                     </Badge>
                 )}
                 {collaboration_mode && (
                     <Badge variant="secondary" className="text-xs">
-                        {COLLABORATION_MODE_OPTIONS.find((opt) => opt.value)?.label || collaboration_mode}
+                        {labelFrom(COLLABORATION_MODE_OPTIONS, collaboration_mode)}
                     </Badge>
                 )}
                 {environment && (
                     <Badge variant="secondary" className="text-xs">
-                        {ENVIRONMENT_OPTIONS.find((opt) => opt.value)?.label || environment}
+                        {labelFrom(ENVIRONMENT_OPTIONS, environment)}
                     </Badge>
                 )}
             </div>

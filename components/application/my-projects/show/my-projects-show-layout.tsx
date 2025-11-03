@@ -107,7 +107,7 @@ export default function MyProjectsShowLayout({ projectId }: MyProjectsShowLayout
             )}
 
             <div className="flex justify-center">
-                <Button variant="outline" onClick={() => setShowMore(!showMore)} className="gap-2">
+                <Button variant="ghost" onClick={() => setShowMore(!showMore)} className="gap-2">
                     {showMore ? (
                         <>
                             Voir moins
