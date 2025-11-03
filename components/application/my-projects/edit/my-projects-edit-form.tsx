@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/components/ui/form";
-import { UPDATE_PROJECT } from "@/graphql/projects";
+import { GetProjectByIdResult, UPDATE_PROJECT } from "@/graphql/projects";
 import { ProjectSchema } from "@/schemas/projects";
 import { useMutation } from "@apollo/client/react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,11 +19,8 @@ import MyProjectsSearchingForm from "../create/my-projects-searching-form";
 import MyProjectsCommitmentForm from "../create/my-projects-commitment-form";
 import MyProjectsDisponibilityForm from "../create/my-projects-disponibility-form";
 
-type ProjectFormValues = z.infer<typeof ProjectSchema>;
-type ProjectWithId = ProjectFormValues & { id: string };
-
 interface MyProjectsEditFormProps {
-    project: ProjectWithId;
+    project: any;
 }
 
 export default function MyProjectsEditForm({ project }: MyProjectsEditFormProps) {
