@@ -24,11 +24,8 @@ export default function ProfileEditDisponibilityForm() {
                                             type="number"
                                             min={0}
                                             step={1}
-                                            value={field.value ?? ""}
-                                            onChange={(e) =>
-                                                field.onChange(e.target.value === "" ? undefined : e.target.valueAsNumber)
-                                            }
                                             placeholder="Entrez votre nombre..."
+                                            {...field}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -48,11 +45,8 @@ export default function ProfileEditDisponibilityForm() {
                                             type="number"
                                             min={0}
                                             step={1}
-                                            value={field.value ?? ""}
-                                            onChange={(e) =>
-                                                field.onChange(e.target.value === "" ? undefined : e.target.valueAsNumber)
-                                            }
                                             placeholder="Entrez votre pourcentage..."
+                                            {...field}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -72,11 +66,8 @@ export default function ProfileEditDisponibilityForm() {
                                             type="number"
                                             min={0}
                                             step={1}
-                                            value={field.value ?? ""}
-                                            onChange={(e) =>
-                                                field.onChange(e.target.value === "" ? undefined : e.target.valueAsNumber)
-                                            }
                                             placeholder="Entrez votre nombre..."
+                                            {...field}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -96,11 +87,8 @@ export default function ProfileEditDisponibilityForm() {
                                             type="number"
                                             min={0}
                                             step={1}
-                                            value={field.value ?? ""}
-                                            onChange={(e) =>
-                                                field.onChange(e.target.value === "" ? undefined : e.target.valueAsNumber)
-                                            }
                                             placeholder="Entrez votre nombre..."
+                                            {...field}
                                         />
                                     </FormControl>
                                     <FormMessage />
