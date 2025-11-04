@@ -11,9 +11,6 @@ export const LoginSchema = z.object({
         .min(8, {
             message: "Votre mot de passe doit faire 8 caractères minimum.",
         })
-        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*.?&])[A-Za-z\d@$!%*.?&]{8,}$/, {
-            message: "Votre mot de passe doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial.",
-        }),
 });
 
 export const RegisterSchema = z.object({
@@ -26,9 +23,6 @@ export const RegisterSchema = z.object({
         .string()
         .min(8, {
             message: "Votre mot de passe doit faire 8 caractères minimum.",
-        })
-        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*.?&])[A-Za-z\d@$!%*.?&]{8,}$/, {
-            message: "Votre mot de passe doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial.",
         }),
     confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
@@ -49,9 +43,6 @@ export const ResetPasswordSchema = z.object({
         .string()
         .min(8, {
             message: "Votre mot de passe doit faire 8 caractères minimum.",
-        })
-        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*.?&])[A-Za-z\d@$!%*.?&]{8,}$/, {
-            message: "Votre mot de passe doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial.",
         }),
     confirmPassword: z.string(),
 })
