@@ -12,7 +12,7 @@ import { Separator } from "@/components/ui/separator"
 import { Checkbox } from "@/components/ui/checkbox"
 
 export default function IntroductionExperiencesForm() {
-    const { control } = useFormContext<z.infer<typeof IntroductionExperienceSchema>>()
+    const { control, watch } = useFormContext<z.infer<typeof IntroductionExperienceSchema>>();
 
     const {
         fields: educationFields,
@@ -21,7 +21,7 @@ export default function IntroductionExperiencesForm() {
     } = useFieldArray({
         control,
         name: "educations",
-    })
+    });
 
     const {
         fields: workFields,
@@ -30,7 +30,7 @@ export default function IntroductionExperiencesForm() {
     } = useFieldArray({
         control,
         name: "work_experiences",
-    })
+    });
 
     return (
         <div className="grid gap-6">
@@ -134,7 +134,7 @@ export default function IntroductionExperiencesForm() {
                                     <FormItem>
                                         <FormLabel>Date de fin</FormLabel>
                                         <FormControl>
-                                            <Input type="date" {...field} disabled={control._formValues.educations?.[index]?.is_current} />
+                                            <Input type="date" {...field} disabled={watch(`educations.${index}.is_current`)} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -276,7 +276,7 @@ export default function IntroductionExperiencesForm() {
                                             <Input
                                                 type="date"
                                                 {...field}
-                                                disabled={control._formValues.work_experiences?.[index]?.is_current}
+                                                disabled={watch(`work_experiences.${index}.is_current`)}
                                             />
                                         </FormControl>
                                         <FormMessage />
