@@ -1,4 +1,6 @@
-import { Box, Folder, Menu, MessageSquare, User } from "lucide-react";
+"use client";
+
+import { Box, Compass, Folder, Menu, MessageSquare, Plus, User, Users } from "lucide-react";
 
 import {
     Accordion,
@@ -24,6 +26,7 @@ import {
 } from "@/components/ui/sheet";
 import Image from "next/image";
 import NavUser from "./nav-user";
+import Link from "next/link";
 
 interface MenuItem {
     title: string;
@@ -55,14 +58,51 @@ const Navbar = ({
     },
     menu = [
         { title: "Tableau de bord", url: "/" },
-        { title: "Découvrir des projets", url: "/discover/projects" },
-        { title: "Découvrir des profils", url: "/discover/profiles" },
+        {
+            title: "Explorer",
+            url: "#",
+            items: [
+                { 
+                    title: "Découvrir des projets",
+                    url: "/discover/projects",
+                    description: "Explorez des projets à rejoindre ou à soutenir.",
+                    icon: <Compass className="h-5 w-5 text-muted-foreground" />
+                },
+                { 
+                    title: "Découvrir des profils", 
+                    url: "/discover/profiles",
+                    description: "Trouvez des profils compatibles pour collaborer.",
+                    icon: <Users className="h-5 w-5 text-muted-foreground" />
+                },
+            ]
+        },
+        {
+            title: "Mon activité",
+            url: "#",
+            items: [
+                { 
+                    title: "Mes projets", 
+                    url: "/my-projects", 
+                    description: "Créez, gérez et suivez l’avancement de vos projets.",
+                    icon: <Folder className="h-4 w-4" /> 
+                },
+                { 
+                    title: "Mes candidatures", 
+                    url: "/my-applications",
+                    description: "Suivez le statut de vos candidatures et réponses.", 
+                    icon: <Box className="size-4" /> 
+                },
+                { 
+                    title: "Mes messages", 
+                    url: "/my-messages", 
+                    description: "Discutez avec vos futurs associés et vos équipes.",
+                    icon: <MessageSquare className="size-4" /> 
+                },
+            ]
+        }
     ],
     userMenu = [
         { title: "Mon profil", url: "/my-profile", icon: <User className="h-4 w-4" /> },
-        { title: "Mes projets", url: "/my-projects", icon: <Folder className="h-4 w-4" /> },
-        { title: "Mes candidatures", url: "/my-applications", icon: <Box className="size-4" /> },
-        { title: "Mes messages", url: "/my-messages", icon: <MessageSquare className="size-4" /> },
     ],
 }: NavbarProps) => {
     return (
@@ -83,7 +123,15 @@ const Navbar = ({
                         </NavigationMenu>
                     </div>
                 </div>
-                <NavUser menu={userMenu} />
+                <div className="flex items-center gap-3">
+                    <Button asChild size="sm">
+                        <Link href="/my-projects/create" className="inline-flex items-center gap-2">
+                            <Plus className="h-4 w-4" />
+                            Créer un projet
+                        </Link>
+                    </Button>
+                    <NavUser menu={userMenu} />
+                </div>
             </nav>
 
             <div className="block lg:hidden">
@@ -120,6 +168,13 @@ const Navbar = ({
                                     {menu.map((item) => renderMobileMenuItem(item))}
                                 </Accordion>
 
+                                <Button asChild>
+                                    <Link href="/my-projects/create" className="inline-flex items-center gap-2">
+                                        <Plus className="h-4 w-4" />
+                                        Créer un projet
+                                    </Link>
+                                </Button>
+
                                 <NavUser menu={userMenu} />
                             </div>
                         </SheetContent>
@@ -134,7 +189,7 @@ const renderMenuItem = (item: MenuItem) => {
     if (item.items) {
         return (
             <NavigationMenuItem key={item.title}>
-                <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="cursor-pointer">{item.title}</NavigationMenuTrigger>
                 <NavigationMenuContent className="bg-popover text-popover-foreground">
                     {item.items.map((subItem) => (
                         <NavigationMenuLink asChild key={subItem.title} className="w-80">
