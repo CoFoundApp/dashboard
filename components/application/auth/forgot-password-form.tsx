@@ -51,6 +51,12 @@ export default function ForgotPasswordForm() {
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} aria-busy={loading}>
                 <div className="grid gap-6">
+                    <div className="flex flex-col items-center gap-1 text-center">
+                        <h1 className="text-2xl font-bold">Mot de passe oublié</h1>
+                        <p className="text-muted-foreground text-sm">
+                            Remplissez votre adresse e-mail et vous recevrez un lien de réinitialisation
+                        </p>
+                    </div>
                     <div className="grid gap-6">
                         <FormField
                             control={form.control}
