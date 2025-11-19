@@ -7,7 +7,7 @@ import { Plus, Trash2 } from "lucide-react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 export default function ProfileEditEducationsForm() {
-    const { control } = useFormContext();
+    const { control, watch } = useFormContext();
 
     const {
         fields: educationFields,
@@ -123,7 +123,7 @@ export default function ProfileEditEducationsForm() {
                                             <FormItem>
                                                 <FormLabel>Date de fin</FormLabel>
                                                 <FormControl>
-                                                    <Input type="date" {...field} disabled={control._formValues.educations?.[index]?.is_current} />
+                                                    <Input type="date" {...field} disabled={watch(`educations.${index}.is_current`)} />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>

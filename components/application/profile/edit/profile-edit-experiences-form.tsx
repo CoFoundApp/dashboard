@@ -9,7 +9,7 @@ import { Plus, Trash2 } from "lucide-react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 export default function ProfileEditExperiencesForm() {
-    const { control } = useFormContext();
+    const { control, watch } = useFormContext();
 
     const {
         fields: workFields,
@@ -127,7 +127,7 @@ export default function ProfileEditExperiencesForm() {
                                                     <Input
                                                         type="date"
                                                         {...field}
-                                                        disabled={control._formValues.work_experiences?.[index]?.is_current}
+                                                        disabled={watch(`work_experiences.${index}.is_current`)}
                                                     />
                                                 </FormControl>
                                                 <FormMessage />

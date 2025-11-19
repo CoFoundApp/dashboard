@@ -1,160 +1,118 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form } from "@/components/ui/form";
-import { IntroductionExperienceSchema, IntroductionGeneralSchema, IntroductionOtherSchema, IntroductionProSchema } from "@/schemas/introduction";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import IntroductionGeneralForm from "./introduction-general-form";
-import IntroductionComplete from "./introduction-complete";
-import IntroductionProForm from "./introduction-pro-form";
-import IntroductionOtherForm from "./introduction-other-form";
 import { Loader2 } from "lucide-react";
 import { useMutation } from "@apollo/client/react";
 import { UPDATE_MY_PROFILE } from "@/graphql/profile";
-import { defineStepper } from "@stepperize/react";
 import { sideCannons } from "@/lib/utils";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import IntroductionExperiencesForm from "./introduction-experiences-form";
-
-const { useStepper, steps, utils } = defineStepper(
-    { id: "general", label: "Général", schema: IntroductionGeneralSchema },
-    { id: "pro", label: "Détails professionnels", schema: IntroductionProSchema },
-    { id: "experience", label: "Parcours", schema: IntroductionExperienceSchema },
-    { id: "other", label: "Autre", schema: IntroductionOtherSchema },
-    { id: "complete", label: "Fin", schema: z.object({}) },
-);
+import { IntroductionSchema } from "@/schemas/introduction";
+import { Input } from "@/components/ui/input";
 
 export default function IntroductionForm() {
     const router = useRouter();
-    const stepper = useStepper();
 
     const [updateMyProfile, { loading }] = useMutation(UPDATE_MY_PROFILE);
 
-    const form = useForm({
+    const form = useForm<z.infer<typeof IntroductionSchema>>({
         mode: "onTouched",
-        resolver: zodResolver(stepper.current.schema),
+        resolver: zodResolver(IntroductionSchema),
         defaultValues: {
-            visibility: "PUBLIC",
-            languages: [],
-            skills: [],
-            interests: [],
-            educations: [],
-            work_experiences: [],
+            display_name: "",
+            headline: "",
         }
     });
 
-    const onSubmit = (values: z.infer<typeof stepper.current.schema>) => {
-        if (stepper.isLast) {
-            const formData = form.getValues() as {
-                display_name: string;
-                visibility: string;
-                availability_hours?: number;
-                bio?: string;
-                educations?: any[];
-                headline?: string;
-                interests?: string[];
-                languages?: string[];
-                location?: string;
-                looking_for?: string;
-                skills?: string[];
-                work_experiences?: any[];
-            }
+    const onSubmit = (values: z.infer<typeof IntroductionSchema>) => {
+        const { display_name, headline } = values;
 
-            const cleanedEducations = formData.educations?.map((edu) => ({
-                ...edu,
-                end_date: edu.is_current || !edu.end_date ? null : edu.end_date,
-                grade: edu.grade || null,
-                description: edu.description || null,
-            }))
-
-            const cleanedWorkExperiences = formData.work_experiences?.map((work) => ({
-                ...work,
-                end_date: work.is_current || !work.end_date ? null : work.end_date,
-                description: work.description || null,
-            }))
-
-            updateMyProfile({
-                variables: {
-                    input: {
-                        ...formData,
-                        ...values,
-                        educations: cleanedEducations,
-                        work_experiences: cleanedWorkExperiences,
-                    }
+        updateMyProfile({
+            variables: {
+                input: {
+                    display_name, headline
                 }
+            }
+        })
+            .then(() => {
+                sideCannons();
+                toast.success("Profil créé !", {
+                    description: "Vous avez créé votre profil avec succès.",
+                });
+                router.push("/");
             })
-                .then(() => {
-                    sideCannons();
-                    toast.success("Profil créé !", {
-                        description: "Vous avez créé votre profil avec succès.",
-                    });
-                    router.push("/");
-                })
-                .catch((err: Error) => {
-                    console.log(err)
-                    toast.error("Oups !", {
-                        description: err.message || "Une erreur est survenue.",
-                    });
-                })
-        } else {
-            stepper.next()
-        }
+            .catch((err: Error) => {
+                console.log(err)
+                toast.error("Oups !", {
+                    description: err.message || "Une erreur est survenue.",
+                });
+            })
     }
-
-    const currentIndex = utils.getIndex(stepper.current.id);
 
     return (
         <Form {...form}>
             <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="flex justify-center"
+                aria-busy={loading}
             >
-                <Card className="!w-full !max-w-2xl">
-                    <CardHeader>
-                        <div className="flex justify-between items-center">
-                            <CardTitle>Personnalisez votre profil</CardTitle>
-                            <span className="text-sm text-muted-foreground">
-                                Etape {currentIndex + 1} sur {steps.length}
-                            </span>
-                        </div>
-                    </CardHeader>
-                    <CardContent className="grid gap-6">
-                        <div className="grid gap-6">
-                            {stepper.switch({
-                                general: () => <IntroductionGeneralForm />,
-                                pro: () => <IntroductionProForm />,
-                                experience: () => <IntroductionExperiencesForm />,
-                                other: () => <IntroductionOtherForm />,
-                                complete: () => <IntroductionComplete />
-                            })}
-                        </div>
-                    </CardContent>
-                    <CardFooter className="flex justify-end gap-4">
-                        {!stepper.isLast ? (
-                            <>
-                                <Button variant="secondary" onClick={stepper.prev} disabled={stepper.isFirst}>
-                                    Précédent
-                                </Button>
-                                <Button type="submit">{stepper.isLast ? 'Terminer' : 'Suivant'}</Button>
-                            </>
-                        ) : (
-                            <Button>
-                                {loading ? (
-                                    <>
-                                        <Loader2 className="size-4 animate-spin mr-2" />
-                                        Chargement...
-                                    </>
-                                ) : (
-                                    "Créer votre profil"
-                                )}
-                            </Button>
-                        )}
-                    </CardFooter>
-                </Card>
+                <div className="grid gap-6">
+                    <div className="flex flex-col items-center gap-1 text-center">
+                        <h1 className="text-2xl font-bold">Fais-toi remarquer !</h1>
+                        <p className="text-muted-foreground text-sm">
+                            Comment veux-tu qu’on te reconnaisse ?
+                        </p>
+                    </div>
+                    <div className="grid gap-6">
+                        <FormField
+                            control={form.control}
+                            name="display_name"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Nom d'utilisateur</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Entrez votre nom d'utilisateur..."
+                                            {...field}
+                                            disabled={loading}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="headline"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Titre professionnel</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Entrez votre titre professionnel..."
+                                            {...field}
+                                            disabled={loading}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <Button type="submit" className="w-full" disabled={loading}>
+                            {loading ? (
+                                <>
+                                    <Loader2 className="size-4 animate-spin" />
+                                    Initialisation...
+                                </>
+                            ) : (
+                                "C'est parti !"
+                            )}
+                        </Button>
+                    </div>
+                </div>
             </form>
         </Form>
     );
