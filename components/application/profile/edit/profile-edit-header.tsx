@@ -14,7 +14,7 @@ export default function MyProfileEditHeader() {
                 </p>
             </div>
             <Button asChild>
-                <Link href="/my-profile">
+                <Link href="/profile">
                     <ArrowLeft className="size-4 mr-1" />
                     Retour
                 </Link>

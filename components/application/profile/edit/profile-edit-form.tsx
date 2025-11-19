@@ -132,7 +132,7 @@ export default function MyProfileEditForm({ profile }: any) {
                 toast.success("Profil modifié !", {
                     description: "Vous avez modifié votre profil avec succès.",
                 });
-                router.push("/my-profile");
+                router.push("/profile");
             })
             .catch((err: Error) => {
                 console.log(err)

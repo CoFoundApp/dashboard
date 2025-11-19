@@ -22,13 +22,7 @@ export default function ContactButton({
 
     const [createConversation, { loading }] = useMutation(CREATE_CONVERSATION, {
         onCompleted: () => {
-            toast.success("Conversation créé", {
-                description: "Vous pouvez dès à présent discuter avec cette personne.",
-                action: {
-                    label: "Voir",
-                    onClick: () => router.push("/my-messages"),
-                }
-            });
+            router.push("/messages");
         },
         onError: () => {
             toast.error("Oups !", {

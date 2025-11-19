@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { X } from "lucide-react";
 
@@ -11,16 +11,36 @@ interface BannerProps {
     linkText: string;
     linkUrl: string;
     defaultVisible?: boolean;
+    storageKey?: string | null;
 }
 
 export default function Banner({
-    title, description, linkText, linkUrl, defaultVisible = true
-}) {
+    title, 
+    description, 
+    linkText, 
+    linkUrl, 
+    defaultVisible = true, 
+    storageKey = null
+}: BannerProps) {
     const [isVisible, setIsVisible] = useState(defaultVisible);
+
+    useEffect(() => {
+        if (!storageKey) return;
+        if (typeof window === "undefined") return;
+
+        const dismissed = window.localStorage.getItem(storageKey);
+        if (dismissed === "true") {
+            setIsVisible(false);
+        }
+    }, [storageKey]);
 
     const handleClose = () => {
         setIsVisible(false);
-    }
+
+        if (storageKey && typeof window !== "undefined") {
+            window.localStorage.setItem(storageKey, "true");
+        }
+    };
 
     if (!isVisible) return null;
 

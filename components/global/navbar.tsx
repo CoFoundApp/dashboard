@@ -88,13 +88,13 @@ const Navbar = ({
                 },
                 { 
                     title: "Mes candidatures", 
-                    url: "/my-applications",
+                    url: "/applications",
                     description: "Suivez le statut de vos candidatures et réponses.", 
                     icon: <Box className="size-4" /> 
                 },
                 { 
                     title: "Mes messages", 
-                    url: "/my-messages", 
+                    url: "/messages", 
                     description: "Discutez avec vos futurs associés et vos équipes.",
                     icon: <MessageSquare className="size-4" /> 
                 },
@@ -102,7 +102,7 @@ const Navbar = ({
         }
     ],
     userMenu = [
-        { title: "Mon profil", url: "/my-profile", icon: <User className="h-4 w-4" /> },
+        { title: "Mon profil", url: "/profile", icon: <User className="h-4 w-4" /> },
     ],
 }: NavbarProps) => {
     return (

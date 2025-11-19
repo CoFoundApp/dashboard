@@ -15,7 +15,8 @@ export default function ApplicationLayout({
                 title="Plus ton profil est complet, plus tu as de chances de trouver ton futur associé."
                 description="Donne vie à ton profil"
                 linkText="ici"
-                linkUrl="/my-profile"
+                linkUrl="/profile"
+                storageKey="banner-profile-completion"
             />
             <div className="min-h-screen w-full flex flex-col container mx-auto py-4 px-4 sm:px-8 space-y-8">
                 <Navbar />

@@ -50,7 +50,7 @@ export default function CookieConsentBanner() {
     if (!showBanner || loading) return null;
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-card p-4 border-t shadow-lg z-50">
+        <div className="fixed bottom-0 left-0 right-0 bg-card p-4 border-t shadow-lg z-100">
             <div className="container mx-auto">
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                     <div className="flex-1">

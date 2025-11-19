@@ -58,7 +58,7 @@ export default function ProfileHeader({
             )}
             {isEditable && (
                 <Button asChild>
-                    <Link href={`/my-profile/edit`}>
+                    <Link href={`/profile/edit`}>
                         <Edit className="size-4 mr-1" />
                         Modifier mon profil
                     </Link>
