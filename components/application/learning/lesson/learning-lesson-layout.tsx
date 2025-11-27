@@ -74,6 +74,7 @@ export default function LearningLessonLayout({ courseSlug, lessonSlug }: Learnin
                 section={section.title}
                 title={lesson.title}
                 summary={lesson.summary}
+                estimatedMinutes={lesson.estimatedMinutes}
             />
         </section>
     );

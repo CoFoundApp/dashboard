@@ -88,6 +88,7 @@ export type GetCourseLessonsResult = {
     course: {
         sections: Array<{
             lessons: Array<{
+                estimatedMinutes: number;
                 slug: string;
                 summary: string;
                 title: string;
@@ -104,6 +105,7 @@ export const GET_COURSE_LESSONS = gql`
         course(slug: $slug) {
             sections {
                 lessons {
+                    estimatedMinutes
                     slug
                     summary   
                     title
