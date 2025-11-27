@@ -7,14 +7,12 @@ export type GetCoursesResult = {
         items: Array<{
             id: string;
             title: string;
-            description: string;
+            subtitle: string;
             category: string;
+            estimatedMinutes: number;
             level: CourseLevel;
             sections: Array<{
                 id: string;
-                lessons: Array<{
-                    estimatedMinutes: number;
-                }>;
             }>;
             slug: string;
         }>;
@@ -29,17 +27,57 @@ export const GET_COURSES = gql`
             items {
                 id
                 title
-                description
+                subtitle
                 category
                 level
+                estimatedMinutes
                 sections {
                     id
-                    lessons {
-                        estimatedMinutes
-                    }
                 }
                 slug
             }
+        }    
+    }
+`;
+
+export type GetCourseBySlugResult = {
+    course: {
+        category: string;
+        description: string;
+        level: CourseLevel;
+        sections: Array<{
+            id: string;
+            lessons: Array<{
+                estimatedMinutes: number;
+                title: string;
+            }>;
+            position: number;
+            title: string;
+        }>;
+        subtitle: string;
+        title: string;
+    }
+}
+
+export const GET_COURSE_BY_SLUG = gql`
+    query GetCourseBySlug(
+        $slug: String!
+    ) {
+        course(slug: $slug) {
+            category
+            description
+            level
+            sections {
+                id
+                lessons {
+                    estimatedMinutes
+                    title
+                }
+                position
+                title
+            }
+            subtitle
+            title
         }    
     }
 `;

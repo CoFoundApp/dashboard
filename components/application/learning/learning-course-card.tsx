@@ -8,26 +8,19 @@ interface LearningCourseCardProps {
     course: {
         id: string;
         title: string;
-        description: string;
+        subtitle: string;
         category: string;
+        estimatedMinutes: number;
         level: "ADVANCED" | "BEGINNER" | "INTERMEDIATE";
         sections: Array<{
             id: string;
-            lessons: Array<{
-                estimatedMinutes: number;
-            }>;
         }>;
         slug: string;
     }
 }
 
 export default function LearningCourseCard({ course }: LearningCourseCardProps) {
-    const totalMinutes = course.sections.reduce(
-        (acc, section) =>
-            acc + section.lessons.reduce((sum, lesson) => sum + lesson.estimatedMinutes, 0),
-        0
-    );
-    
+
     return (
         <Link href={`/learn/${course.slug}`} className="block">
             <Card className="overflow-hidden pt-0 transition-colors hover:border-foreground/20">
@@ -41,13 +34,13 @@ export default function LearningCourseCard({ course }: LearningCourseCardProps) 
                 </div>
                 <CardHeader className="space-y-2">
                     <CardTitle className="text-balance">{course.title}</CardTitle>
-                    <p className="text-sm text-muted-foreground leading-relaxed text-pretty line-clamp-2">{course.description}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed text-pretty line-clamp-2">{course.subtitle}</p>
                     {course.category && <Badge>{course.category}</Badge>}
                 </CardHeader>
                 <CardFooter className="flex items-center justify-between border-t">
                     <div className="flex items-center gap-2 text-muted-foreground">
                         <Clock className="size-4" />
-                        {formatMinutes(totalMinutes)}
+                        {formatMinutes(course.estimatedMinutes)}
                     </div>
                     <div className="flex items-center gap-2 text-muted-foreground">
                         <List className="size-4" />

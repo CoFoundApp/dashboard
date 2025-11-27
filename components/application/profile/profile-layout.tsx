@@ -10,7 +10,6 @@ import ProfileEducations from "./profile-educations";
 import ProfileSkills from "./profile-skills";
 import ProfileInterests from "./profile-interests";
 import ProfileTags from "./profile-tags";
-import ProfileLanguages from "./profile-languages";
 
 interface ProfileLayoutProps {
     profileId: string;
