@@ -1,4 +1,5 @@
 import { ApplicationStatus } from "@/graphql/application"
+import { CourseLevel } from "@/graphql/learning";
 import { MemberRole, ProjectStage, ProjectStatus, ProjectVisibility } from "@/graphql/projects"
 import confetti from "canvas-confetti";
 import { clsx, type ClassValue } from "clsx"
@@ -39,6 +40,21 @@ export function formatDate(dateString: string): string {
     return date.toLocaleDateString("fr-FR", { month: "short", year: "numeric" })
 }
 
+export function formatMinutes(totalMinutes: number): string {
+    if (totalMinutes < 60) {
+        return `${totalMinutes} min`;
+    }
+
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+
+    if (minutes === 0) {
+        return `${hours}h`;
+    }
+
+    return `${hours}h ${minutes}min`;
+}
+
 export const projectStageLabels: Record<ProjectStage, string> = {
     IDEA: "Idéation",
     MVP: "MVP",
@@ -73,6 +89,12 @@ export const applicationStatusLabels: Record<ApplicationStatus, string> = {
     REJECTED: "Refusée",
     CANCELED: "Annulée",
     WITHDRAWN: "Retirée",
+}
+
+export const courseLevelLabels: Record<CourseLevel, string> = {
+    ADVANCED: "Avancé",
+    BEGINNER: "Débutant",
+    INTERMEDIATE: "Intermédiaire",
 }
 
 export const LANGUAGE_OPTIONS = [
@@ -158,7 +180,7 @@ export const PRIMARY_MOTIVATIONS_OPTIONS = [
     { label: "Aider", value: "HELP" },
     { label: "Apprendre", value: "LEARN" },
     { label: "Enseigner", value: "TEACH" },
-]
+] as const;
 
 export function getLanguageName(code: string): string {
     const language = LANGUAGE_OPTIONS.find((lang) => lang.value.toLowerCase() === code.toLowerCase());
