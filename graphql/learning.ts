@@ -21,9 +21,9 @@ export type GetCoursesResult = {
 
 export const GET_COURSES = gql`
     query GetCourses(
-        $filter: CourseFilterInput
+        $filters: CourseFilterInput
     ) {
-        courses(filter: $filter) {
+        courses(filter: $filters) {
             items {
                 id
                 title
@@ -49,6 +49,7 @@ export type GetCourseBySlugResult = {
             id: string;
             lessons: Array<{
                 estimatedMinutes: number;
+                slug: string;
                 title: string;
             }>;
             position: number;
@@ -71,6 +72,7 @@ export const GET_COURSE_BY_SLUG = gql`
                 id
                 lessons {
                     estimatedMinutes
+                    slug
                     title
                 }
                 position
@@ -78,6 +80,36 @@ export const GET_COURSE_BY_SLUG = gql`
             }
             subtitle
             title
+        }    
+    }
+`;
+
+export type GetCourseLessonsResult = {
+    course: {
+        sections: Array<{
+            lessons: Array<{
+                slug: string;
+                summary: string;
+                title: string;
+            }>;
+            title: string;
+        }>;
+    };
+}
+
+export const GET_COURSE_LESSONS = gql`
+    query GetCourseLessons(
+        $slug: String!
+    ) {
+        course(slug: $slug) {
+            sections {
+                lessons {
+                    slug
+                    summary   
+                    title
+                }
+                title
+            }
         }    
     }
 `;

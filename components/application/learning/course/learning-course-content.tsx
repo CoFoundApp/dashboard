@@ -2,6 +2,8 @@
 
 import { formatMinutes } from "@/lib/utils";
 import { ChevronDown, ChevronUp, PlayCircle } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 interface LearningCourseContentProps {
@@ -9,6 +11,7 @@ interface LearningCourseContentProps {
         id: string;
         lessons: Array<{
             estimatedMinutes: number;
+            slug: string;
             title: string;
         }>;
         position: number;
@@ -18,6 +21,7 @@ interface LearningCourseContentProps {
 
 export default function LearningCourseContent({ sections }: LearningCourseContentProps) {
     const [expandedSection, setExpandedSection] = useState<string | null>(null);
+    const pathname = usePathname();
 
     const toggleSection = (id: string) => {
         setExpandedSection(expandedSection === id ? null : id)
@@ -61,14 +65,15 @@ export default function LearningCourseContent({ sections }: LearningCourseConten
                         {expandedSection === section.id && section.lessons && (
                             <div className="bg-background/50 px-6 pb-4">
                                 {section.lessons.map((lesson, lessonIndex) => (
-                                    <div
+                                    <Link
                                         key={lessonIndex}
+                                        href={`${pathname}/lessons/${lesson.slug}`}
                                         className="flex items-center gap-2 py-4 hover:bg-muted/30 px-4 -mx-4 rounded-lg transition-colors cursor-pointer group"
                                     >
                                         <PlayCircle className="size-4 text-muted-foreground group-hover:text-foreground transition-colors" />
                                         <span className="flex-1 text-foreground">{lesson.title}</span>
                                         <span className="text-muted-foreground text-sm">{formatMinutes(lesson.estimatedMinutes)}</span>
-                                    </div>
+                                    </Link>
                                 ))}
                             </div>
                         )}

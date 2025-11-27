@@ -5,10 +5,10 @@ export const metadata: Metadata = {
     title: "CoFound - Liste des cours",
 }
 
-export default async function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = await params;
+export default async function CoursePage({ params }: { params: Promise<{ courseSlug: string }> }) {
+    const { courseSlug } = await params;
 
     return (
-        <LearningCourseLayout slug={slug} />
+        <LearningCourseLayout slug={courseSlug} />
     );
 }

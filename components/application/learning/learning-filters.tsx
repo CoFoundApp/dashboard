@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface LearningFiltersProps {
     onFiltersChange: (filters: CourseFilters) => void;
@@ -14,30 +14,16 @@ export interface CourseFilters {
 
 export default function LearningFilters({ onFiltersChange }: LearningFiltersProps) {
     const [searchValue, setSearchValue] = useState("");
-    
-    const debouncedSearch = useCallback(
-        (value: string) => {
-            const timer = setTimeout(() => {
-                updateFilters({ search: value });
-            }, 500);
-
-            return () => clearTimeout(timer);
-        },
-        [],
-    );
 
     useEffect(() => {
-        const cleanup = debouncedSearch(searchValue);
-        return cleanup;
-    }, [searchValue, debouncedSearch]);
+        const timer = setTimeout(() => {
+            onFiltersChange({
+                search: searchValue.trim() || undefined,
+            });
+        }, 500);
 
-    const updateFilters = (updates: Partial<CourseFilters>) => {
-        const filters: CourseFilters = {
-            search: searchValue || undefined,
-            ...updates,
-        }
-        onFiltersChange(filters);
-    }
+        return () => clearTimeout(timer);
+    }, [searchValue, onFiltersChange]);
 
     return (
         <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">

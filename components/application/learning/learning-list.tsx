@@ -14,7 +14,9 @@ interface LearningListProps {
 export default function LearningList({ filters }: LearningListProps) {
     const { data, loading, error } = useQuery<GetCoursesResult>(GET_COURSES, {
         variables: {
-            filters: filters,
+            filters: {
+                text: filters.search || null,
+            },
         },
         fetchPolicy: "network-only",
         errorPolicy: "all",
